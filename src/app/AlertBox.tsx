@@ -1,4 +1,4 @@
-export default function AlertBox({msg: string}){
+export default function AlertBox({msg}){
     return(
         <main>
             <div className="alert alert-warning">
