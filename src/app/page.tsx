@@ -8,7 +8,7 @@ export default function Home() {
   const [email, setEmail] = useState("");
   const [service, setService] = useState("");
   // const [file, setFile] = useState("");
-  const [body, setBody] = useState("");
+  const [body, setBody] = useState();
 
   const serviceValue = [
     {value:"Foto Studio"},  
@@ -19,7 +19,8 @@ export default function Home() {
 
   function checkService(props: any){
     if (props == "Foto Studio") {
-      setBody("Pelanggan yang terhormat \nTerimakasih telah menggunakan layanan kami, berikut merupakan hasil foto studio dalam bentuk softcopy\n\n\nSNIA Photo Studio")
+      // setBody("Pelanggan yang terhormat, \nTerimakasih telah menggunakan layanan kami, berikut merupakan hasil foto studio dalam bentuk softcopy\n\n\nSNIA Photo Studio")
+      setBody(fotos())
     } else {
       setBody("UWU")
     }
@@ -32,6 +33,20 @@ export default function Home() {
 
   function mailTo(){
     window.location.href = "mailto:"+email+"?subject="+service+"&body="+body;
+  }
+
+  function fotos(){
+    return(
+      <main>
+        <p>Pelanggan yang terhormat,</p>
+        <p>Terimakasih telah menggunakan layanan kami, berikut merupakan hasil foto studio dalam bentuk softcopy</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>SNIA Photo Studio</p>
+      </main>
+    )
   }
 
   function getEmail(){
