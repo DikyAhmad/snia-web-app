@@ -2,7 +2,7 @@
 'use strict';
 import Image from 'next/image'
 import React, { useState } from 'react';
-
+import { Analytics } from '@vercel/analytics/react';
 
 export default function Home() {
   const [email, setEmail] = useState("");
@@ -49,6 +49,7 @@ export default function Home() {
         }
       </select>
       <button className="btn btn-outline btn-accent w-full max-w-xs my-4" onClick={getEmail}>Kirim</button>
+      <Analytics />
     </main>
   )
 }
