@@ -17,7 +17,7 @@ export default function Home() {
     {value:"Document"}
     ]
 
-  function checkService(props){
+  function checkService(props: String){
     if (props == "Foto Studio") {
       setBody("Pelanggan yang terhormat \nTerimakasih telah menggunakan layanan kami, berikut merupakan hasil foto studio dalam bentuk softcopy\n\n\nSNIA Photo Studio")
     } else {
@@ -25,7 +25,7 @@ export default function Home() {
     }
   }
 
-  function handleChangeService(props){
+  function handleChangeService(props: String){
     setService(props)
     checkService(props)
   }
