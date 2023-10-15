@@ -18,7 +18,7 @@ export default function Home() {
 
   function checkService(props: any){
     if (props == "Foto Studio") {
-      setBody("Pelanggan yang terhormat,\nTerimakasih telah menggunakan layanan kami, berikut merupakan hasil foto studio dalam bentuk softcopy\n\n\nSNIA Photo Studio")
+      setBody("Pelanggan yang terhormat,\r\nTerimakasih telah menggunakan layanan kami, berikut merupakan hasil foto studio dalam bentuk softcopy \r\n\r\n\r\n\r\n\r\nSNIA Photo Studio")
     } else {
       setBody("UWU")
     }
