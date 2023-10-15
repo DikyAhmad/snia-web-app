@@ -34,7 +34,7 @@ export default function Home() {
         <option disabled value="Tipe Layanan">Tipe Layanan</option>
         {serviceValue.map(({ value }, index) => <option value={value} key={index}>{value}</option>)}
       </select>
-      <input type="file" multiple className="file-input file-input-bordered w-full max-w-xs my-4"  onChange={e => setFile(e.target.files)}/>
+      <input type="file" className="file-input file-input-bordered w-full max-w-xs my-4"  onChange={e => setFile(e.target.files)}/>
       <button className="btn btn-outline btn-accent w-full max-w-xs" onClick={getEmail}>Kirim</button>
     </main>
   )
