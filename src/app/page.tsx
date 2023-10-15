@@ -19,7 +19,7 @@ export default function Home() {
 
   function checkService(){
     if (service == "Foto Studio") {
-      setSubject("Pelanggan yang terhormat \nTerimakasih telah menggunakan layanan kami, berikut merupakan hasil foto studio dalam bentuk softcopy\n\n\nSNIA Photo Studio")
+      setBody("Pelanggan yang terhormat \nTerimakasih telah menggunakan layanan kami, berikut merupakan hasil foto studio dalam bentuk softcopy\n\n\nSNIA Photo Studio")
     }
     console.log(body)
   }
