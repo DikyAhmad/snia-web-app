@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 export default function Home() {
   const [email, setEmail] = useState("");
   const [service, setService] = useState("");
-  const [file, setFile] = useState([""]);
+  const [file, setFile] = useState("");
 
   const serviceValue = [
     {value:"Foto Studio"},  
