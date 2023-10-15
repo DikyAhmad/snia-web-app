@@ -17,17 +17,17 @@ export default function Home() {
     {value:"Document"}
     ]
 
-  function checkService(props: String){
-    if (props == "Foto Studio") {
+  function checkService(value){
+    if (value == "Foto Studio") {
       setBody("Pelanggan yang terhormat \nTerimakasih telah menggunakan layanan kami, berikut merupakan hasil foto studio dalam bentuk softcopy\n\n\nSNIA Photo Studio")
     } else {
       setBody("UWU")
     }
   }
 
-  function handleChangeService(props: String){
-    setService(props)
-    checkService(props)
+  function handleChangeService(value){
+    setService(value)
+    checkService(value)
   }
 
   function mailTo(){
