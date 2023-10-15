@@ -7,7 +7,8 @@ import React, { useState } from 'react';
 export default function Home() {
   const [email, setEmail] = useState("");
   const [service, setService] = useState("");
-  const [file, setFile] = useState("");
+  // const [file, setFile] = useState("");
+  const [body, setBody] = useState("");
 
   const serviceValue = [
     {value:"Foto Studio"},  
@@ -16,13 +17,19 @@ export default function Home() {
     {value:"Document"}
     ]
 
+  function checkService(){
+    if (service == "Foto Studio") {
+      setSubject("Pelanggan yang terhormat \nTerimakasih telah menggunakan layanan kami, berikut merupakan hasil foto studio dalam bentuk softcopy\n\n\nSNIA Photo Studio")
+    }
+    console.log(body)
+  }
+
   function mailTo(){
-    window.location.href = "mailto:mail@example.org";
+    window.location.href = "mailto:", email, "?subject=", service, "&body=", body;
   }
 
   function getEmail(){
-    console.log()
-    console.log(email, " + ",service, " + ", file)
+    checkService()
     mailTo()
   }
 
@@ -34,7 +41,6 @@ export default function Home() {
         <option disabled value="Tipe Layanan">Tipe Layanan</option>
         {serviceValue.map(({ value }, index) => <option value={value} key={index}>{value}</option>)}
       </select>
-      {/* <input type="file" className="file-input file-input-bordered w-full max-w-xs my-4"  onChange={e => setFile(e.target.files)}/> */}
       <button className="btn btn-outline btn-accent w-full max-w-xs my-4" onClick={getEmail}>Kirim</button>
     </main>
   )
