@@ -79,7 +79,7 @@ export default function Home() {
     }
   }
 
-  function isValidService(service){
+  function isValidService(service: any){
     if(service==""){
       return false
     } else {
@@ -87,7 +87,7 @@ export default function Home() {
     }
   }
 
-  function isValidEmail(email) {
+  function isValidEmail(email: String) {
     return /\S+@\S+\.\S+/.test(email);
   }
 
