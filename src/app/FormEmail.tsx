@@ -7,7 +7,7 @@ export default function FormEmail(){
     const [service, setService] = useState("");
     const [body, setBody] = useState("");
     const [alert, setAlert] = useState(false);
-    const [alertMsg, setAlertMsg] = useState("");
+    const [alertMsg, setAlertMsg] = useState<string>();
     const hours = new Date().getHours();
 
     const serviceList = [
