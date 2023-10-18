@@ -143,7 +143,7 @@ export default function Page(){
                             </TableCell>
                             <TableCell align="center">{list.jumlah}</TableCell>
                             <TableCell align="center">
-                                <IconButton aria-label="Example" onClick={e => handleDelete(list.layanan, index)} alt="Delete Button"><BackspaceSharpIcon fontSize="large" color="error"/></IconButton>
+                                <IconButton aria-label="Example" onClick={e => handleDelete(list.layanan, index)}><BackspaceSharpIcon fontSize="large" color="error"/></IconButton>
                             </TableCell>
                         </TableRow>
                     ))}
