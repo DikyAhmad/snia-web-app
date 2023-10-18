@@ -10,9 +10,9 @@ export default function Page(){
     const [service, setService] = useState([
         {name:'Foto Studio', types:['2x3', '3x4', '4x6', '2R', '3R', '4R', '5R', '10R', '10RS'], price:[1500, 1500, 1500, 2000, 4000, 5000, 8000, 15000, 18000]},
         {name:'Cetak Foto', types:['2x3', '3x4', '4x6', '2R', '3R', '4R', '5R', '10R', '10RS'], price:[1500, 1500, 1500, 2000, 4000, 5000, 8000, 15000, 18000]},
-        // {name:'Print', types:['HVS A4 Warna', 'HVS A4 Hitam Putih']},
-        // {name:'Edit', types:['Foto', 'Dokumen']},
-        // {name:'Scan', types:['Foto', 'Dokumen']},
+        {name:'Print', types:['HVS A4 Warna', 'HVS A4 Hitam Putih'], price:[500, 1000]},
+        {name:'Edit', types:['Foto', 'Dokumen'], price:[2000, 5000]},
+        {name:'Scan', types:['Foto', 'Dokumen'], price:[2000, 2000]},
         ])
 
     const [choose, setChoose] = useState("")
@@ -37,8 +37,9 @@ export default function Page(){
 
     function handleChange(nama: any,  tipe: string, index: number){
         setChoose(tipe+" "+nama.target.value)
-        const b = service[index].price[nama.target.selectedIndex-1]
-        setSelectedPrice(b)
+        const indexSelected = service[index].types.indexOf(nama.target.value)
+        const priceSelected = service[index].price[indexSelected]
+        setSelectedPrice(priceSelected)
         setOpen(true)
     }
 
@@ -78,12 +79,7 @@ export default function Page(){
     }
     
     function handlePrint(){
-        // calculateAllPrice()
-        // setListChoose(1000)
-        // console.log(listChoose)
-        // console.log("Harga Total: "+calculateAllPrice())
-        // calculatePrice()
-        // return getData(listChoose)
+        console.log(listChoose)
     }
 
     return(
@@ -97,11 +93,11 @@ export default function Page(){
                             <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
-                            value={""}
+                            value=""
                             label={name}
                             onChange={e => handleChange(e, name, index)}
                             >
-                            {types.map((type, index) => <MenuItem value={type} key={index}>{type}</MenuItem>)}
+                            {types.map((type, id) => <MenuItem key={id} name={id} value={type} >{type}</MenuItem>)}
                             </Select>
                         </FormControl>
                     ))}
@@ -126,34 +122,38 @@ export default function Page(){
                     <Button onClick={handleAmount}>Simpan</Button>
                 </DialogActions>
             </Dialog>
-
-            <TableContainer component={Paper} className="my-2" hidden={stateTable}>
-                <Table sx={{ width: '90%' }} aria-label="simple table">
-                    <TableHead>
-                    <TableRow>
-                        <TableCell>Layanan</TableCell>
-                        <TableCell align="center">Jumlah</TableCell>
-                        <TableCell align="center">Hapus</TableCell>
-                    </TableRow>
-                    </TableHead>
-                    <TableBody>
-                    {listChoose.map((list, index) => (
-                        <TableRow
-                        key={list.layanan}
-                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                        >
-                            <TableCell component="th" scope="row">
-                                {list.layanan}
-                            </TableCell>
-                            <TableCell align="center">{list.jumlah}</TableCell>
-                            <TableCell align="center">
-                                <IconButton aria-label="Example" onClick={e => handleDelete(list.layanan, index)}><BackspaceSharpIcon fontSize="large" color="error"/></IconButton>
-                            </TableCell>
-                        </TableRow>
-                    ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+            <Box sx={{ width: '95%' }} className="my-4" hidden={stateTable}> 
+                <Stack spacing={2}>
+                    <TableContainer component={Paper} className="my-2" >
+                        <Table sx={{ width: '90%' }} aria-label="simple table">
+                            <TableHead>
+                            <TableRow>
+                                <TableCell>Layanan</TableCell>
+                                <TableCell align="center">Jumlah</TableCell>
+                                <TableCell align="center">Hapus</TableCell>
+                            </TableRow>
+                            </TableHead>
+                            <TableBody>
+                            {listChoose.map((list, index) => (
+                                <TableRow
+                                key={list.layanan}
+                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                >
+                                    <TableCell component="th" scope="row">
+                                        {list.layanan}
+                                    </TableCell>
+                                    <TableCell align="center">{list.jumlah}</TableCell>
+                                    <TableCell align="center">
+                                        <IconButton aria-label="Example" onClick={e => handleDelete(list.layanan, index)}><BackspaceSharpIcon fontSize="large" color="error"/></IconButton>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                    <Button variant="outlined" color="secondary" onClick={handlePrint}>Cetak</Button>
+                </Stack>
+            </Box>
             {/* <PDFDownloadLink document={<PdfGenerator getData={listChoose}/>} filename="Form">
                 {({ loading }) =>
                     loading? (
