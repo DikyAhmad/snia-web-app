@@ -123,7 +123,8 @@ export default function FormEmail(){
                     <Button variant="outlined" color="secondary" onClick={sendEmail}>Kirim</Button>
                 </Stack>
             </Box>
-            <Alert severity="error" hidden={alert} className="my-4">{alertMsg}</Alert>
+            
+            {alert?<Alert severity="error" className="my-4">{alertMsg}</Alert>:<></>}
         </main>
     )
 }
