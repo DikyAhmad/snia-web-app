@@ -89,20 +89,24 @@ export default function Page(){
     return(
         <main className="flex min-h-screen items-center flex-col p-8">
             <p className="text-xl font-['Oswald'] my-8 text-center mx-auto">Pembuatan Nota</p>
-            {service.map(({name, types}, index) => (
-                <FormControl fullWidth key={index} className="my-2">
-                    <InputLabel id="demo-simple-select-label">{name}</InputLabel>
-                    <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={""}
-                    label={name}
-                    onChange={e => handleChange(e, name, index)}
-                    >
-                    {types.map((type, index) => <MenuItem value={type} key={index}>{type}</MenuItem>)}
-                    </Select>
-                </FormControl>
-            ))}
+            <Box sx={{ width: '100%' }} > 
+                <Stack spacing={2} className="mx-2">
+                    {service.map(({name, types}, index) => (
+                        <FormControl fullWidth key={index}>
+                            <InputLabel id="demo-simple-select-label">{name}</InputLabel>
+                            <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={""}
+                            label={name}
+                            onChange={e => handleChange(e, name, index)}
+                            >
+                            {types.map((type, index) => <MenuItem value={type} key={index}>{type}</MenuItem>)}
+                            </Select>
+                        </FormControl>
+                    ))}
+                </Stack>
+            </Box>
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>{choose}</DialogTitle>
                 <DialogContent>
