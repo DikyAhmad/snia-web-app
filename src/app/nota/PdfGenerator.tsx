@@ -109,7 +109,7 @@ const PdfGenerator = () => {
                     <Text style={{left:100}}>Test2</Text> */}
                     {notas.map((nota, index) =>{
                         return(
-                            <View style={...styles.textBody} key={index}>
+                            <View style={styles.textBody} key={index}>
                                 <Text style={{position: "absolute"}}>{nota.desc}</Text>
                                 <Text style={styles.listItem}>{nota.amount+" Lembar"}</Text>
                                 <Text style={{position: "absolute", left: 380, }}>{nota.price}</Text>
