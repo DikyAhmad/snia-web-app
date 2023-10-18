@@ -64,7 +64,7 @@ export default function Page(){
         const name = e.target.getAttribute("name")
         const id = e.target.getAttribute("id")
         setListChoose(listChoose.filter(item => item.layanan !== name));
-        if(id == 0 && listChoose.length == 1){
+        if(parseInt(id) == 0 && listChoose.length == 1){
             setStateTable(true)
         }
     }
@@ -104,7 +104,7 @@ export default function Page(){
                         <tr key={index}>
                             <td>{layanan}</td>
                             <td className="text-center">{jumlah}</td>
-                            <th onClick={handleDelete}><button className="btn btn-error btn-sm" name={layanan} id={parseInt(index)}>-</button></th>
+                            <th onClick={handleDelete}><button className="btn btn-error btn-sm" name={layanan} id={index.toString()}>-</button></th>
                         </tr>
                     ))}
                     </tbody>
