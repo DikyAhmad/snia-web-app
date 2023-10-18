@@ -110,7 +110,7 @@ export default function FormEmail(){
                         <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
-                        value={value}
+                        value={value | null}
                         label="Tipe Layanan"
                         onChange={handleChangeService}
                         >
