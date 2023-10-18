@@ -18,7 +18,7 @@ export default function Home() {
       <Box sx={{ width: '100%' }} >
         <Stack spacing={2} className="mx-12">
           <Button variant="outlined" color="success" endIcon={<MarkEmailReadIcon />}><Link className="w-full" href="/email">Aplikasi Email</Link></Button>
-          {/* <Button variant="outlined" endIcon={<DescriptionIcon />}><Link className="w-full" href="/nota">Pembuatan Nota</Link></Button> */}
+          <Button variant="outlined" endIcon={<DescriptionIcon />}><Link className="w-full" href="/nota">Pembuatan Nota</Link></Button>
         </Stack>
       </Box>
       <Analytics />

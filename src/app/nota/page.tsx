@@ -1,6 +1,8 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 // import { PDFDownloadLink, PDFViewer } from '@react-pdf/renderer/lib/react-pdf.browser.es.js';
+import { TextField, Stack, Box, InputLabel, MenuItem, FormControl, Select, Button, Alert, Fade, Typography, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton} from '@mui/material';
+import BackspaceSharpIcon from '@mui/icons-material/BackspaceSharp';
 import PdfGenerator from './PdfGenerator'
 
 export default function Page(){
@@ -12,6 +14,19 @@ export default function Page(){
         // {name:'Edit', types:['Foto', 'Dokumen']},
         // {name:'Scan', types:['Foto', 'Dokumen']},
         ])
+
+    function createData(name, tipe) {
+        return { name, tipe};
+    }
+
+    const rows = [
+        createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
+        createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
+        createData('Eclair', 262, 16.0, 24, 6.0),
+        createData('Cupcake', 305, 3.7, 67, 4.3),
+        createData('Gingerbread', 356, 16.0, 49, 3.9),
+    ];
+
     
     const [choose, setChoose] = useState("")
     const [amount, setAmount] = useState("")
@@ -20,16 +35,24 @@ export default function Page(){
     const [finalPrice, setFinalPrice] = useState(0)
     const [listAllPriceSelected, setlistAllPriceSelected] = useState<number[]>([]) 
 
-
     const [totalPrice, setTotalPrice] = useState(0)
     const [listChoose, setListChoose] = useState<{layanan: string; jumlah: number; harga: number; totalHarga: number}[]>([],);
+    const [open, setOpen] = useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
 
     function handleChange(nama: any,  tipe: string, index: number){
         setChoose(tipe+" "+nama.target.value)
         const b = service[index].price[nama.target.selectedIndex-1]
         setSelectedPrice(b)
-        // console.log("Harganya: "+b)
-        // showModal()
+        setOpen(true)
     }
 
     function calculateAllPrice(){
@@ -51,20 +74,18 @@ export default function Page(){
             ...prevEmployees,
             {layanan: choose, jumlah: parseInt(amount), harga: selectedPrice, totalHarga: calculatePrice()},
             ])
-            // console.log(listChoose)
             setStateTable(false)
             setChoose("")
             setAmount("") 
+            setOpen(false)
         } else {
             return
         }
     }
 
-    function handleDelete(e: any){
-        const name = e.target.getAttribute("name")
-        const id = e.target.getAttribute("id")
-        setListChoose(listChoose.filter(item => item.layanan !== name));
-        if(parseInt(id) == 0 && listChoose.length == 1){
+    function handleDelete(layan: string, index: string){
+        setListChoose(listChoose.filter(item => item.layanan !== layan));
+        if(parseInt(index) == 0 && listChoose.length == 1){
             setStateTable(true)
         }
     }
@@ -82,35 +103,67 @@ export default function Page(){
         <main className="flex min-h-screen items-center flex-col p-8">
             <p className="text-xl font-['Oswald'] my-8 text-center mx-auto">Pembuatan Nota</p>
             {service.map(({name, types}, index) => (
-                <select className="select select-bordered w-full max-w-xs mb-4" key={index} onChange={e => handleChange(e, name, index)} value={name}>
-                    <option disabled value={name}>{name}</option>
-                    {types.map((type, index) => <option key={index}>{type}</option>)}
-                </select>
+                <FormControl fullWidth key={index} className="my-2">
+                    <InputLabel id="demo-simple-select-label">{name}</InputLabel>
+                    <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={""}
+                    label={name}
+                    onChange={e => handleChange(e, name, index)}
+                    >
+                    {types.map((type, index) => <MenuItem value={type} key={index}>{type}</MenuItem>)}
+                    </Select>
+                </FormControl>
             ))}
-            {/* <button className="btn" onClick={()=>document.getElementById('my_modal_1').showModal()}>open modal</button> */}
-            <div className="overflow-x-auto" hidden={stateTable}>
-                <p className="text-xl font-['Oswald'] my-4 text-center mx-auto">List</p>
-                <table className="table">
-                    {/* head */}
-                    <thead>
-                    <tr>
-                        <th>Layanan</th>
-                        <th className="text-center">Jumlah</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {listChoose.map(({layanan, jumlah}, index) => (
-                        <tr key={index}>
-                            <td>{layanan}</td>
-                            <td className="text-center">{jumlah}</td>
-                            <th onClick={handleDelete}><button className="btn btn-error btn-sm" name={layanan} id={index.toString()}>-</button></th>
-                        </tr>
+            <Dialog open={open} onClose={handleClose}>
+                <DialogTitle>{choose}</DialogTitle>
+                <DialogContent>
+                <TextField
+                    autoFocus
+                    margin="dense"
+                    id="name"
+                    label=""
+                    type="number"
+                    fullWidth
+                    variant="outlined"
+                    label="Masukkan jumlah"
+                    onChange={e => setAmount(e.target.value)}
+                />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose}>Cancel</Button>
+                    <Button onClick={handleAmount}>Simpan</Button>
+                </DialogActions>
+            </Dialog>
+
+            <TableContainer component={Paper} className="my-2" hidden={stateTable}>
+                <Table sx={{ width: '90%' }} aria-label="simple table">
+                    <TableHead>
+                    <TableRow>
+                        <TableCell>Layanan</TableCell>
+                        <TableCell align="center">Jumlah</TableCell>
+                        <TableCell align="center">Hapus</TableCell>
+                    </TableRow>
+                    </TableHead>
+                    <TableBody>
+                    {listChoose.map((list, index) => (
+                        <TableRow
+                        key={list.layanan}
+                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                        >
+                            <TableCell component="th" scope="row">
+                                {list.layanan}
+                            </TableCell>
+                            <TableCell align="center">{list.jumlah}</TableCell>
+                            <TableCell align="center">
+                                <IconButton aria-label="Example" onClick={e => handleDelete(list.layanan, index)} ><BackspaceSharpIcon fontSize="large" color="error"/></IconButton>
+                            </TableCell>
+                        </TableRow>
                     ))}
-                    </tbody>
-                </table>
-                <button className="btn btn-success btn-md w-full max-w-xs my-4" onClick={handlePrint}>Print</button>
-            </div>
+                    </TableBody>
+                </Table>
+            </TableContainer>
             {/* <PDFDownloadLink document={<PdfGenerator getData={listChoose}/>} filename="Form">
                 {({ loading }) =>
                     loading? (
@@ -119,21 +172,7 @@ export default function Page(){
                         <button>Download</button>
                     )
                 }
-            </PDFDownloadLink> */}
-            <dialog id="my_modal_1" className="modal">
-                <div className="modal-box">
-                    <h3 className="font-bold text-lg">{choose}</h3>
-                    <p className="">Masukkan jumlah :</p>
-                    <div className="modal-action">
-                    <form method="dialog" className="flex items-stretch">
-                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-                        {/* if there is a button in form, it will close the modal */}
-                        <input type="number" placeholder="" className="input input-bordered w-full max-w-xs mb-4 mr-4" onChange={e => setAmount(e.target.value)} value={amount}/>
-                        <button className="btn align-right"onClick={handleAmount}>Simpan</button>
-                    </form>
-                    </div>
-                </div>
-            </dialog>
+            </PDFDownloadLink> */} 
         </main>
     )
 }

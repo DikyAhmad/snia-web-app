@@ -109,11 +109,11 @@ export default function FormEmail(){
                     <FormControl fullWidth error={errorLayanan}>
                         <InputLabel id="demo-simple-select-label">Tipe Layanan</InputLabel>
                         <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={value}
-                        label="Tipe Layanan"
-                        onChange={handleChangeService}
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={value}
+                            label="Tipe Layanan"
+                            onChange={handleChangeService}
                         >
                         <MenuItem value={"Foto Studio"}>Foto Studio</MenuItem>
                         <MenuItem value={"Cetak Foto"}>Cetak Foto</MenuItem>
