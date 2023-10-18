@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
 });
 
 // Create Document Component
-const PdfGenerator = ({getData}) => {
+const PdfGenerator = () => {
 
     // const [datas, setDatas] = useState<{layanan: string; jumlah: number; harga: number; totalHarga: number}[]>([],);
 
@@ -107,12 +107,12 @@ const PdfGenerator = ({getData}) => {
                     </Svg>
                     {/* <Text style={{left:10}}>Test</Text>
                     <Text style={{left:100}}>Test2</Text> */}
-                    {getData.map((data, index) =>{
+                    {notas.map((nota, index) =>{
                         return(
                             <View style={...styles.textBody} key={index}>
-                                <Text style={{position: "absolute"}}>{data.asu}</Text>
-                                <Text style={styles.listItem}>{data.berak+" Lembar"}</Text>
-                                <Text style={{position: "absolute", left: 380, }}>{data.asu}</Text>
+                                <Text style={{position: "absolute"}}>{nota.desc}</Text>
+                                <Text style={styles.listItem}>{nota.amount+" Lembar"}</Text>
+                                <Text style={{position: "absolute", left: 380, }}>{nota.price}</Text>
                             </View>
                         )
                     })}
