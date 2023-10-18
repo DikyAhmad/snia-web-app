@@ -53,7 +53,7 @@ export default function Page(){
         if(amount != ""){
             setListChoose(prevEmployees => [
             ...prevEmployees,
-            {layanan: choose, jumlah: amount, harga: selectedPrice, totalHarga: calculatePrice()},
+            {layanan: choose, jumlah: parseInt(amount), harga: selectedPrice, totalHarga: calculatePrice()},
             ])
             // console.log(listChoose)
             setStateTable(false)
