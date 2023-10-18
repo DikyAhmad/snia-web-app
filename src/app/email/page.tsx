@@ -18,7 +18,7 @@ export default function FormEmail(){
     const [alert, setAlert] = useState(true);
     const [alertMsg, setAlertMsg] = useState("");
     const hours = new Date().getHours();
-    const [value, setValue] = useState<string | null>("");
+    const [value, setValue] = useState<string>("");
 
     function checkService(props: string){
         const greeting = checkHours()
@@ -110,7 +110,7 @@ export default function FormEmail(){
                         <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
-                        value={value | null}
+                        value={value}
                         label="Tipe Layanan"
                         onChange={handleChangeService}
                         >
