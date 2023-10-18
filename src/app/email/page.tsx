@@ -102,7 +102,6 @@ export default function FormEmail(){
     return(
         <main className="flex min-h-screen flex-col items-center p-8">
             <p className="text-xl font-['Oswald'] my-8 text-center mx-auto">SNIA PHOTO EMAIL APP</p>
-            {/* <input type="email" placeholder="Masukkan Email Penerima" className="input input-bordered w-full max-w-xs my-4" onChange={e=> setEmail(e.target.value)}/> */}
             <Box sx={{ width: '100%' }} > 
                 <Stack spacing={2} className="mx-2">
                     <TextField id="outlined-basic" label="Email Penerima" variant="outlined" onChange={e=> setEmail(e.target.value)}/>
