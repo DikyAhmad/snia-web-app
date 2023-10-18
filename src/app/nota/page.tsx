@@ -13,7 +13,7 @@ export default function Page(){
         // {name:'Scan', types:['Foto', 'Dokumen']},
         ])
     
-    const [choose, setChoose] = useState()
+    const [choose, setChoose] = useState("")
     const [amount, setAmount] = useState("")
     const [selectedPrice, setSelectedPrice] = useState(0)
     const [stateTable, setStateTable] = useState(true)
