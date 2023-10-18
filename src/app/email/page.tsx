@@ -9,16 +9,21 @@ import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Button from '@mui/material/Button';
 import Alert from '@mui/material/Alert';
+import Fade from '@mui/material/Fade';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
 
 
 export default function FormEmail(){
     const [email, setEmail] = useState("");
     const [service, setService] = useState("");
     const [body, setBody] = useState("");
-    const [alert, setAlert] = useState(true);
-    const [alertMsg, setAlertMsg] = useState("");
     const hours = new Date().getHours();
     const [value, setValue] = useState<string>("");
+
+    const [errorEmail, setErrorEmail] = useState(false)
+    const [errorLayanan, setErrorLayanan] = useState(false)
+    const [helperEmail, setHelperEmail] = useState("")
 
     function checkService(props: string){
         const greeting = checkHours()
@@ -47,32 +52,29 @@ export default function FormEmail(){
     function sendEmail(){
         checkService(service)
         validateForm()
-        console.log("mailto:"+email+"?subject="+service+"&body="+body)
-    }
-
-    function showAlert(msg: string){
-        setAlertMsg(msg)
-        setAlert(false)
-        setTimeout(() => {
-            setAlert(true);
-            }, 2500);
+        // console.log("mailto:"+email+"?subject="+service+"&body="+body)
     }
 
     function validateForm(){
         if(isValidEmail(email)){
             if(isValidService(service)){
                 mailTo()
-                console.log("Berhasil")
             } else {
-                showAlert("Pilih Layanan Dahulu")
+                setErrorLayanan(true)
             }
         } else {
             if(isValidService(service)){
-                showAlert("Cek email dengan benar")
+                checkErrorEmail()
             } else {
-                showAlert("Isikan form diatas")
+                checkErrorEmail()
+                setErrorLayanan(true)
             }
         }
+    }
+
+    function checkErrorEmail(){
+        setErrorEmail(true)
+        setHelperEmail("Cek email dengan benar")
     }
 
     function isValidService(service: string){
@@ -98,20 +100,32 @@ export default function FormEmail(){
             return "Selamat Sore"
         }
     }
+    const style = {
+        position: 'absolute' as 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+    };
 
     return(
         <main className="flex min-h-screen flex-col items-center p-8">
             <p className="text-xl font-['Oswald'] my-8 text-center mx-auto">SNIA PHOTO EMAIL APP</p>
             <Box sx={{ width: '100%' }} > 
                 <Stack spacing={2} className="mx-2">
-                    <TextField id="outlined-basic" label="Email Penerima" variant="outlined" onChange={e=> setEmail(e.target.value)}/>
-                    <FormControl fullWidth>
+                    <TextField id="outlined-basic" label="Email Penerima" variant="outlined" error ={errorEmail} helperText={helperEmail} onChange={e=> setEmail(e.target.value)}/>
+                    <FormControl fullWidth error={errorLayanan}>
                         <InputLabel id="demo-simple-select-label">Tipe Layanan</InputLabel>
                         <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
                         value={value}
                         label="Tipe Layanan"
+                       
                         onChange={handleChangeService}
                         >
                         <MenuItem value={"Foto Studio"}>Foto Studio</MenuItem>
@@ -123,8 +137,29 @@ export default function FormEmail(){
                     <Button variant="outlined" color="secondary" onClick={sendEmail}>Kirim</Button>
                 </Stack>
             </Box>
+
+            {/* <Fade in={alert}>
+                <Alert severity="error" className="my-4">{alertMsg}</Alert>
+            </Fade>
+
+            <Button onClick={handleOpen}>Open modal</Button>
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style}>
+                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                        Text in a modal
+                    </Typography>
+                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                    </Typography>
+                </Box>
+            </Modal> */}
             
-            {alert?<Alert severity="error" className="my-4">{alertMsg}</Alert>:<></>}
+            {/* {alert?<Alert severity="error" className="my-4">{alertMsg}</Alert>:<></>} */}
         </main>
     )
 }
