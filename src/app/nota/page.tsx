@@ -1,6 +1,6 @@
 'use client'
 import React, { useState, useEffect } from 'react';
-import { PDFDownloadLink, PDFViewer } from '@react-pdf/renderer/lib/react-pdf.browser.es.js';
+// import { PDFDownloadLink, PDFViewer } from '@react-pdf/renderer/lib/react-pdf.browser.es.js';
 import PdfGenerator from './PdfGenerator'
 
 export default function Page(){
@@ -116,7 +116,7 @@ export default function Page(){
                 </table>
                 <button className="btn btn-success btn-md w-full max-w-xs my-4" onClick={handlePrint}>Print</button>
             </div>
-            <PDFDownloadLink document={<PdfGenerator getData={listChoose}/>} filename="Form">
+            {/* <PDFDownloadLink document={<PdfGenerator getData={listChoose}/>} filename="Form">
                 {({ loading }) =>
                     loading? (
                         <button>Loading Document....</button>
@@ -124,7 +124,7 @@ export default function Page(){
                         <button>Download</button>
                     )
                 }
-            </PDFDownloadLink>
+            </PDFDownloadLink> */}
             <dialog id="my_modal_1" className="modal">
                 <div className="modal-box">
                     <h3 className="font-bold text-lg">{choose}</h3>
