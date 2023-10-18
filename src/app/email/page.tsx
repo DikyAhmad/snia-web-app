@@ -1,21 +1,24 @@
 'use client';
 import React, { useState } from 'react';
-import AlertBox from '../AlertBox'
+import TextField from '@mui/material/TextField';
+import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Button from '@mui/material/Button';
+import Alert from '@mui/material/Alert';
+
 
 export default function FormEmail(){
     const [email, setEmail] = useState("");
     const [service, setService] = useState("");
     const [body, setBody] = useState("");
-    const [alert, setAlert] = useState(false);
+    const [alert, setAlert] = useState(true);
     const [alertMsg, setAlertMsg] = useState("");
     const hours = new Date().getHours();
-
-    const serviceList = [
-        {value:"Foto Studio"},  
-        {value:"Cetak Foto"},  
-        {value:"Edit Foto"},  
-        {value:"Document"}
-    ]
+    const [value, setValue] = useState<string | null>("");
 
     function checkService(props: string){
         const greeting = checkHours()
@@ -30,10 +33,11 @@ export default function FormEmail(){
         } 
     }
 
-    function handleChangeService(props: string){
+    function handleChangeService(event: SelectChangeEvent){
+        setValue(event.target.value as string)
         checkHours()
-        setService(props)
-        checkService(props)
+        setService(event.target.value as string)
+        checkService(event.target.value as string)
     }
 
     function mailTo(){
@@ -43,14 +47,14 @@ export default function FormEmail(){
     function sendEmail(){
         checkService(service)
         validateForm()
-        // console.log("mailto:"+email+"?subject="+service+"&body="+body)
+        console.log("mailto:"+email+"?subject="+service+"&body="+body)
     }
 
     function showAlert(msg: string){
         setAlertMsg(msg)
-        setAlert(true)
+        setAlert(false)
         setTimeout(() => {
-            setAlert(false);
+            setAlert(true);
             }, 2500);
     }
 
@@ -60,7 +64,7 @@ export default function FormEmail(){
                 mailTo()
                 console.log("Berhasil")
             } else {
-                showAlert("Pilih Layanan")
+                showAlert("Pilih Layanan Dahulu")
             }
         } else {
             if(isValidService(service)){
@@ -98,15 +102,29 @@ export default function FormEmail(){
     return(
         <main className="flex min-h-screen flex-col items-center p-8">
             <p className="text-xl font-['Oswald'] my-8 text-center mx-auto">SNIA PHOTO EMAIL APP</p>
-            <input type="email" placeholder="Masukkan Email Penerima" className="input input-bordered w-full max-w-xs my-4" onChange={e=> setEmail(e.target.value)}/>
-            <select className="select select-bordered w-full max-w-xs" onChange={e => handleChangeService(e.target.value)} defaultValue="Tipe Layanan">
-            <option disabled value="Tipe Layanan">Tipe Layanan</option>
-            {serviceList.map(({ value }, index) => 
-            <option value={value} key={index}>{value}</option>)
-            }
-            </select>
-            <button className="btn btn-outline btn-accent w-full max-w-xs my-4" onClick={sendEmail}>Kirim</button>
-            { alert ? <AlertBox msg={alertMsg}/> : null }
+            {/* <input type="email" placeholder="Masukkan Email Penerima" className="input input-bordered w-full max-w-xs my-4" onChange={e=> setEmail(e.target.value)}/> */}
+            <Box sx={{ width: '100%' }} > 
+                <Stack spacing={2} className="mx-2">
+                    <TextField id="outlined-basic" label="Email Penerima" variant="outlined" onChange={e=> setEmail(e.target.value)}/>
+                    <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">Tipe Layanan</InputLabel>
+                        <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={value}
+                        label="Tipe Layanan"
+                        onChange={handleChangeService}
+                        >
+                        <MenuItem value={"Foto Studio"}>Foto Studio</MenuItem>
+                        <MenuItem value={"Cetak Foto"}>Cetak Foto</MenuItem>
+                        <MenuItem value={"Edit Foto"}>Edit Foto</MenuItem>
+                        <MenuItem value={"Document"}>Document</MenuItem>
+                        </Select>
+                    </FormControl>
+                    <Button variant="outlined" color="secondary" onClick={sendEmail}>Kirim</Button>
+                </Stack>
+            </Box>
+            <Alert severity="error" hidden={alert} className="my-4">{alertMsg}</Alert>
         </main>
     )
 }

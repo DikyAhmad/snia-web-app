@@ -1,18 +1,26 @@
 'use client';
 'use strict';
 
-import React, { useState } from 'react';
-import FormEmail from './FormEmail'
+import * as React from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import Link from 'next/link'
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
+import MarkEmailReadIcon from '@mui/icons-material/MarkEmailRead';
+import DescriptionIcon from '@mui/icons-material/Description';
+
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center p-8">
-      {/* <FormEmail /> */}
+    <main className="flex min-h-screen flex-col items-center p-4">
       <p className="text-xl font-['Oswald'] my-8 text-center mx-auto">SNIA PHOTO APP</p>
-      <button className="btn btn-outline btn-success text-center w-full max-w-xs my-4"><Link className="w-full" href="/email">Email</Link></button>
-      <button className="btn btn-outline btn-warning text-center w-full max-w-xs my-4"><Link className="w-full" href="/nota">Nota</Link></button>
+      <Box sx={{ width: '100%' }} >
+        <Stack spacing={2} className="mx-12">
+          <Button variant="outlined" color="success" endIcon={<MarkEmailReadIcon />}><Link className="w-full" href="/email">Aplikasi Email</Link></Button>
+          {/* <Button variant="outlined" endIcon={<DescriptionIcon />}><Link className="w-full" href="/nota">Pembuatan Nota</Link></Button> */}
+        </Stack>
+      </Box>
       <Analytics />
     </main>
   )
