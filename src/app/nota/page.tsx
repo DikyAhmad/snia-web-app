@@ -25,7 +25,7 @@ export default function Page(){
     const [totalPrice, setTotalPrice] = useState(0)
     const [listChoose, setListChoose] = useState<{layanan: string; jumlah: number; harga: number; totalHarga: number}[]>([],);
 
-    function handleChange(nama,  tipe: string, index: number){
+    function handleChange(nama: any,  tipe: string, index: number){
         setChoose(tipe+" "+nama.target.value)
         const b = service[index].price[nama.target.selectedIndex-1]
         setSelectedPrice(b)
