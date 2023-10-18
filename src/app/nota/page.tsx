@@ -97,7 +97,7 @@ export default function Page(){
                             label={name}
                             onChange={e => handleChange(e, name, index)}
                             >
-                            {types.map((type, id) => <MenuItem key={id} name={id} value={type} >{type}</MenuItem>)}
+                            {types.map((type, id) => <MenuItem key={id} value={type} >{type}</MenuItem>)}
                             </Select>
                         </FormControl>
                     ))}
