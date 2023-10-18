@@ -40,9 +40,6 @@ export default function Page(){
         return hrg
     }
 
-    // function showModal(){
-    //     return document.getElementById('my_modal_1').showModal()
-    // }
 
     function calculatePrice(){
         return selectedPrice * parseInt(amount)
@@ -107,7 +104,7 @@ export default function Page(){
                         <tr key={index}>
                             <td>{layanan}</td>
                             <td className="text-center">{jumlah}</td>
-                            <th onClick={handleDelete}><button className="btn btn-error btn-sm" name={layanan} id={index}>-</button></th>
+                            <th onClick={handleDelete}><button className="btn btn-error btn-sm" name={layanan} id={parseInt(index)}>-</button></th>
                         </tr>
                     ))}
                     </tbody>
