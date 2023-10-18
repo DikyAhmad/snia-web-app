@@ -20,7 +20,6 @@ export default function Page(){
     const [finalPrice, setFinalPrice] = useState(0)
     const [listAllPriceSelected, setlistAllPriceSelected] = useState<number[]>([]) 
 
-    const [contoh, setContoh] = useState<{asu: string, berak: string}[]>([])
 
     const [totalPrice, setTotalPrice] = useState(0)
     const [listChoose, setListChoose] = useState<{layanan: string; jumlah: number; harga: number; totalHarga: number}[]>([],);
@@ -80,7 +79,6 @@ export default function Page(){
         // console.log("Harga Total: "+calculateAllPrice())
         // calculatePrice()
         // return getData(listChoose)
-        setContoh({asu: "11", berak: "2"})
     }
 
     return(
