@@ -1,18 +1,7 @@
 'use client';
 import React, { useState } from 'react';
-import TextField from '@mui/material/TextField';
-import Stack from '@mui/material/Stack';
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import Button from '@mui/material/Button';
-import Alert from '@mui/material/Alert';
-import Fade from '@mui/material/Fade';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-
+import { TextField, Stack, Box, InputLabel, MenuItem, FormControl, Select, Button, Alert, Fade, Typography} from '@mui/material';
+import { SelectChangeEvent } from '@mui/material/Select';
 
 export default function FormEmail(){
     const [email, setEmail] = useState("");
@@ -52,7 +41,6 @@ export default function FormEmail(){
     function sendEmail(){
         checkService(service)
         validateForm()
-        // console.log("mailto:"+email+"?subject="+service+"&body="+body)
     }
 
     function validateForm(){
@@ -125,7 +113,6 @@ export default function FormEmail(){
                         id="demo-simple-select"
                         value={value}
                         label="Tipe Layanan"
-                       
                         onChange={handleChangeService}
                         >
                         <MenuItem value={"Foto Studio"}>Foto Studio</MenuItem>
@@ -137,29 +124,6 @@ export default function FormEmail(){
                     <Button variant="outlined" color="secondary" onClick={sendEmail}>Kirim</Button>
                 </Stack>
             </Box>
-
-            {/* <Fade in={alert}>
-                <Alert severity="error" className="my-4">{alertMsg}</Alert>
-            </Fade>
-
-            <Button onClick={handleOpen}>Open modal</Button>
-            <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Text in a modal
-                    </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-                    </Typography>
-                </Box>
-            </Modal> */}
-            
-            {/* {alert?<Alert severity="error" className="my-4">{alertMsg}</Alert>:<></>} */}
         </main>
     )
 }
