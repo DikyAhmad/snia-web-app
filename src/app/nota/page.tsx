@@ -64,7 +64,7 @@ export default function Page(){
         }
     }
 
-    function handleDelete(e){
+    function handleDelete(e: any){
         const name = e.target.getAttribute("name")
         const id = e.target.getAttribute("id")
         setListChoose(listChoose.filter(item => item.layanan !== name));
