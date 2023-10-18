@@ -30,7 +30,7 @@ export default function Page(){
         const b = service[index].price[nama.target.selectedIndex-1]
         setSelectedPrice(b)
         // console.log("Harganya: "+b)
-        showModal()
+        // showModal()
     }
 
     function calculateAllPrice(){
@@ -41,9 +41,9 @@ export default function Page(){
         return hrg
     }
 
-    function showModal(){
-        return document.getElementById('my_modal_1').showModal()
-    }
+    // function showModal(){
+    //     return document.getElementById('my_modal_1').showModal()
+    // }
 
     function calculatePrice(){
         return selectedPrice * parseInt(amount)
