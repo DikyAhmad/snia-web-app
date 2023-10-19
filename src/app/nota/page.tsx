@@ -15,7 +15,7 @@ export default function Page(){
     const [finalPrice, setFinalPrice] = useState(0)
     const [listAllPriceSelected, setlistAllPriceSelected] = useState<number[]>([]) 
 
-    const [isClient, setIsClient] = useState(false)
+    const [isClient, setIsClient] = useState(true)
     const [totalPrice, setTotalPrice] = useState(0)
     const [listChoose, setListChoose] = useState<{layanan: string; jumlah: number; harga: number; totalHarga: number}[]>([],)
     const [service, setService] = useState([
@@ -81,7 +81,7 @@ export default function Page(){
     }
     
     function handlePrint(){
-        setIsClient(true)
+        setIsClient(false)
         updateInstance( <PdfGenerator props={listChoose}/> )
     }
 
@@ -158,11 +158,11 @@ export default function Page(){
                 </Stack>
             </Box>
             {/*  */}
-            { isClient ?
-               <a href={instance.url} download="test.pdf">
-                    Download
-                </a>
-            : null}
+            <Box sx={{ width: '95%' }} className="my-4" hidden={isClient}> 
+                <Stack spacing={2}>
+                    <Button onClick={handleAmount} href={instance.url} download="test.pdf">Download</Button>
+                </Stack>
+            </Box>
             {/* <PDFDownloadLink document={<PdfGenerator getData={listChoose}/>} filename="Form">
                 {({ loading }) =>
                     loading? (
