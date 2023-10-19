@@ -86,8 +86,13 @@ const PdfGenerator = ({props}:{props: any}) => {
 
     function getDate(){
         function addZero(i: number) {
-            if (i < 10) {i = "0" + i}
-        return i;
+            let x = ""
+            if (i < 10) {
+                x = "0" + i
+                return x
+            } else {
+                return i
+            }
         }
 
         const jam = addZero(date.getHours())
