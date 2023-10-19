@@ -1,19 +1,12 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 // import { PDFDownloadLink, PDFViewer } from '@react-pdf/renderer/lib/react-pdf.browser.es.js';
-import { TextField, Stack, Box, InputLabel, MenuItem, FormControl, Select, Button, Alert, Fade, Typography, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton} from '@mui/material';
+import { TextField, Stack, Box, InputLabel, MenuItem, FormControl, Select, Button, Alert, Fade, Typography, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton } from '@mui/material';
+import { usePDF, Document, Page, PDFViewer } from '@react-pdf/renderer';
 import BackspaceSharpIcon from '@mui/icons-material/BackspaceSharp';
 import PdfGenerator from './PdfGenerator'
 
 export default function Page(){
-
-    const [service, setService] = useState([
-        {name:'Foto Studio', types:['2x3', '3x4', '4x6', '2R', '3R', '4R', '5R', '10R', '10RS'], price:[1500, 1500, 1500, 2000, 4000, 5000, 8000, 15000, 18000]},
-        {name:'Cetak Foto', types:['2x3', '3x4', '4x6', '2R', '3R', '4R', '5R', '10R', '10RS'], price:[1500, 1500, 1500, 2000, 4000, 5000, 8000, 15000, 18000]},
-        {name:'Print', types:['HVS A4 Warna', 'HVS A4 Hitam Putih'], price:[500, 1000]},
-        {name:'Edit', types:['Foto', 'Dokumen'], price:[2000, 5000]},
-        {name:'Scan', types:['Foto', 'Dokumen'], price:[2000, 2000]},
-        ])
 
     const [choose, setChoose] = useState("")
     const [amount, setAmount] = useState("")
@@ -22,9 +15,18 @@ export default function Page(){
     const [finalPrice, setFinalPrice] = useState(0)
     const [listAllPriceSelected, setlistAllPriceSelected] = useState<number[]>([]) 
 
+    const [isClient, setIsClient] = useState(false)
     const [totalPrice, setTotalPrice] = useState(0)
-    const [listChoose, setListChoose] = useState<{layanan: string; jumlah: number; harga: number; totalHarga: number}[]>([],);
+    const [listChoose, setListChoose] = useState<{layanan: string; jumlah: number; harga: number; totalHarga: number}[]>([],)
+    const [service, setService] = useState([
+        {name:'Foto Studio', types:['2x3', '3x4', '4x6', '2R', '3R', '4R', '5R', '10R', '10RS'], price:[1500, 1500, 1500, 2000, 4000, 5000, 8000, 15000, 18000]},
+        {name:'Cetak Foto', types:['2x3', '3x4', '4x6', '2R', '3R', '4R', '5R', '10R', '10RS'], price:[1500, 1500, 1500, 2000, 4000, 5000, 8000, 15000, 18000]},
+        {name:'Print', types:['HVS A4 Warna', 'HVS A4 Hitam Putih'], price:[500, 1000]},
+        {name:'Edit', types:['Foto', 'Dokumen'], price:[2000, 5000]},
+        {name:'Scan', types:['Foto', 'Dokumen'], price:[2000, 2000]},
+        ])
     const [open, setOpen] = useState(false);
+    const [instance, updateInstance] = usePDF({ document: <PdfGenerator props={[]}/> });
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -79,7 +81,8 @@ export default function Page(){
     }
     
     function handlePrint(){
-        console.log(listChoose)
+        setIsClient(true)
+        updateInstance( <PdfGenerator props={listChoose}/> )
     }
 
     return(
@@ -154,6 +157,12 @@ export default function Page(){
                     <Button variant="outlined" color="secondary" onClick={handlePrint}>Cetak</Button>
                 </Stack>
             </Box>
+            {/*  */}
+            { isClient ?
+               <a href={instance.url} download="test.pdf">
+                    Download
+                </a>
+            : null}
             {/* <PDFDownloadLink document={<PdfGenerator getData={listChoose}/>} filename="Form">
                 {({ loading }) =>
                     loading? (

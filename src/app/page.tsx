@@ -13,7 +13,7 @@ import DescriptionIcon from '@mui/icons-material/Description';
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center p-4">
+    <main className="flex min-h-screen flex-col items-center my-40">
       <p className="text-xl font-['Oswald'] my-8 text-center mx-auto">SNIA PHOTO APP</p>
       <Box sx={{ width: '100%' }} >
         <Stack spacing={2} className="mx-12">

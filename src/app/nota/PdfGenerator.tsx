@@ -1,19 +1,20 @@
-'use client'
 import React, { useState, useEffect } from 'react';
 import { Page, Text, Image, Document, StyleSheet, View , Svg, Line} from "@react-pdf/renderer";
+import reactStringReplace from 'react-string-replace';
+import logo from '../image/image.jpeg'
 
 
 // Create styles
 const styles = StyleSheet.create({
     page: {
-        paddingTop: 15,
+        paddingTop: 35,
         paddingBottom: 65,
         paddingHorizontal: 15,
         fontFamily: "Helvetica",
         // backgroundColor: '#E4E4E4'
     },
     section: {
-        marginHorizontal: 10,
+        marginHorizontal: 20,
         padding: 10,
         flexGrow: 1
     },
@@ -73,21 +74,50 @@ const styles = StyleSheet.create({
 });
 
 // Create Document Component
-const PdfGenerator = () => {
+const PdfGenerator = ({props}) => {
+    const date = new Date()
+    const month = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"]
 
-    // const [datas, setDatas] = useState<{layanan: string; jumlah: number; harga: number; totalHarga: number}[]>([],);
+    // const notas = [
+    //     {layanan: 'Cetak Foto 3x4', jumlah: '4 Lembar', totalHarga: 'Rp 1.800.000'},
+    //     {layanan: 'Print Warna A4', jumlah: '2 Lembar', totalHarga: 'Rp 2.000'},
+    //     {layanan: 'SoftFile Foto Studio', jumlah: '1', totalHarga: 'Rp 15.000'},
+    // ]
 
-    // function gettingData() {
-    //     setDatas(getData)
-    // }
+    function getDate(){
+        function addZero(i) {
+            if (i < 10) {i = "0" + i}
+        return i;
+        }
 
-    const notas = [
-        {desc: 'Cetak Foto 3x4', amount: '4 Lembar', price: 'Rp 1.800.000'},
-        {desc: 'Print Warna A4', amount: '2 Lembar', price: 'Rp 2.000'},
-        {desc: 'SoftFile Foto Studio', amount: '1', price: 'Rp 15.000'},
-    ]
+        const jam = addZero(date.getHours())
+        const menit = addZero(date.getMinutes())
+        const hari = date.getDate()
+        const bulan = date.getMonth()
+        const tahun = date.getFullYear()
+        const bulanString = month[bulan]
 
-    // gettingData()
+        return (jam+":"+menit+", "+hari+" "+bulanString+" "+tahun)
+    }
+
+    function formattingCurrency(current){
+        const numberFormat = (currency) =>
+            new Intl.NumberFormat('en-ID', {
+                style: 'currency',
+                currency: 'IDR'
+            }).format(currency);   
+        return reactStringReplace(numberFormat(current), 'IDR', (match, i) => (
+            'Rp. '
+        ));
+    }
+
+    function calculatePrice(){
+        let hrg = 0
+        props.map(({totalHarga}, index) => (
+            hrg += totalHarga
+        )) 
+        return formattingCurrency(hrg)
+    }
 
     return (
         <Document>
@@ -100,19 +130,17 @@ const PdfGenerator = () => {
                             <Text style={styles.textHeaderOne} fixed>Tangerang Selatan</Text>
                         </View>
                         <Text style={styles.textHeaderTwo} fixed>NOTA PEMBAYARAN </Text>
-                        <Image source="/_next/static/media/logo.3ffc9857.jpg" style={styles.image} ></Image>
+                        <Image src={logo.src} style={styles.image} ></Image>
                     </View>
                     <Svg height="8" width="495">
                         <Line x1="5" y1="5" x2="700" y2="5" strokeWidth={1} stroke="rgb(0,0,0)" />
                     </Svg>
-                    {/* <Text style={{left:10}}>Test</Text>
-                    <Text style={{left:100}}>Test2</Text> */}
-                    {notas.map((nota, index) =>{
+                    {props.map((data, index) =>{
                         return(
                             <View style={styles.textBody} key={index}>
-                                <Text style={{position: "absolute"}}>{nota.desc}</Text>
-                                <Text style={styles.listItem}>{nota.amount+" Lembar"}</Text>
-                                <Text style={{position: "absolute", left: 380, }}>{nota.price}</Text>
+                                <Text style={{position: "absolute"}}>{data.layanan}</Text>
+                                <Text style={styles.listItem}>{data.jumlah+" Lembar"}</Text>
+                                <Text style={{position: "absolute", left: 380, }}>{formattingCurrency(data.totalHarga)}</Text>
                             </View>
                         )
                     })}
@@ -120,18 +148,17 @@ const PdfGenerator = () => {
                         <Line x1="5" y1="5" x2="700" y2="5" strokeWidth={1} stroke="rgb(0,0,0)" />
                     </Svg>
                     <View style={styles.textBody}>
-                        <Text style={{ left: 280 }}>Total         :</Text>
-                        <Text style={styles.textTotal}>Rp 2.000.000</Text>
+                        <Text style={{ left: 280 }}>Total       : </Text>
+                        <Text style={styles.textTotal}>{calculatePrice()}</Text>
                     </View>
                 </View>
                 <View>
                     <Text style={{position: "absolute", left: 330}}>
-                        17:03, 16 Oktober 2023
+                        {getDate()}
                     </Text>
                 </View> 
             </Page>
         </Document>
     );
 }
-// console.log(gambar)
 export default PdfGenerator;

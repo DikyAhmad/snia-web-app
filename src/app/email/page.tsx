@@ -88,20 +88,9 @@ export default function FormEmail(){
             return "Selamat Sore"
         }
     }
-    const style = {
-        position: 'absolute' as 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: 400,
-        bgcolor: 'background.paper',
-        border: '2px solid #000',
-        boxShadow: 24,
-        p: 4,
-    };
 
     return(
-        <main className="flex min-h-screen flex-col items-center p-8">
+        <main className="flex min-h-screen flex-col items-center p-8 my-24">
             <p className="text-xl font-['Oswald'] my-8 text-center mx-auto">SNIA PHOTO EMAIL APP</p>
             <Box sx={{ width: '100%' }} > 
                 <Stack spacing={2} className="mx-2">
@@ -109,11 +98,11 @@ export default function FormEmail(){
                     <FormControl fullWidth error={errorLayanan}>
                         <InputLabel id="demo-simple-select-label">Tipe Layanan</InputLabel>
                         <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={value}
-                            label="Tipe Layanan"
-                            onChange={handleChangeService}
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={value}
+                        label="Tipe Layanan"
+                        onChange={handleChangeService}
                         >
                         <MenuItem value={"Foto Studio"}>Foto Studio</MenuItem>
                         <MenuItem value={"Cetak Foto"}>Cetak Foto</MenuItem>
