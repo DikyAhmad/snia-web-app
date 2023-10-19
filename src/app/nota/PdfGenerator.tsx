@@ -118,7 +118,7 @@ const PdfGenerator = ({props}:{props: any}) => {
 
     function calculatePrice(){
         let hrg = 0
-        props.map(({totalHarga}, index) => (
+        props.map(({totalHarga}:{totalHarga: number}, index) => (
             hrg += totalHarga
         )) 
         return formattingCurrency(hrg)
