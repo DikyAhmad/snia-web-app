@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import { TextField, Stack, Box, InputLabel, MenuItem, FormControl, Select, Button, Alert, Fade, Typography, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton } from '@mui/material';
 import { usePDF, Document, PDFViewer} from '@react-pdf/renderer';
+import { PDFDownloadLink} from '@react-pdf/renderer/lib/react-pdf.browser.cjs.js';
+import PdfGenerator from './PdfGenerator'
 import BackspaceSharpIcon from '@mui/icons-material/BackspaceSharp';
 import Link from 'next/link'
 
@@ -77,10 +79,6 @@ export default function Page(){
             setStateTable(true)
         }
     }
-    
-    // function handlePrint(){
-    //     setIsClient(false)
-    // }
 
     return(
         <main className="flex min-h-screen items-center flex-col p-8">
@@ -151,17 +149,11 @@ export default function Page(){
                             </TableBody>
                         </Table>
                     </TableContainer>
-                    <Button variant="outlined" color="secondary">
-                     <Link
-                            href={{
-                            pathname: '/nota/download',
-                            query: {
-                                search: JSON.stringify(listChoose),
-                            }
-                            }}
-                        >
-                            Cetak Nota
-                    </Link></Button>
+                     <Button variant="outlined" color="secondary">
+                             <PDFDownloadLink document={<PdfGenerator datas={listChoose} />} fileName="notapembayaran.pdf">
+                                {({ loading }: {loading:any}) => (loading ? 'Loading document...' : 'Download PDF!')}
+                            </PDFDownloadLink>
+                    </Button>
                 </Stack>
             </Box>
         </main>

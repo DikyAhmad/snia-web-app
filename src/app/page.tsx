@@ -9,7 +9,7 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import MarkEmailReadIcon from '@mui/icons-material/MarkEmailRead';
 import DescriptionIcon from '@mui/icons-material/Description';
-import logo from './image/logo_colour.jpg'
+import logo from './image/logo_colour.png'
 
 
 export default function Home() {
