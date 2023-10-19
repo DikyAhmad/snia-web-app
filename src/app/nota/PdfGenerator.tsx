@@ -140,7 +140,7 @@ const PdfGenerator = ({props}:{props: any}) => {
                     <Svg height="8" width="495">
                         <Line x1="5" y1="5" x2="700" y2="5" strokeWidth={1} stroke="rgb(0,0,0)" />
                     </Svg>
-                    {props.map((data, index) =>{
+                    {props.map((data: any, index: any) =>{
                         return(
                             <View style={styles.textBody} key={index}>
                                 <Text style={{position: "absolute"}}>{data.layanan}</Text>
