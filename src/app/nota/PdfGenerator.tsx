@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
 });
 
 // Create Document Component
-const PdfGenerator = ({props}) => {
+const PdfGenerator = ({props}:{props: any}) => {
     const date = new Date()
     const month = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"]
 
