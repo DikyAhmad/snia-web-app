@@ -1,8 +1,8 @@
+'use client'
 import React, { useState, useEffect } from 'react';
 import { Page, Text, Image, Document, StyleSheet, View , Svg, Line} from "@react-pdf/renderer";
 import reactStringReplace from 'react-string-replace';
 import logo from '../image/image.jpeg'
-
 
 // Create styles
 const styles = StyleSheet.create({
@@ -74,15 +74,15 @@ const styles = StyleSheet.create({
 });
 
 // Create Document Component
-const PdfGenerator = ({props}:{props: any}) => {
+const PdfGenerator = ({datas}:{datas: any}) => {
     const date = new Date()
     const month = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"]
 
-    // const notas = [
-    //     {layanan: 'Cetak Foto 3x4', jumlah: '4 Lembar', totalHarga: 'Rp 1.800.000'},
-    //     {layanan: 'Print Warna A4', jumlah: '2 Lembar', totalHarga: 'Rp 2.000'},
-    //     {layanan: 'SoftFile Foto Studio', jumlah: '1', totalHarga: 'Rp 15.000'},
-    // ]
+    const notas = [
+        {layanan: 'Cetak Foto 3x4', jumlah: '4 Lembar', totalHarga: 'Rp 1.800.000'},
+        {layanan: 'Print Warna A4', jumlah: '2 Lembar', totalHarga: 'Rp 2.000'},
+        {layanan: 'SoftFile Foto Studio', jumlah: '1', totalHarga: 'Rp 15.000'},
+    ]
 
     function getDate(){
         function addZero(i: number) {
@@ -118,7 +118,7 @@ const PdfGenerator = ({props}:{props: any}) => {
 
     function calculatePrice(){
         let hrg = 0
-        props.map(({totalHarga}:{totalHarga: number}) => (
+        datas.map(({totalHarga}:{totalHarga: number}) => (
             hrg += totalHarga
         )) 
         return formattingCurrency(hrg)
@@ -140,7 +140,7 @@ const PdfGenerator = ({props}:{props: any}) => {
                     <Svg height="8" width="495">
                         <Line x1="5" y1="5" x2="700" y2="5" strokeWidth={1} stroke="rgb(0,0,0)" />
                     </Svg>
-                    {props.map((data: any, index: any) =>{
+                    {datas.map((data: any, index: any) =>{
                         return(
                             <View style={styles.textBody} key={index}>
                                 <Text style={{position: "absolute"}}>{data.layanan}</Text>
