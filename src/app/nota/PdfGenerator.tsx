@@ -85,7 +85,7 @@ const PdfGenerator = ({props}:{props: any}) => {
     // ]
 
     function getDate(){
-        function addZero(i) {
+        function addZero(i: number) {
             if (i < 10) {i = "0" + i}
         return i;
         }
@@ -100,8 +100,8 @@ const PdfGenerator = ({props}:{props: any}) => {
         return (jam+":"+menit+", "+hari+" "+bulanString+" "+tahun)
     }
 
-    function formattingCurrency(current){
-        const numberFormat = (currency) =>
+    function formattingCurrency(current: number){
+        const numberFormat = (currency: number) =>
             new Intl.NumberFormat('en-ID', {
                 style: 'currency',
                 currency: 'IDR'
