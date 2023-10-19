@@ -160,7 +160,7 @@ export default function Page(){
             {/*  */}
             <Box sx={{ width: '95%' }} className="my-4" hidden={isClient}> 
                 <Stack spacing={2}>
-                    <Button onClick={handleAmount} href={instance.url} download="test.pdf">Download</Button>
+                    <Button onClick={handleAmount} href={instance.url!} download="test.pdf">Download</Button>
                 </Stack>
             </Box>
             {/* <PDFDownloadLink document={<PdfGenerator getData={listChoose}/>} filename="Form">
