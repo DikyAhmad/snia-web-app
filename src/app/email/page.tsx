@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { TextField, Stack, Box, InputLabel, MenuItem, FormControl, Select, Button, Alert, Fade, Typography} from '@mui/material';
 import { SelectChangeEvent } from '@mui/material/Select';
+import SendIcon from '@mui/icons-material/Send';
 
 export default function FormEmail(){
     const [email, setEmail] = useState("");
@@ -90,8 +91,8 @@ export default function FormEmail(){
     }
 
     return(
-        <main className="flex min-h-screen flex-col items-center p-8 my-24">
-            <p className="text-xl font-['Oswald'] my-8 text-center mx-auto">SNIA PHOTO EMAIL APP</p>
+        <main className="flex min-h-screen flex-col items-center p-8 py-20">
+            <p className="text-2xl font-['Oswald'] my-12 text-center mx-auto">EMAIL APP</p>
             <Box sx={{ width: '100%' }} > 
                 <Stack spacing={2} className="mx-2">
                     <TextField id="outlined-basic" label="Email Penerima" variant="outlined" error ={errorEmail} helperText={helperEmail} onChange={e=> setEmail(e.target.value)}/>
@@ -110,7 +111,7 @@ export default function FormEmail(){
                         <MenuItem value={"Document"}>Document</MenuItem>
                         </Select>
                     </FormControl>
-                    <Button variant="outlined" color="secondary" onClick={sendEmail}>Kirim</Button>
+                    <Button variant="outlined" color="secondary" className="py-4" onClick={sendEmail} endIcon={<SendIcon />}>Kirim</Button>
                 </Stack>
             </Box>
         </main>
