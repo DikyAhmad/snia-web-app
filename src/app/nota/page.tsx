@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 // import { PDFDownloadLink, PDFViewer } from '@react-pdf/renderer/lib/react-pdf.browser.es.js';
 import { TextField, Stack, Box, InputLabel, MenuItem, FormControl, Select, Button, Alert, Fade, Typography, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton } from '@mui/material';
-import { usePDF, Document, Page, PDFViewer } from '@react-pdf/renderer';
+import { usePDF, Document, PDFViewer } from '@react-pdf/renderer';
 import BackspaceSharpIcon from '@mui/icons-material/BackspaceSharp';
 import PdfGenerator from './PdfGenerator'
 
