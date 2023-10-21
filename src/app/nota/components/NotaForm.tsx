@@ -150,11 +150,11 @@ export default function NotaForm(){
                             </TableBody>
                         </Table>
                     </TableContainer>
-                     <Button variant="outlined" color="error" className="py-4">
-                             <PDFDownloadLink document={<PdfGenerator datas={listChoose} />} fileName="notapembayaran.pdf">
-                                Download PDF
-                            </PDFDownloadLink>
-                    </Button>
+                    <PDFDownloadLink document={<PdfGenerator datas={listChoose} />} fileName="notapembayaran.pdf">
+                        <Button variant="outlined" color="error" className="py-4 w-full">
+                             Download
+                        </Button>
+                    </PDFDownloadLink>
                 </Stack>
             </Box>
         </main>

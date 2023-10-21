@@ -21,8 +21,8 @@ export default function HomePage() {
           loading="lazy"
       />  
       <p className="text-2xl font-['Oswald'] mb-12 text-center mx-auto">SNIA PHOTO APP</p>
-      <Box sx={{ width: '100%' }} >
-        <Stack spacing={2} className="mx-8">
+      <Box sx={{ width: '85%' }} >
+        <Stack spacing={2}>
           <Button variant="outlined" color="success" endIcon={<MarkEmailReadIcon />}><Link className="w-full py-4 text-lg" href="/email">Aplikasi Email</Link></Button>
           <Button variant="outlined" endIcon={<DescriptionIcon />}><Link className="w-full py-4 text-lg" href="/nota">Pembuatan Nota</Link></Button>
         </Stack>
