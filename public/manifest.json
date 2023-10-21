@@ -1,7 +1,7 @@
 {
     "theme_color": "#35f639",
     "background_color": "#f9f7f6",
-    "display": "standalone",
+    "display": "fullscreen",
     "scope": "/",
     "start_url": "/",
     "name": "SNIA APP",
