@@ -4,9 +4,7 @@ import dynamic from 'next/dynamic'
 
 export default function Page() {
 
-    const DynamicNota = dynamic(() => import('./Home'), {
-        ssr: false,
-    })
+    const DynamicNota = dynamic(() => import('./Home'))
 
     return <DynamicNota />
 }
