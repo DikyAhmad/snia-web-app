@@ -3,6 +3,7 @@
     "background_color": "#f9f7f6",
     "display": "standalone",
     "scope": "/",
+    "purpose": "any maskable",
     "start_url": "/",
     "name": "SNIA APP",
     "short_name": "Snia App",
