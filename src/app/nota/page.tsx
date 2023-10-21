@@ -81,29 +81,8 @@ export default function Page(){
         }
     }
 
-    const StyledTableCell = styled(TableCell)(({ theme }) => ({
-        [`&.${tableCellClasses.head}`]: {
-            backgroundColor: theme.palette.common.black,
-            color: theme.palette.common.white,
-        },
-        [`&.${tableCellClasses.body}`]: {
-            fontSize: 14,
-        },
-    }));
-
-    const StyledTableRow = styled(TableRow)(({ theme }) => ({
-        '&:nth-of-type(odd)': {
-            backgroundColor: theme.palette.action.hover,
-        },
-        // hide last border
-        '&:last-child td, &:last-child th': {
-            border: 0,
-        },
-    }));
-
-
     return(
-        <main className="flex min-h-screen items-center flex-col p-8">
+        <main className="flex min-h-screen items-center flex-col p-4">
             <p className="text-2xl font-['Oswald'] my-8 text-center mx-auto">Pembuatan Nota</p>
             <Box sx={{ width: '100%' }} > 
                 <Stack spacing={2} className="mx-2">
@@ -169,6 +148,7 @@ export default function Page(){
                                         <IconButton aria-label="Example" onClick={e => handleDelete(list.layanan, index)}><BackspaceSharpIcon fontSize="large" color="error"/></IconButton>
                                     </TableCell>
                                 </TableRow>
+                                // <Divider />
                             ))}
                             </TableBody>
                         </Table>
