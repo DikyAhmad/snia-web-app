@@ -1,7 +1,8 @@
 'use client'
 'use strict'
 import React, { useState, useEffect } from 'react';
-import { TextField, Stack, Box, InputLabel, MenuItem, FormControl, Select, Button, Alert, Fade, Typography, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton } from '@mui/material';
+import { TextField, Stack, Box, InputLabel, MenuItem, FormControl, Select, Button, Alert, Fade, Typography, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, Divider } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { usePDF, Document, PDFViewer} from '@react-pdf/renderer';
 import { PDFDownloadLink} from '@react-pdf/renderer/lib/react-pdf.browser.cjs.js';
 import PdfGenerator from './PdfGenerator'
@@ -80,9 +81,30 @@ export default function Page(){
         }
     }
 
+    const StyledTableCell = styled(TableCell)(({ theme }) => ({
+        [`&.${tableCellClasses.head}`]: {
+            backgroundColor: theme.palette.common.black,
+            color: theme.palette.common.white,
+        },
+        [`&.${tableCellClasses.body}`]: {
+            fontSize: 14,
+        },
+    }));
+
+    const StyledTableRow = styled(TableRow)(({ theme }) => ({
+        '&:nth-of-type(odd)': {
+            backgroundColor: theme.palette.action.hover,
+        },
+        // hide last border
+        '&:last-child td, &:last-child th': {
+            border: 0,
+        },
+    }));
+
+
     return(
         <main className="flex min-h-screen items-center flex-col p-8">
-            <p className="text-xl font-['Oswald'] my-8 text-center mx-auto">Pembuatan Nota</p>
+            <p className="text-2xl font-['Oswald'] my-8 text-center mx-auto">Pembuatan Nota</p>
             <Box sx={{ width: '100%' }} > 
                 <Stack spacing={2} className="mx-2">
                     {service.map(({name, types}, index) => (
@@ -122,14 +144,16 @@ export default function Page(){
             </Dialog>
             <Box sx={{ width: '95%' }} className="my-4" hidden={stateTable}> 
                 <Stack spacing={2}>
-                    <TableContainer component={Paper} className="my-2" >
-                        <Table sx={{ width: '90%' }} aria-label="simple table">
+                    <Divider/>
+                    <p className="text-xl font-['Oswald'] my-8 text-center mx-auto">List Item</p>
+                    <TableContainer style={{backgroundColor:'#ebdfb2', color: 'white',}} className="my-2" >
+                        <Table sx={{ width: '100%' }} aria-label="simple table">
                             <TableHead>
-                            <TableRow>
-                                <TableCell>Layanan</TableCell>
-                                <TableCell align="center">Jumlah</TableCell>
-                                <TableCell align="center">Hapus</TableCell>
-                            </TableRow>
+                                <TableRow >
+                                    <TableCell>Layanan</TableCell>
+                                    <TableCell align="center">Jumlah</TableCell>
+                                    <TableCell align="center">Hapus</TableCell>
+                                </TableRow>
                             </TableHead>
                             <TableBody>
                             {listChoose.map((list, index) => (
@@ -149,9 +173,9 @@ export default function Page(){
                             </TableBody>
                         </Table>
                     </TableContainer>
-                     <Button variant="outlined" color="secondary">
+                     <Button variant="outlined" color="error" className="py-4">
                              <PDFDownloadLink document={<PdfGenerator datas={listChoose} />} fileName="notapembayaran.pdf">
-                                {({ loading }: {loading:any}) => (loading ? 'Loading document...' : 'Download PDF!')}
+                                {({ loading }: {loading:any}) => (loading ? 'Loading document...' : 'Download PDF')}
                             </PDFDownloadLink>
                     </Button>
                 </Stack>
