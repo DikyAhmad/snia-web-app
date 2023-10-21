@@ -18,7 +18,7 @@ export default function HomePage() {
           height={100}
           src={logo.src}
           alt="Image"
-          loading="lazy"
+          blurDataURL={logo.src}
       />  
       <p className="text-2xl font-['Oswald'] mb-12 text-center mx-auto">SNIA PHOTO APP</p>
       <Box sx={{ width: '85%' }} >
