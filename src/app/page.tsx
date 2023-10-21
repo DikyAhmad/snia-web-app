@@ -10,11 +10,19 @@ import Stack from '@mui/material/Stack';
 import MarkEmailReadIcon from '@mui/icons-material/MarkEmailRead';
 import DescriptionIcon from '@mui/icons-material/Description';
 import logo from './image/logo_colour.png'
+import MyDocument from './_document.js'
+import Head from 'next/head'
 
 
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center pt-24">
+      <Head>
+      <title>My Next App</title>
+          <link rel="manifest" href="/manifest.json" />
+          <link rel="apple-touch-icon" href="/logo.png"></link>
+          <meta name="theme-color" content="#fff" />
+      </Head>
       <img
           className="w-24 h-24"
           src={logo.src}
