@@ -1,8 +1,8 @@
 'use client'
-import React, { useState, useEffect } from 'react';
+
 import { Page, Text, Image, Document, StyleSheet, View , Svg, Line} from "@react-pdf/renderer";
 import reactStringReplace from 'react-string-replace';
-import logo from '../image/image.jpeg'
+import logo from '../../../../public/image/image.jpeg'
 
 // Create styles
 const styles = StyleSheet.create({
@@ -11,7 +11,6 @@ const styles = StyleSheet.create({
         paddingBottom: 65,
         paddingHorizontal: 15,
         fontFamily: "Helvetica",
-        // backgroundColor: '#E4E4E4'
     },
     section: {
         marginHorizontal: 20,
@@ -43,7 +42,6 @@ const styles = StyleSheet.create({
         fontSize: 18,
         textAlign: "center",
         color: "black",
-        fontFamily: "Helvetica",
     },
     image: {
         width: "75px", 
@@ -66,23 +64,12 @@ const styles = StyleSheet.create({
         position: "absolute",
         left: 220,
     },
-    text: {
-        margin: 12,
-        fontSize: 14,
-        textAlign: "justify",
-    },    
 });
 
 // Create Document Component
 const PdfGenerator = ({datas}:{datas: any}) => {
     const date = new Date()
     const month = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"]
-
-    const notas = [
-        {layanan: 'Cetak Foto 3x4', jumlah: '4 Lembar', totalHarga: 'Rp 1.800.000'},
-        {layanan: 'Print Warna A4', jumlah: '2 Lembar', totalHarga: 'Rp 2.000'},
-        {layanan: 'SoftFile Foto Studio', jumlah: '1', totalHarga: 'Rp 15.000'},
-    ]
 
     function getDate(){
         function addZero(i: number) {
@@ -135,7 +122,10 @@ const PdfGenerator = ({datas}:{datas: any}) => {
                             <Text style={styles.textHeaderOne} fixed>Tangerang Selatan</Text>
                         </View>
                         <Text style={styles.textHeaderTwo} fixed>NOTA PEMBAYARAN </Text>
-                        <Image src={logo.src} style={styles.image} ></Image>
+                        <Image 
+                            src={logo.src} 
+                            style={styles.image} 
+                        />
                     </View>
                     <Svg height="8" width="495">
                         <Line x1="5" y1="5" x2="700" y2="5" strokeWidth={1} stroke="rgb(0,0,0)" />

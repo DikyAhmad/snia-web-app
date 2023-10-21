@@ -1,11 +1,9 @@
 'use client'
 'use strict'
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { TextField, Stack, Box, InputLabel, MenuItem, FormControl, Select, Button, Alert, Fade, Typography, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, Divider } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import { usePDF, Document, PDFViewer} from '@react-pdf/renderer';
 import { PDFDownloadLink} from '@react-pdf/renderer/lib/react-pdf.browser.cjs.js';
-import PdfGenerator from './PdfGenerator'
+import PdfGenerator from './components/PdfGenerator'
 import BackspaceSharpIcon from '@mui/icons-material/BackspaceSharp';
 import Link from 'next/link'
 
@@ -148,14 +146,13 @@ export default function Page(){
                                         <IconButton aria-label="Example" onClick={e => handleDelete(list.layanan, index)}><BackspaceSharpIcon fontSize="large" color="error"/></IconButton>
                                     </TableCell>
                                 </TableRow>
-                                // <Divider />
                             ))}
                             </TableBody>
                         </Table>
                     </TableContainer>
                      <Button variant="outlined" color="error" className="py-4">
                              <PDFDownloadLink document={<PdfGenerator datas={listChoose} />} fileName="notapembayaran.pdf">
-                                {({ loading }: {loading:any}) => (loading ? 'Loading document...' : 'Download PDF')}
+                                Download PDF
                             </PDFDownloadLink>
                     </Button>
                 </Stack>
