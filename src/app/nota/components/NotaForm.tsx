@@ -7,7 +7,7 @@ import PdfGenerator from './PdfGenerator'
 import BackspaceSharpIcon from '@mui/icons-material/BackspaceSharp';
 import Link from 'next/link'
 
-export default function NotaPage(){
+export default function NotaForm(){
 
     const [choose, setChoose] = useState("")
     const [amount, setAmount] = useState("")
