@@ -36,9 +36,9 @@ export default function NotaForm(){
         setOpen(false);
     };
 
-    function handleChange(nama: any,  tipe: string, index: number){
-        setChoose(tipe+" "+nama.target.value)
-        const indexSelected = service[index].types.indexOf(nama.target.value)
+    function handleChange(event: any, tipe: string, index: number){
+        setChoose(tipe+" "+event.target.value)
+        const indexSelected = service[index].types.indexOf(event.target.value)
         const priceSelected = service[index].price[indexSelected]
         setSelectedPrice(priceSelected)
         setOpen(true)
@@ -59,23 +59,34 @@ export default function NotaForm(){
 
     function handleAmount(){
         if(amount != ""){
-            setListChoose(prevEmployees => [
-            ...prevEmployees,
-            {layanan: choose, jumlah: parseInt(amount), harga: selectedPrice, totalHarga: calculatePrice()},
-            ])
-            setStateTable(false)
-            setChoose("")
-            setAmount("") 
-            setOpen(false)
+            pushToList()
         } else {
             return
         }
     }
 
-    function handleDelete(layan: string, index: number){
-        setListChoose(listChoose.filter(item => item.layanan !== layan));
+    function pushToList(){
+        setListChoose(prevEmployees => [
+        ...prevEmployees,
+        {layanan: choose, jumlah: parseInt(amount), harga: selectedPrice, totalHarga: calculatePrice()},
+        ])
+        setStateTable(false)
+        setChoose("")
+        setAmount("") 
+        setOpen(false)
+    }
+
+    function handleDelete(layanan: string, index: number){
+        setListChoose(listChoose.filter(item => item.layanan !== layanan));
         if(index == 0 && listChoose.length == 1){
             setStateTable(true)
+        }
+    }
+
+    function handleKey(event: any){
+        if(event.key === "Enter"){
+            setAmount(event.target.value)
+            pushToList()
         }
     }
 
@@ -93,6 +104,7 @@ export default function NotaForm(){
                             value=""
                             label={name}
                             onChange={e => handleChange(e, name, index)}
+                            // onKeyPress={e => handleKey(e)}
                             >
                             {types.map((type, id) => <MenuItem key={id} value={type} >{type}</MenuItem>)}
                             </Select>
@@ -112,6 +124,7 @@ export default function NotaForm(){
                     variant="outlined"
                     label="Masukkan jumlah"
                     onChange={e => setAmount(e.target.value)}
+                    onKeyPress={e => handleKey(e)}
                 />
                 </DialogContent>
                 <DialogActions>
