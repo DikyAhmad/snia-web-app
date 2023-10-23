@@ -7,7 +7,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import MarkEmailReadIcon from '@mui/icons-material/MarkEmailRead';
 import DescriptionIcon from '@mui/icons-material/Description';
-import logo from '../../public/image/logo_colour.png'
+import logo from '../../../public/image/logo_colour.png'
 import dynamic from 'next/dynamic'
 
 export default function HomePage() {

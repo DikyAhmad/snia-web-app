@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { TextField, Stack, Box, InputLabel, MenuItem, FormControl, Select, Button, Alert, Fade, Typography} from '@mui/material';
 import { SelectChangeEvent } from '@mui/material/Select';
 import SendIcon from '@mui/icons-material/Send';
+import { collection, addDoc } from "firebase/firestore"; 
+import { db } from '../../firebase'
 
 export default function FormEmail(){
     const [email, setEmail] = useState("");
@@ -42,7 +44,14 @@ export default function FormEmail(){
     function sendEmail(){
         checkService(service)
         validateForm()
+        // pushToDb()
     }
+
+    // const pushToDb = async () => {
+    //     await addDoc(collection(db, 'user'), {
+    //         name: email,
+    //     })
+    // }
 
     function validateForm(){
         if(isValidEmail(email)){
