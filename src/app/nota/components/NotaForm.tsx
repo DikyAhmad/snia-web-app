@@ -92,7 +92,7 @@ export default function NotaForm(){
     }
 
     return(
-        <main className="flex min-h-screen flex-col items-center pt-24 px-4">
+        <main className="flex min-h-screen flex-col items-center items-stretch pt-12 px-4">
             <p className="text-2xl font-['Oswald'] my-8 text-center mx-auto">Pembuatan Nota</p>
             <Box sx={{ width: '100%' }} > 
                 <Stack spacing={2} className="mx-2">

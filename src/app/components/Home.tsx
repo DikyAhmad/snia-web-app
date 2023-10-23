@@ -12,22 +12,27 @@ import dynamic from 'next/dynamic'
 
 export default function HomePage() {
   return (
-    <main className="flex min-h-screen flex-col items-center pt-24">
-      <Image
-          width={100}
-          height={100}
-          src={logo.src}
-          alt="Image"
-          blurDataURL={logo.src}
-      />  
-      <p className="text-2xl font-['Oswald'] mb-12 text-center mx-auto">SNIA PHOTO APP</p>
-      <Box sx={{ width: '85%' }} >
-        <Stack spacing={2}>
-          <Button variant="outlined" color="success" endIcon={<MarkEmailReadIcon />}><Link className="w-full py-4 text-lg" href="/email">Aplikasi Email</Link></Button>
-          <Button variant="outlined" endIcon={<DescriptionIcon />}><Link className="w-full py-4 text-lg" href="/nota">Pembuatan Nota</Link></Button>
+    // <main className="flex flex-col justify-center">
+    <Box sx={{ width: '80%' }} >
+        <Stack>
+          <Image
+              width={100}
+              height={100}
+              src={logo.src}
+              alt="Image"
+              blurDataURL={logo.src}
+              className="mx-auto"
+          />  
         </Stack>
+        <p className="text-2xl font-['Oswald'] mb-12 text-center mx-auto">SNIA PHOTO APP</p>
+        <Box>
+          <Stack spacing={2}>
+            <Button variant="outlined" color="success" endIcon={<MarkEmailReadIcon />}><Link className="w-full py-4 text-lg" href="/email">Aplikasi Email</Link></Button>
+            <Button variant="outlined" endIcon={<DescriptionIcon />}><Link className="w-full py-4 text-lg" href="/nota">Pembuatan Nota</Link></Button>
+          </Stack>
+        </Box>
+        <Analytics />
       </Box>
-      <Analytics />
-    </main>
+    // </main>
   )
 }

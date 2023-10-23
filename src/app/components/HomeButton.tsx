@@ -46,9 +46,5 @@ export default function FormEmail({ idUser }: { idUser: any}){
 
     pushId()
     
-    return (
-         <main className="flex min-h-screen flex-col items-center py-64">
-            <Button variant="outlined" color="success" onClick={handleSignIn} className="px-24 py-8 text-2xl">Login</Button>
-        </main>
-    )
+    return <Button variant="outlined" color="success" onClick={handleSignIn} className="px-16 py-8 text-2xl my-32">Login</Button>
 }
