@@ -33,12 +33,18 @@ export default function FormEmail({ idUser }: { idUser: any}){
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             if (currentUser) {
-                setUserId(currentUser.uid.toString())
+                const uid = currentUser.uid
+                setUserId(uid.toString())
             }
         });
-        idUser(userId)
         return () => unsubscribe();
     }, [user]);
+    
+    function pushId(){
+        idUser(userId)
+    }
+
+    pushId()
     
     return (
          <main className="flex min-h-screen flex-col items-center py-64">
