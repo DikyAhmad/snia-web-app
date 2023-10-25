@@ -5,6 +5,7 @@ import { TextField, Stack, Box, InputLabel, MenuItem, FormControl, Select, Butto
 import { PDFDownloadLink} from '@react-pdf/renderer/lib/react-pdf.browser.cjs.js';
 import PdfGenerator from './PdfGenerator'
 import BackspaceSharpIcon from '@mui/icons-material/BackspaceSharp';
+import DownloadIcon from '@mui/icons-material/Download';
 import Link from 'next/link'
 
 export default function NotaForm(){
@@ -93,8 +94,8 @@ export default function NotaForm(){
 
     return(
         <main className="flex min-h-screen flex-col items-center items-stretch pt-12 px-4">
-            <p className="text-2xl font-['Oswald'] my-8 text-center mx-auto">Pembuatan Nota</p>
             <Box sx={{ width: '100%' }} > 
+                <p className="text-2xl font-['Oswald'] my-8 text-center mx-auto">Pembuatan Nota</p>
                 <Stack spacing={2} className="mx-2">
                     {service.map(({name, types}, index) => (
                         <FormControl fullWidth key={index}>
@@ -133,7 +134,7 @@ export default function NotaForm(){
                     <Button onClick={handleAmount}>Simpan</Button>
                 </DialogActions>
             </Dialog>
-            <Box sx={{ width: '95%' }} className="my-4" hidden={stateTable}> 
+            <Box sx={{ width: '100%' }} className="my-4" hidden={stateTable}> 
                 <Stack spacing={2}>
                     <Divider/>
                     <p className="text-xl font-['Oswald'] my-8 text-center mx-auto">List Item</p>
@@ -165,7 +166,7 @@ export default function NotaForm(){
                         </Table>
                     </TableContainer>
                     <PDFDownloadLink document={<PdfGenerator datas={listChoose} />} fileName="notapembayaran.pdf">
-                        <Button variant="outlined" color="error" className="py-4 w-full">
+                        <Button variant="outlined" className="py-4 w-full" endIcon={<DownloadIcon />}>
                              Download
                         </Button>
                     </PDFDownloadLink>

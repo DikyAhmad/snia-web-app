@@ -9,7 +9,7 @@ export default function Page() {
     const [id, setId] = useState("")
 
     return (
-        <main className="flex min-h-screen flex-col items-center pt-24">
+        <main className="flex min-h-screen flex-col items-center pt-16">
             {id === "JOdGNYHekQO2bUZVYZTZ94ksG2s1" || id === "gvILTVngNAQmp8MIfQ8ExzkAwax1"? (
                 <DynamicHome/>
             ): (
