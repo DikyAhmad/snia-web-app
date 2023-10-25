@@ -12,7 +12,6 @@ import dynamic from 'next/dynamic'
 
 export default function HomePage() {
   return (
-    // <main className="flex flex-col justify-center">
     <Box sx={{ width: '80%' }} >
         <Stack>
           <Image
@@ -29,10 +28,10 @@ export default function HomePage() {
           <Stack spacing={2}>
             <Button variant="outlined" color="success" endIcon={<MarkEmailReadIcon />}><Link className="w-full py-4 text-lg" href="/email">Aplikasi Email</Link></Button>
             <Button variant="outlined" endIcon={<DescriptionIcon />}><Link className="w-full py-4 text-lg" href="/nota">Pembuatan Nota</Link></Button>
+            <Button variant="outlined" color="secondary" endIcon={<DescriptionIcon />}><Link className="w-full py-4 text-lg" href="https://express.adobe.com/tools/remove-background">Remove Background</Link></Button>
           </Stack>
         </Box>
         <Analytics />
       </Box>
-    // </main>
   )
 }
