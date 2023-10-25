@@ -166,7 +166,7 @@ export default function NotaForm(){
                         </Table>
                     </TableContainer>
                     <PDFDownloadLink document={<PdfGenerator datas={listChoose} />} fileName="notapembayaran.pdf">
-                        <Button variant="outlined" className="py-4 w-full" endIcon={<DownloadIcon />}>
+                        <Button variant="outlined" className="w-full" size="large" endIcon={<DownloadIcon />}>
                              Download
                         </Button>
                     </PDFDownloadLink>

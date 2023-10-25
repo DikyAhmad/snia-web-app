@@ -120,7 +120,7 @@ export default function FormEmail(){
                         <MenuItem value={"Document"}>Document</MenuItem>
                         </Select>
                     </FormControl>
-                    <Button variant="outlined" color="success" className="py-4 text-xl" onClick={sendEmail} endIcon={<SendIcon />}>Kirim</Button>
+                    <Button variant="outlined" color="success" size="large" onClick={sendEmail} endIcon={<SendIcon />}>Kirim</Button>
                 </Stack>
             </Box>
         </main>
