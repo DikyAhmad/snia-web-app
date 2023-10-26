@@ -14,7 +14,8 @@ import dynamic from 'next/dynamic'
 export default function HomePage() {
 
   return (
-    <Box sx={{ width: '80%' }} >
+    <Box className="w-full px-8 lg:px-24 2xl:px-72 my-auto" >
+      <Box>
         <Stack>
           <Image
               width={100}
@@ -26,14 +27,15 @@ export default function HomePage() {
           />  
            <p className="text-2xl font-['Oswald'] mb-12 text-center">SNIA PHOTO APP</p>
         </Stack>
-        <Box>
-          <Stack spacing={3}>
-            <Button variant="outlined" color="success" endIcon={<MarkEmailReadIcon />}><Link className="w-full py-4 text-lg" href="/email">Aplikasi Email</Link></Button>
-            <Button variant="outlined" endIcon={<DescriptionIcon />}><Link className="w-full py-4 text-lg" href="/nota">Pembuatan Nota</Link></Button>
-            <Button variant="outlined" color="secondary" endIcon={<WallpaperIcon/>} ><Link className="w-full py-4 text-lg" href="https://express.adobe.com/tools/remove-background">Hapus Background</Link></Button>
-          </Stack>
-        </Box>
-        <Analytics />
       </Box>
+      <Box className="py-auto mb-32">
+        <Stack spacing={3}>
+          <Button variant="outlined" color="success" endIcon={<MarkEmailReadIcon />}><Link className="w-full py-4 text-lg" href="/email">Aplikasi Email</Link></Button>
+          <Button variant="outlined" endIcon={<DescriptionIcon />}><Link className="w-full py-4 text-lg" href="/nota">Pembuatan Nota</Link></Button>
+          <Button variant="outlined" color="secondary" endIcon={<WallpaperIcon/>} ><Link className="w-full py-4 text-lg" href="https://express.adobe.com/tools/remove-background">Hapus Background</Link></Button>
+        </Stack>
+      </Box>
+      <Analytics />
+    </Box>
   )
 }

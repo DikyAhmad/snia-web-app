@@ -100,9 +100,10 @@ export default function FormEmail(){
     }
 
     return(
-        <Box className="flex min-h-screen flex-col lg:px-96 items-center py-28">
-            <p className="text-3xl font-['Oswald'] my-8 text-center mx-auto">EMAIL APP</p>
-            <Box className="w-full px-8" > 
+        <Box className="flex min-h-screen flex-col lg:px-24 2xl:px-72">
+            <Box className="my-auto mt-32 xl:mt-72">
+                <p className="text-3xl font-['Oswald'] text-center my-4">EMAIL APP</p>
+                <Box className="w-full px-8 lg:px-72"> 
                     <Stack spacing={2} className="mx-2">
                         <TextField id="outlined-basic" label="Email Penerima" variant="outlined" error ={errorEmail} helperText={helperEmail} onChange={e=> setEmail(e.target.value)}/>
                         <FormControl fullWidth error={errorLayanan}>
@@ -122,6 +123,7 @@ export default function FormEmail(){
                         </FormControl>
                         <Button variant="outlined" color="success" size="large" onClick={sendEmail} endIcon={<SendIcon />}>Kirim</Button>
                     </Stack>
+                </Box>
             </Box>
         </Box>
     )

@@ -93,9 +93,10 @@ export default function NotaForm(){
     }
 
     return(
-        <main className="flex min-h-screen flex-col items-center items-stretch pt-12 px-4">
-            <Box sx={{ width: '100%' }} > 
-                <p className="text-2xl font-['Oswald'] my-8 text-center mx-auto">Pembuatan Nota</p>
+        <Box className="flex min-h-screen flex-col items-center mt-8">
+            <Box className="w-full px-8 lg:px-72 xl:px-96">
+            <Box className=""> 
+                <p className="text-3xl font-['Oswald'] my-8 text-center mx-auto">Pembuatan Nota</p>
                 <Stack spacing={2} className="mx-2">
                     {service.map(({name, types}, index) => (
                         <FormControl fullWidth key={index}>
@@ -134,7 +135,7 @@ export default function NotaForm(){
                     <Button onClick={handleAmount}>Simpan</Button>
                 </DialogActions>
             </Dialog>
-            <Box sx={{ width: '100%' }} className="my-4" hidden={stateTable}> 
+            <Box className="w-full px-2 mb-8 mt-4" hidden={stateTable}> 
                 <Stack spacing={2}>
                     <Divider/>
                     <p className="text-xl font-['Oswald'] my-8 text-center mx-auto">List Item</p>
@@ -172,6 +173,7 @@ export default function NotaForm(){
                     </PDFDownloadLink>
                 </Stack>
             </Box>
-        </main>
+            </Box>
+        </Box>
     )
 }
