@@ -100,29 +100,29 @@ export default function FormEmail(){
     }
 
     return(
-        <main className="flex min-h-screen flex-col items-center p-8 py-20">
-            <p className="text-2xl font-['Oswald'] my-12 text-center mx-auto">EMAIL APP</p>
-            <Box sx={{ width: '100%' }} > 
-                <Stack spacing={2} className="mx-2">
-                    <TextField id="outlined-basic" label="Email Penerima" variant="outlined" error ={errorEmail} helperText={helperEmail} onChange={e=> setEmail(e.target.value)}/>
-                    <FormControl fullWidth error={errorLayanan}>
-                        <InputLabel id="demo-simple-select-label">Tipe Layanan</InputLabel>
-                        <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={value}
-                        label="Tipe Layanan"
-                        onChange={handleChangeService}
-                        >
-                        <MenuItem value={"Foto Studio"}>Foto Studio</MenuItem>
-                        <MenuItem value={"Cetak Foto"}>Cetak Foto</MenuItem>
-                        <MenuItem value={"Edit Foto"}>Edit Foto</MenuItem>
-                        <MenuItem value={"Document"}>Document</MenuItem>
-                        </Select>
-                    </FormControl>
-                    <Button variant="outlined" color="success" size="large" onClick={sendEmail} endIcon={<SendIcon />}>Kirim</Button>
-                </Stack>
+        <Box className="flex min-h-screen flex-col lg:px-96 items-center py-28">
+            <p className="text-3xl font-['Oswald'] my-8 text-center mx-auto">EMAIL APP</p>
+            <Box className="w-full px-8" > 
+                    <Stack spacing={2} className="mx-2">
+                        <TextField id="outlined-basic" label="Email Penerima" variant="outlined" error ={errorEmail} helperText={helperEmail} onChange={e=> setEmail(e.target.value)}/>
+                        <FormControl fullWidth error={errorLayanan}>
+                            <InputLabel id="demo-simple-select-label">Tipe Layanan</InputLabel>
+                            <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={value}
+                            label="Tipe Layanan"
+                            onChange={handleChangeService}
+                            >
+                            <MenuItem value={"Foto Studio"}>Foto Studio</MenuItem>
+                            <MenuItem value={"Cetak Foto"}>Cetak Foto</MenuItem>
+                            <MenuItem value={"Edit Foto"}>Edit Foto</MenuItem>
+                            <MenuItem value={"Document"}>Document</MenuItem>
+                            </Select>
+                        </FormControl>
+                        <Button variant="outlined" color="success" size="large" onClick={sendEmail} endIcon={<SendIcon />}>Kirim</Button>
+                    </Stack>
             </Box>
-        </main>
+        </Box>
     )
 }

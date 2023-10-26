@@ -24,7 +24,7 @@ export default function HomePage() {
               blurDataURL={logo.src}
               className="mx-auto"
           />  
-           <p className="text-2xl font-['Oswald'] mb-12 text-center mx-auto">SNIA PHOTO APP</p>
+           <p className="text-2xl font-['Oswald'] mb-12 text-center">SNIA PHOTO APP</p>
         </Stack>
         <Box>
           <Stack spacing={3}>
