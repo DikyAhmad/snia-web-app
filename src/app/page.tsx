@@ -1,11 +1,17 @@
 'use client';
 import { useState, useEffect } from 'react'
 import dynamic from 'next/dynamic'
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function Page() {
     
     const DynamicHome = dynamic(() => import('./components/Home'))
-    const DynamicButton = dynamic(() => import('./components/HomeButton'))
+    const DynamicButton = dynamic(() => import('./components/HomeButton'), {
+        loading: () => 
+        <main className="m-auto">
+            <CircularProgress color="success"/>
+        </main>
+    })
     const [id, setId] = useState("")
 
     return (

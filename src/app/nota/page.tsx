@@ -7,8 +7,10 @@ export default function NotaPage() {
 
     const DynamicNota = dynamic(() => import('./components/NotaForm'), {
         loading: () => 
-        <main className="flex min-h-screen flex-col items-center py-auto">
-            <CircularProgress color="success" className="py-32"/>
+        <main className="flex min-h-screen flex-col lg:px-96">
+            <main className="m-auto">
+                <CircularProgress color="success"/>
+            </main>
         </main>
     })
 

@@ -101,7 +101,7 @@ export default function FormEmail(){
 
     return(
         <Box className="flex min-h-screen flex-col lg:px-24 2xl:px-72">
-            <Box className="my-auto mt-32 xl:mt-72">
+            <Box className="my-auto mt-32 xl:mt-48">
                 <p className="text-3xl font-['Oswald'] text-center my-4">EMAIL APP</p>
                 <Box className="w-full px-8 lg:px-72"> 
                     <Stack spacing={2} className="mx-2">
