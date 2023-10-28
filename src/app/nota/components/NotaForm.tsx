@@ -1,17 +1,21 @@
 'use client'
 'use strict'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TextField, Stack, Box, InputLabel, MenuItem, FormControl, Select, Button, Alert, Fade, Typography, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, Divider } from '@mui/material';
 import { PDFDownloadLink} from '@react-pdf/renderer/lib/react-pdf.browser.cjs.js';
+import { collection, doc, setDoc, getDoc, getDocs, query, where } from "firebase/firestore";
 import PdfGenerator from './PdfGenerator'
 import BackspaceSharpIcon from '@mui/icons-material/BackspaceSharp';
 import DownloadIcon from '@mui/icons-material/Download';
+import { db } from "../../firebase";
 import Link from 'next/link'
 
 export default function NotaForm(){
 
+    
     const [choose, setChoose] = useState("")
     const [amount, setAmount] = useState("")
+    const [codePayment, setCodePayment] = useState("")
     const [selectedPrice, setSelectedPrice] = useState(0)
     const [stateTable, setStateTable] = useState(true)
     const [finalPrice, setFinalPrice] = useState(0)
@@ -92,6 +96,28 @@ export default function NotaForm(){
         }
     }
 
+    function generateCodePayment(){
+        const date = new Date()
+        function addZero(i: number) {
+            let x = ""
+            if (i < 10) {
+                x = "0" + i
+                return x
+            } else {
+                return i
+            }
+        }
+        const detik = addZero(date.getSeconds())
+        const jam = addZero(date.getHours())
+        const menit = addZero(date.getMinutes())
+        const hari = date.getDate()
+        const bulan = date.getMonth()
+        const tahun = date.getFullYear().toString()
+        return setCodePayment(jam+""+menit+""+detik+""+hari+""+(bulan+1)+""+tahun.slice(2,4))
+    }
+
+    
+
     return(
         <Box className="flex min-h-screen flex-col items-center mt-8">
             <Box className="w-full px-8 lg:px-72 xl:px-96">
@@ -166,7 +192,7 @@ export default function NotaForm(){
                             </TableBody>
                         </Table>
                     </TableContainer>
-                    <PDFDownloadLink document={<PdfGenerator datas={listChoose} />} fileName="notapembayaran.pdf">
+                    <PDFDownloadLink document={<PdfGenerator datas={listChoose} />} onClick={generateCodePayment} fileName={"Nota_Pembayaran_"+codePayment+".pdf"} >
                         <Button variant="outlined" className="w-full" size="large" endIcon={<DownloadIcon />}>
                              Download
                         </Button>

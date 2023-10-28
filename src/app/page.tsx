@@ -4,7 +4,6 @@ import dynamic from 'next/dynamic'
 import CircularProgress from '@mui/material/CircularProgress';
 
 export default function Page() {
-    
     const DynamicHome = dynamic(() => import('./components/Home'))
     const DynamicButton = dynamic(() => import('./components/HomeButton'), {
         loading: () => 
