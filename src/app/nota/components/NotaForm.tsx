@@ -121,7 +121,7 @@ export default function NotaForm(){
             const docSnap = await getDoc(docRef)
 
             const finalData = Object.values(docSnap.data() as any)
-            finalData.sort(function (a, b) {
+            finalData.sort((a: any, b: any) => {
             if (a.name < b.name) {
                 return -1;
             }
@@ -132,7 +132,6 @@ export default function NotaForm(){
             });
 
             setService(finalData)
-            console.log(docSnap.data())
         }
         
         
