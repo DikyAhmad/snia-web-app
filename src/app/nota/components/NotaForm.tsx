@@ -119,8 +119,22 @@ export default function NotaForm(){
         async function loadData(){
             const docRef = doc(db, "layanan", "services");
             const docSnap = await getDoc(docRef)
-            setService(Object.values(docSnap.data() as any))
+
+            const finalData = Object.values(docSnap.data() as any)
+            finalData.sort(function (a, b) {
+            if (a.name < b.name) {
+                return -1;
+            }
+            if (a.name > b.name) {
+                return 1;
+            }
+                return 0;
+            });
+
+            setService(finalData)
+            console.log(docSnap.data())
         }
+        
         
         loadData()
        
