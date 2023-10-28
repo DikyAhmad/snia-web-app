@@ -5,6 +5,7 @@ import { initializeApp } from "firebase/app";
 
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+import { getStorage } from "firebase/storage";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -15,11 +16,15 @@ const firebaseConfig = {
   storageBucket: "snia-app.appspot.com",
   messagingSenderId: "134851073423",
   appId: "1:134851073423:web:673a1ddbc2fa23d4d9e7fa",
-  measurementId: "G-ZCRNC7GDSM"
+  measurementId: "G-ZCRNC7GDSM",
+  storageBucket: 'gs://snia-app.appspot.com'
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+
+// Initialize Cloud Storage and get a reference to the service
+export const storage = getStorage(app);
 
 // Initialize Cloud Firestore and get a reference to the service
 export const db = getFirestore(app);

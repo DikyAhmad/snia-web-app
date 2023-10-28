@@ -3,12 +3,15 @@
 import React, { useState, useEffect } from 'react';
 import { TextField, Stack, Box, InputLabel, MenuItem, FormControl, Select, Button, Alert, Fade, Typography, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, Divider } from '@mui/material';
 import { PDFDownloadLink} from '@react-pdf/renderer/lib/react-pdf.browser.cjs.js';
+import { pdf } from '@react-pdf/renderer';
 import { doc, getDoc } from "firebase/firestore";
+import { getStorage, ref, uploadBytes } from "firebase/storage";
 import PdfGenerator from './PdfGenerator'
 import BackspaceSharpIcon from '@mui/icons-material/BackspaceSharp';
 import DownloadIcon from '@mui/icons-material/Download';
 import { db } from "../../firebase";
 import Link from 'next/link'
+import image from '../../../../public/image/image.jpeg'
 
 export default function NotaForm(){
     const [choose, setChoose] = useState("")
@@ -96,6 +99,7 @@ export default function NotaForm(){
     }
 
     function generateCodePayment(){
+       
         const date = new Date()
         function addZero(i: number) {
             let x = ""
@@ -112,7 +116,20 @@ export default function NotaForm(){
         const hari = date.getDate()
         const bulan = date.getMonth()
         const tahun = date.getFullYear().toString()
-        return setCodePayment(jam+""+menit+""+detik+""+hari+""+(bulan+1)+""+tahun.slice(2,4))
+        const code = jam+""+menit+""+detik+""+hari+""+(bulan+1)+""+tahun.slice(2,4)
+
+        const uploadPdf = async () => {
+            const storage = getStorage();
+            const storageRef = ref(storage, "nota_"+code+".pdf");
+            const response = await pdf(<PdfGenerator datas={listChoose}/>).toBlob();
+
+            uploadBytes(storageRef, response).then((snapshot) => {
+                console.log('Uploaded PDF file!');
+            });
+        }
+
+        uploadPdf()
+        setCodePayment(code)
     }
 
     useEffect(() => {
