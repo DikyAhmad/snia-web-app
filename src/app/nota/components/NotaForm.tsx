@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { TextField, Stack, Box, InputLabel, MenuItem, FormControl, Select, Button, Alert, Fade, Typography, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, Divider } from '@mui/material';
 import { PDFDownloadLink} from '@react-pdf/renderer/lib/react-pdf.browser.cjs.js';
-import { collection, doc, setDoc, getDoc, getDocs, query, where } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import PdfGenerator from './PdfGenerator'
 import BackspaceSharpIcon from '@mui/icons-material/BackspaceSharp';
 import DownloadIcon from '@mui/icons-material/Download';
@@ -11,8 +11,6 @@ import { db } from "../../firebase";
 import Link from 'next/link'
 
 export default function NotaForm(){
-
-    
     const [choose, setChoose] = useState("")
     const [amount, setAmount] = useState("")
     const [codePayment, setCodePayment] = useState("")
@@ -24,13 +22,14 @@ export default function NotaForm(){
     const [totalPrice, setTotalPrice] = useState(0)
     const [listChoose, setListChoose] = useState<{layanan: string; jumlah: number; harga: number; totalHarga: number}[]>([
     ],)
-    const [service, setService] = useState([
-        {name:'Foto Studio', types:['2x3', '3x4', '4x6', '2R', '3R', '4R', '5R', '10R', '10RS'], price:[1500, 1500, 1500, 2000, 4000, 5000, 8000, 15000, 18000]},
-        {name:'Cetak Foto', types:['2x3', '3x4', '4x6', '2R', '3R', '4R', '5R', '10R', '10RS'], price:[1500, 1500, 1500, 2000, 4000, 5000, 8000, 15000, 18000]},
-        {name:'Print', types:['HVS A4 Warna', 'HVS A4 Hitam Putih'], price:[500, 1000]},
-        {name:'Edit', types:['Foto', 'Dokumen'], price:[2000, 5000]},
-        {name:'Scan', types:['Foto', 'Dokumen'], price:[2000, 2000]},
-        ])
+    const [service, setService] = useState<any[]>([])
+    // const [service, setService] = useState([
+    //     {name:'Foto Studio', types:['2x3', '3x4', '4x6', '2R', '3R', '4R', '5R', '10R', '10RS'], price:[1500, 1500, 1500, 2000, 4000, 5000, 8000, 15000, 18000]},
+    //     {name:'Cetak Foto', types:['2x3', '3x4', '4x6', '2R', '3R', '4R', '5R', '10R', '10RS'], price:[1500, 1500, 1500, 2000, 4000, 5000, 8000, 15000, 18000]},
+    //     // {name:'Print', types:['HVS A4 Warna', 'HVS A4 Hitam Putih'], price:[500, 1000]},
+    //     // {name:'Edit', types:['Foto', 'Dokumen'], price:[2000, 5000]},
+    //     // {name:'Scan', types:['Foto', 'Dokumen'], price:[2000, 2000]},
+    //     ])
         
     const [open, setOpen] = useState(false);
 
@@ -116,6 +115,16 @@ export default function NotaForm(){
         return setCodePayment(jam+""+menit+""+detik+""+hari+""+(bulan+1)+""+tahun.slice(2,4))
     }
 
+    useEffect(() => {
+        async function loadData(){
+            const docRef = doc(db, "layanan", "services");
+            const docSnap = await getDoc(docRef)
+            setService(Object.values(docSnap.data() as any))
+        }
+        
+        loadData()
+       
+    },[],);
     
 
     return(
@@ -135,7 +144,7 @@ export default function NotaForm(){
                             onChange={e => handleChange(e, name, index)}
                             // onKeyPress={e => handleKey(e)}
                             >
-                            {types.map((type, id) => <MenuItem key={id} value={type} >{type}</MenuItem>)}
+                            {types.map((type: any, id: number) => <MenuItem key={id} value={type} >{type}</MenuItem>)}
                             </Select>
                         </FormControl>
                     ))}
