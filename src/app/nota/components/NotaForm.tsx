@@ -5,7 +5,7 @@ import { TextField, Stack, Box, InputLabel, MenuItem, FormControl, Select, Butto
 import { PDFDownloadLink} from '@react-pdf/renderer/lib/react-pdf.browser.cjs.js';
 import { pdf } from '@react-pdf/renderer';
 import { doc, getDoc } from "firebase/firestore";
-import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { getStorage, ref, uploadBytes, getMetadata, getDownloadURL } from "firebase/storage";
 import PdfGenerator from './PdfGenerator'
 import BackspaceSharpIcon from '@mui/icons-material/BackspaceSharp';
 import DownloadIcon from '@mui/icons-material/Download';
@@ -14,6 +14,7 @@ import Link from 'next/link'
 import image from '../../../../public/image/image.jpeg'
 
 export default function NotaForm(){
+    const [urlPdf, setUrlPdf] = useState()
     const [choose, setChoose] = useState("")
     const [amount, setAmount] = useState("")
     const [codePayment, setCodePayment] = useState("")
@@ -26,13 +27,6 @@ export default function NotaForm(){
     const [listChoose, setListChoose] = useState<{layanan: string; jumlah: number; harga: number; totalHarga: number}[]>([
     ],)
     const [service, setService] = useState<any[]>([])
-    // const [service, setService] = useState([
-    //     {name:'Foto Studio', types:['2x3', '3x4', '4x6', '2R', '3R', '4R', '5R', '10R', '10RS'], price:[1500, 1500, 1500, 2000, 4000, 5000, 8000, 15000, 18000]},
-    //     {name:'Cetak Foto', types:['2x3', '3x4', '4x6', '2R', '3R', '4R', '5R', '10R', '10RS'], price:[1500, 1500, 1500, 2000, 4000, 5000, 8000, 15000, 18000]},
-    //     // {name:'Print', types:['HVS A4 Warna', 'HVS A4 Hitam Putih'], price:[500, 1000]},
-    //     // {name:'Edit', types:['Foto', 'Dokumen'], price:[2000, 5000]},
-    //     // {name:'Scan', types:['Foto', 'Dokumen'], price:[2000, 2000]},
-    //     ])
         
     const [open, setOpen] = useState(false);
 
@@ -122,10 +116,31 @@ export default function NotaForm(){
             const storage = getStorage();
             const storageRef = ref(storage, "nota_"+code+".pdf");
             const response = await pdf(<PdfGenerator datas={listChoose}/>).toBlob();
+            
 
-            uploadBytes(storageRef, response).then((snapshot) => {
+            await uploadBytes(storageRef, response).then((snapshot) => {
                 console.log('Uploaded PDF file!');
             });
+
+            await getDownloadURL(ref(storage as any, storageRef as any))
+                .then((url: any) => {
+                    const xhr = new XMLHttpRequest();
+                    xhr.responseType = 'blob';
+                    xhr.onload = (event) => {
+                    const blob = xhr.response;
+                    };
+                    xhr.open('GET', url);
+                    xhr.send();
+
+                    // Or inserted into an <img> element
+                    // console.log("Ini linknya : "+url)
+                    setUrlPdf(url)
+                })
+                .catch((error) => {
+                    // Handle any errors
+                });
+            console.log("Ini linknya : "+await urlPdf)
+            
         }
 
         uploadPdf()
@@ -147,10 +162,10 @@ export default function NotaForm(){
             }
                 return 0;
             });
-
+           
             setService(finalData)
+            // console.log("aaa",finalData)
         }
-        
         
         loadData()
        

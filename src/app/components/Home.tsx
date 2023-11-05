@@ -32,6 +32,7 @@ export default function HomePage() {
         <Stack spacing={3}>
           <Button variant="outlined" color="success" endIcon={<MarkEmailReadIcon />}><Link className="w-full py-4 text-lg" href="/email">Aplikasi Email</Link></Button>
           <Button variant="outlined" endIcon={<DescriptionIcon />}><Link className="w-full py-4 text-lg" href="/nota">Pembuatan Nota</Link></Button>
+          <Button variant="outlined" endIcon={<DescriptionIcon />}><Link className="w-full py-4 text-lg" href="/man">MAN</Link></Button>
           <Button variant="outlined" color="secondary" endIcon={<WallpaperIcon/>} ><Link className="w-full py-4 text-lg" href="https://express.adobe.com/tools/remove-background">Hapus Background</Link></Button>
         </Stack>
       </Box>
