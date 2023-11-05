@@ -1,17 +1,11 @@
 'use client';
 'use strict';
 import React, { useState, useEffect } from 'react';
-import { Button, Box, Stack, Chip, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
-import { db } from "../../firebase";
-import { doc, getDoc } from "firebase/firestore";
-import Dialog from '@mui/material/Dialog';
-import Divider from '@mui/material/Divider';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
+import { Button, Box, Stack, Chip, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Dialog, Divider, AppBar, Toolbar, IconButton,  Typography, Slide, TextField} from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import Slide from '@mui/material/Slide';
+import { database } from "../../firebase";
+import { doc, getDoc, collection, query, getDocs, setDoc, addDoc } from "firebase/firestore";
+import { getDatabase, ref, set, onValue, get, push, update} from "firebase/database";
 
 const Transition = React.forwardRef(function Transition(props: any, ref: any) {
   return (
@@ -19,72 +13,137 @@ const Transition = React.forwardRef(function Transition(props: any, ref: any) {
   )
 });
 
-
 export default function ManList() {
-
-    const [dataMan, setDataMan] = useState<any[]>([])
-    const babap = ["aa", "bbb", "ccc"]
+    const [keyState, setKeyState] = useState("")
+    const [allKey, setAllKey] = useState([])
+    const [addState, setAddState] = useState(true)
+    const [dataState, setDataState] = useState("")
+    const [dataFinal, setDataFinal] = useState([])
+    const [name, setName] = useState("")
+    const [kelas, setKelas] = useState("")
+    const [nim, setNim] = useState(NaN)
 
     const [open, setOpen] = React.useState(false);
 
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
+    const handleClickOpen = (name: string, kelas: string, nim: number, index: number) => {
+        handleData(name, kelas, nim)
+        setKeyState(allKey[index])
+        setDataState("Edit")
+        setAddState(false)
+        setOpen(true);   
+    }
 
     const handleClose = () => {
         setOpen(false);
-    };
+    }
+
+    const addData = () => {
+        handleData("", "", NaN)
+        setDataState("Tambah Data")
+        setAddState(true)
+        setOpen(true)
+    }
+
+    const handleData = (name: string, kelas: string, nim: number) => {
+        setName(name)
+        setKelas(kelas)
+        setNim(nim)
+    }
+
+    const handleSave = async () => {
+        if(addState) return handleInputData()
+        if(!addState) return handleEditData()
+    }
+
+    const handleEditData = async() => {
+        const postListRef = ref(database, 'man_insan');
+        const updateData = {
+            nama: name,
+            kelas: kelas,
+            nim: nim
+        }
+        const updates = {} as any;
+        updates['/man_insan/' + keyState] = updateData;
+        handleClose()
+
+        return update(ref(database), updates);
+    }
+
+    const handleRemoveData = async() => {
+        const postListRef = ref(database, 'man_insan');
+        const removeData = {} as any;
+        removeData['/man_insan/' + keyState] = null;
+        handleClose()
+
+        return update(ref(database), removeData);
+    }
+
+    const handleInputData = async () => {
+        const postListRef = ref(database, 'man_insan');
+        const newPostRef = await push(postListRef);
+        set(newPostRef, {
+            nama: name,
+            kelas: kelas,
+            nim: nim
+        });
+
+        handleClose()
+    }
 
   
     useEffect(() => {
-        async function loadData(){
-            const docRef = doc(db, "layanan", "services");
-            const docSnap = await getDoc(docRef)
+        const loadData = async () => {
+            const dbRef = ref(database, 'man_insan');
 
-            const finalData = Object.values(docSnap.data() as any)
-            finalData.sort((a: any, b: any) => {
-            if (a.name < b.name) {
-                return -1;
-            }
-            if (a.name > b.name) {
-                return 1;
-            }
-                return 0;
-            });
-            
-            setDataMan(finalData)
-            // console.log(finalData)
+            onValue(dbRef, (snapshot) => {
+                let finalData = [] as any
+                let key = [] as any
+                snapshot.forEach((childSnapshot) => {
+                    const childKey = childSnapshot.key;
+                    const childData = childSnapshot.val();
+                    finalData.push(childData)
+                    key.push(childKey)
+                });
+                setDataFinal(finalData)
+                setAllKey(key)
+            },);
+        }
+        return () => {
+            loadData()
         }
 
-        loadData()
-        
+        // return loadData
     },[],);
 
     return (
       <Box className="w-full flex min-h-screen flex-col lg:px-24 2xl:px-72" >
         <p className="text-3xl font-['Oswald'] mx-auto pt-4">SNIA PHOTO</p>
-        <Button variant="outlined" sx={{ width: '90%'}}className="mx-auto mt-2">Tambah Data</Button>
-        <Box sx={{ width: '90%', maxWidth: 360, bgcolor: 'background.paper' }} className="mx-auto mt-4">
+        <Button variant="outlined" className="mt-2 mx-5" onClick={addData}>Tambah Data</Button>
+        <Box sx={{ width: '90%', maxWidth: 360, bgcolor: 'background.paper' }} className="mx-auto my-4">
 
             <nav aria-label="secondary mailbox folders">
                 <List>
                 {
-                    dataMan.map(({name, price}, index) => {
-                        return(
-                            <ListItem disablePadding key={index}>
-                                <ListItemButton>
-                                    <ListItemText primary={name} secondary={price[0]} />
-                                </ListItemButton>
-                            </ListItem>
+                    dataFinal.map(({nama, kelas, nim}, index) => {
+                        return (
+                            <Box key={index}>
+                                <Stack direction="row" >
+                                <ListItem>
+                                    <ListItemButton onClick={e => handleClickOpen(nama, kelas, nim, index)}>
+                                        <ListItemText primary={nama} secondary={kelas}/>
+                                        <ListItemText secondary={"Urutan "+(index+1)} className="text-end"/>
+                                    </ListItemButton>
+                                </ListItem>
+                                <Divider/>
+                                </Stack>
+                            </Box>
                         )
                     })
                 }
                 </List>
             </nav>
         </Box>
-        <Button variant="outlined" onClick={handleClickOpen} className="mx-auto mt-4" sx={{ width: '90%'}}>
-            Open full-screen dialog
-        </Button>
+      
         <Dialog
             fullScreen
             open={open}
@@ -102,25 +161,17 @@ export default function ManList() {
                 <CloseIcon />
                 </IconButton>
                 <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-                Sound
+                {dataState}
                 </Typography>
-                <Button autoFocus color="inherit" onClick={handleClose}>
+                <Button autoFocus color="inherit" onClick={handleSave}>
                 save
                 </Button>
             </Toolbar>
             </AppBar>
-            <List>
-            <ListItem button>
-                <ListItemText primary="Phone ringtone" secondary="Titania" />
-            </ListItem>
-            <Divider />
-            <ListItem button>
-                <ListItemText
-                primary="Default notification ringtone"
-                secondary="Tethys"
-                />
-            </ListItem>
-            </List>
+            <TextField id="outlined-basic" label="Nama" value={name} variant="outlined" className="mt-8 mx-4" onChange={e => setName(e.target.value)}/>
+            <TextField id="outlined-basic" label="Kelas" value={kelas} variant="outlined" className="mt-8 mx-4" onChange={e => setKelas(e.target.value)}/>
+            <TextField id="outlined-basic" label="Nim" value={nim} type="number" variant="outlined" className="mt-8 mx-4" onChange={e => setNim(parseInt(e.target.value))}/>
+            <Button variant="outlined" className="mt-4 mx-5" onClick={handleRemoveData} color="error" hidden={addState}>Delete</Button>
         </Dialog>
       </Box>
     )

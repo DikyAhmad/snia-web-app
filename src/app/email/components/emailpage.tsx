@@ -11,7 +11,7 @@ export default function FormEmail(){
     const [service, setService] = useState("");
     const [body, setBody] = useState("");
     const hours = new Date().getHours();
-    const [value, setValue] = useState<string>("");
+    const [value, setValue] = useState("");
 
     const [errorEmail, setErrorEmail] = useState(false)
     const [errorLayanan, setErrorLayanan] = useState(false)
@@ -44,14 +44,7 @@ export default function FormEmail(){
     function sendEmail(){
         checkService(service)
         validateForm()
-        // pushToDb()
     }
-
-    // const pushToDb = async () => {
-    //     await addDoc(collection(db, 'user'), {
-    //         name: email,
-    //     })
-    // }
 
     function validateForm(){
         if(isValidEmail(email)){
