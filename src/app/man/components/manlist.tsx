@@ -1,7 +1,7 @@
 'use client';
 'use strict';
 import React, { useState, useEffect } from 'react';
-import { Button, Box, Stack, Chip, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Dialog, Divider, AppBar, Toolbar, IconButton,  Typography, Slide, TextField} from '@mui/material';
+import { Button, Box, Stack, Chip, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Dialog, Divider, AppBar, Toolbar, IconButton,  Typography, Slide, TextField, Hidden} from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { database } from "../../firebase";
 import { doc, getDoc, collection, query, getDocs, setDoc, addDoc } from "firebase/firestore";
@@ -168,16 +168,16 @@ export default function ManList() {
                 <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
                 {dataState}
                 </Typography>
-                <Button autoFocus color="inherit" onClick={handleSave}>
-                save
-                </Button>
             </Toolbar>
             </AppBar>
                 <Stack spacing={2} className="mt-8 mx-4">
                     <TextField id="outlined-basic" label="Nama" value={name} variant="outlined" className="mt-8 mx-4" onChange={e => setName(e.target.value)}/>
                     <TextField id="outlined-basic" label="Kelas" value={kelas} variant="outlined" className="mt-8 mx-4" onChange={e => setKelas(e.target.value)}/>
                     <TextField id="outlined-basic" label="Nim" value={nim} type="number" variant="outlined" className="mt-8 mx-4" onChange={e => setNim(e.target.value)}/>
-                    <Button variant="outlined" className="mt-4 mx-4" onClick={handleRemoveData} color="error" hidden={addState}>Delete</Button>
+                    <Button variant="outlined" className="mt-4 mx-4" onClick={handleSave}>SAVE</Button> 
+                    {!addState && (
+                         <Button variant="outlined" className="mt-4 mx-4" onClick={handleRemoveData} color="error">Delete</Button>
+                    )}
                 </Stack>
             </Box>
         </Dialog>
