@@ -93,7 +93,7 @@ export default function ManList() {
 
   
     useEffect(() => {
-        const loadData = async () => {
+        const loadData = () => {
             const dbRef = ref(database, 'man_insan');
 
             onValue(dbRef, (snapshot) => {
