@@ -121,9 +121,9 @@ export default function ManList() {
     return (
       <Box className="w-full flex min-h-screen flex-col lg:px-24 2xl:px-72" >
         <p className="text-3xl font-['Oswald'] mx-auto pt-4">SNIA PHOTO</p>
-        <Box sx={{ width: '90%'}} className="mx-auto my-4">
+        <Box className="mx-4 my-4">
             <Button variant="outlined" className="w-full" onClick={addData}>Tambah Data</Button>
-            <Box sx={{ maxWidth: 360, bgcolor: 'background.paper' }} className="mx-auto mt-4">
+            <Box sx={{ bgcolor: 'background.paper' }} className="mx-auto mt-4">
                 <nav aria-label="secondary mailbox folders">
                     <List>
                     {
@@ -172,11 +172,11 @@ export default function ManList() {
                 </Button>
             </Toolbar>
             </AppBar>
-            <Box sx={{ width: "90%"}}>
-                <TextField id="outlined-basic" label="Nama" value={name} variant="outlined" className="mt-8 mx-4 w-full" onChange={e => setName(e.target.value)}/>
-                <TextField id="outlined-basic" label="Kelas" value={kelas} variant="outlined" className="mt-8 mx-4 w-full" onChange={e => setKelas(e.target.value)}/>
-                <TextField id="outlined-basic" label="Nim" value={nim} type="number" variant="outlined" className="mt-8 mx-4 w-full" onChange={e => setNim(parseInt(e.target.value))}/>
-                <Button variant="outlined" className="mt-4 mx-4 w-full" onClick={handleRemoveData} color="error" hidden={addState}>Delete</Button>
+            <Box className="flex min-h-screen flex-col w-full lg:px-24 2xl:px-72">
+                <TextField id="outlined-basic" label="Nama" value={name} variant="outlined" className="mt-8 mx-4" onChange={e => setName(e.target.value)}/>
+                <TextField id="outlined-basic" label="Kelas" value={kelas} variant="outlined" className="mt-8 mx-4" onChange={e => setKelas(e.target.value)}/>
+                <TextField id="outlined-basic" label="Nim" value={nim} type="number" variant="outlined" className="mt-8 mx-4" onChange={e => setNim(parseInt(e.target.value))}/>
+                <Button variant="outlined" className="mt-4 mx-4" onClick={handleRemoveData} color="error" hidden={addState}>Delete</Button>
             </Box>
         </Dialog>
       </Box>
