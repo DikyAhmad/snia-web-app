@@ -14,6 +14,7 @@ const Transition = React.forwardRef(function Transition(props: any, ref: any) {
 });
 
 export default function ManList() {
+    const db = getDatabase()
     const [keyState, setKeyState] = useState("")
     const [allKey, setAllKey] = useState([])
     const [addState, setAddState] = useState(true)
@@ -56,7 +57,7 @@ export default function ManList() {
     }
 
     const handleEditData = async() => {
-        const postListRef = ref(database, 'man_insan');
+        const postListRef = ref(db, 'man_insan');
         const updateData = {
             nama: name,
             kelas: kelas,
@@ -66,20 +67,20 @@ export default function ManList() {
         updates['/man_insan/' + keyState] = updateData;
         handleClose()
 
-        return update(ref(database), updates);
+        return update(ref(db), updates);
     }
 
     const handleRemoveData = async() => {
-        const postListRef = ref(database, 'man_insan');
+        const postListRef = ref(db, 'man_insan');
         const removeData = {} as any;
         removeData['/man_insan/' + keyState] = null;
         handleClose()
 
-        return update(ref(database), removeData);
+        return update(ref(db), removeData);
     }
 
     const handleInputData = async () => {
-        const postListRef = ref(database, 'man_insan');
+        const postListRef = ref(db, 'man_insan');
         const newPostRef = await push(postListRef);
         set(newPostRef, {
             nama: name,
