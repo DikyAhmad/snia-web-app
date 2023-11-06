@@ -93,27 +93,29 @@ export default function ManList() {
 
   
     useEffect(() => {
-        const loadData = () => {
-            const dbRef = ref(database, 'man_insan');
-
-            onValue(dbRef, (snapshot) => {
-                let finalData = [] as any
-                let key = [] as any
-                snapshot.forEach((childSnapshot) => {
-                    const childKey = childSnapshot.key;
-                    const childData = childSnapshot.val();
-                    finalData.push(childData)
-                    key.push(childKey)
-                });
-                setDataFinal(finalData)
-                setAllKey(key)
+        const loadData = async () => {
+            try {
+                const dbRef = ref(database, 'man_insan');
+                onValue(dbRef, (snapshot) => {
+                    let finalData = [] as any
+                    let key = [] as any
+                    snapshot.forEach((childSnapshot) => {
+                        const childKey = childSnapshot.key;
+                        const childData = childSnapshot.val();
+                        finalData.push(childData)
+                        key.push(childKey)
+                    });
+                    setDataFinal(finalData)
+                    setAllKey(key)
             },);
-        }
-        return () => {
-            loadData()
+            } catch(e) {
+                console.error(e);
+            }
+            
         }
 
-        // return loadData
+        loadData()
+        
     },[],);
 
     return (
