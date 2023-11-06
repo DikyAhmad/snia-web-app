@@ -15,6 +15,8 @@ const Transition = React.forwardRef(function Transition(props: any, ref: any) {
 
 export default function ManList() {
     const db = getDatabase()
+    const [sizeList, setSizeList] = useState(0)
+    const [totalList, setTotalList] = useState([])
     const [keyState, setKeyState] = useState("")
     const [allKey, setAllKey] = useState([])
     const [addState, setAddState] = useState(true)
@@ -91,7 +93,6 @@ export default function ManList() {
         handleClose()
     }
 
-  
     useEffect(() => {
         const loadData = async () => {
             try {
@@ -99,23 +100,32 @@ export default function ManList() {
                 onValue(dbRef, (snapshot) => {
                     let finalData = [] as any
                     let key = [] as any
+                    let list = [] as any
                     snapshot.forEach((childSnapshot) => {
                         const childKey = childSnapshot.key;
                         const childData = childSnapshot.val();
                         finalData.push(childData)
                         key.push(childKey)
                     });
-                    setDataFinal(finalData)
                     setAllKey(key)
-            },);
+                    const loopSizeData = () => {
+                        for (let i = snapshot.size; i >= 1; i--) {
+                            list.push(i)
+                        }
+                    }
+                    const numDescending = [...finalData].reverse((a, b) => b - a);
+                    setDataFinal(numDescending)
+                    console.log("asdsdas", numDescending)
+                    loopSizeData()
+                    setTotalList(list)
+                },);
             } catch(e) {
                 console.error(e);
             }
-            
         }
 
         loadData()
-        
+
     },[],);
 
     return (
@@ -128,17 +138,19 @@ export default function ManList() {
                     <List>
                     {
                         dataFinal.map(({nama, kelas, nim}, index) => {
+                            
                             return (
                                 <Box key={index}>
                                     <Stack direction="row" >
                                     <ListItem>
                                         <ListItemButton onClick={e => handleClickOpen(nama, kelas, nim, index)}>
                                             <ListItemText primary={nama} secondary={kelas}/>
-                                            <ListItemText secondary={"Urutan "+(index+1)} className="text-end"/>
+                                            <ListItemText secondary={"No."+(totalList[index])} className="text-end"/>
                                         </ListItemButton>
                                     </ListItem>
-                                    <Divider/>
+                                    
                                     </Stack>
+                                    <Divider/>
                                 </Box>
                             )
                         })
