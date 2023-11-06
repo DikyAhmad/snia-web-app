@@ -113,7 +113,7 @@ export default function ManList() {
                             list.push(i)
                         }
                     }
-                    const numDescending = [...finalData].reverse((a, b) => b - a);
+                    const numDescending = [...finalData].reverse() as any
                     setDataFinal(numDescending)
                     console.log("asdsdas", numDescending)
                     loopSizeData()
@@ -143,7 +143,7 @@ export default function ManList() {
                                 <Box key={index}>
                                     <Stack direction="row" >
                                     <ListItem>
-                                        <ListItemButton onClick={e => handleClickOpen(nama, kelas, nim, index)}>
+                                        <ListItemButton onClick={e => handleClickOpen(nama, kelas, nim, (totalList[index]-1))}>
                                             <ListItemText primary={nama} secondary={kelas}/>
                                             <ListItemText secondary={"No."+(totalList[index])} className="text-end"/>
                                         </ListItemButton>
