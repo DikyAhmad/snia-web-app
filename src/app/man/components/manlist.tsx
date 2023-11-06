@@ -22,11 +22,11 @@ export default function ManList() {
     const [dataFinal, setDataFinal] = useState([])
     const [name, setName] = useState("")
     const [kelas, setKelas] = useState("")
-    const [nim, setNim] = useState(NaN)
+    const [nim, setNim] = useState("")
 
     const [open, setOpen] = React.useState(false);
 
-    const handleClickOpen = (name: string, kelas: string, nim: number, index: number) => {
+    const handleClickOpen = (name: string, kelas: string, nim: string, index: number) => {
         handleData(name, kelas, nim)
         setKeyState(allKey[index])
         setDataState("Edit")
@@ -39,13 +39,13 @@ export default function ManList() {
     }
 
     const addData = () => {
-        handleData("", "", NaN)
+        handleData("", "", "")
         setDataState("Tambah Data")
         setAddState(true)
         setOpen(true)
     }
 
-    const handleData = (name: string, kelas: string, nim: number) => {
+    const handleData = (name: string, kelas: string, nim: string) => {
         setName(name)
         setKelas(kelas)
         setNim(nim)
@@ -154,6 +154,7 @@ export default function ManList() {
             onClose={handleClose}
             TransitionComponent={Transition}
         >
+            <Box>
             <AppBar sx={{ position: 'relative' }}>
             <Toolbar>
                 <IconButton
@@ -172,11 +173,12 @@ export default function ManList() {
                 </Button>
             </Toolbar>
             </AppBar>
-            <Box className="flex min-h-screen flex-col w-full lg:px-24 2xl:px-72">
-                <TextField id="outlined-basic" label="Nama" value={name} variant="outlined" className="mt-8 mx-4" onChange={e => setName(e.target.value)}/>
-                <TextField id="outlined-basic" label="Kelas" value={kelas} variant="outlined" className="mt-8 mx-4" onChange={e => setKelas(e.target.value)}/>
-                <TextField id="outlined-basic" label="Nim" value={nim} type="number" variant="outlined" className="mt-8 mx-4" onChange={e => setNim(parseInt(e.target.value))}/>
-                <Button variant="outlined" className="mt-4 mx-4" onClick={handleRemoveData} color="error" hidden={addState}>Delete</Button>
+                <Stack spacing={2} className="mt-8 mx-4">
+                    <TextField id="outlined-basic" label="Nama" value={name} variant="outlined" className="mt-8 mx-4" onChange={e => setName(e.target.value)}/>
+                    <TextField id="outlined-basic" label="Kelas" value={kelas} variant="outlined" className="mt-8 mx-4" onChange={e => setKelas(e.target.value)}/>
+                    <TextField id="outlined-basic" label="Nim" value={nim} type="number" variant="outlined" className="mt-8 mx-4" onChange={e => setNim(e.target.value)}/>
+                    <Button variant="outlined" className="mt-4 mx-4" onClick={handleRemoveData} color="error" hidden={addState}>Delete</Button>
+                </Stack>
             </Box>
         </Dialog>
       </Box>
