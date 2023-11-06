@@ -121,30 +121,31 @@ export default function ManList() {
     return (
       <Box className="w-full flex min-h-screen flex-col lg:px-24 2xl:px-72" >
         <p className="text-3xl font-['Oswald'] mx-auto pt-4">SNIA PHOTO</p>
-        <Button variant="outlined" className="mt-2 mx-5" onClick={addData}>Tambah Data</Button>
-        <Box sx={{ width: '90%', maxWidth: 360, bgcolor: 'background.paper' }} className="mx-auto my-4">
-
-            <nav aria-label="secondary mailbox folders">
-                <List>
-                {
-                    dataFinal.map(({nama, kelas, nim}, index) => {
-                        return (
-                            <Box key={index}>
-                                <Stack direction="row" >
-                                <ListItem>
-                                    <ListItemButton onClick={e => handleClickOpen(nama, kelas, nim, index)}>
-                                        <ListItemText primary={nama} secondary={kelas}/>
-                                        <ListItemText secondary={"Urutan "+(index+1)} className="text-end"/>
-                                    </ListItemButton>
-                                </ListItem>
-                                <Divider/>
-                                </Stack>
-                            </Box>
-                        )
-                    })
-                }
-                </List>
-            </nav>
+        <Box sx={{ width: '90%'}} className="mx-auto my-4">
+            <Button variant="outlined" className="w-full" onClick={addData}>Tambah Data</Button>
+            <Box sx={{ maxWidth: 360, bgcolor: 'background.paper' }} className="mx-auto mt-4">
+                <nav aria-label="secondary mailbox folders">
+                    <List>
+                    {
+                        dataFinal.map(({nama, kelas, nim}, index) => {
+                            return (
+                                <Box key={index}>
+                                    <Stack direction="row" >
+                                    <ListItem>
+                                        <ListItemButton onClick={e => handleClickOpen(nama, kelas, nim, index)}>
+                                            <ListItemText primary={nama} secondary={kelas}/>
+                                            <ListItemText secondary={"Urutan "+(index+1)} className="text-end"/>
+                                        </ListItemButton>
+                                    </ListItem>
+                                    <Divider/>
+                                    </Stack>
+                                </Box>
+                            )
+                        })
+                    }
+                    </List>
+                </nav>
+            </Box>
         </Box>
       
         <Dialog
@@ -171,10 +172,12 @@ export default function ManList() {
                 </Button>
             </Toolbar>
             </AppBar>
-            <TextField id="outlined-basic" label="Nama" value={name} variant="outlined" className="mt-8 mx-4" onChange={e => setName(e.target.value)}/>
-            <TextField id="outlined-basic" label="Kelas" value={kelas} variant="outlined" className="mt-8 mx-4" onChange={e => setKelas(e.target.value)}/>
-            <TextField id="outlined-basic" label="Nim" value={nim} type="number" variant="outlined" className="mt-8 mx-4" onChange={e => setNim(parseInt(e.target.value))}/>
-            <Button variant="outlined" className="mt-4 mx-5" onClick={handleRemoveData} color="error" hidden={addState}>Delete</Button>
+            <Box sx={{ width: "90%"}}>
+                <TextField id="outlined-basic" label="Nama" value={name} variant="outlined" className="mt-8 mx-4 w-full" onChange={e => setName(e.target.value)}/>
+                <TextField id="outlined-basic" label="Kelas" value={kelas} variant="outlined" className="mt-8 mx-4 w-full" onChange={e => setKelas(e.target.value)}/>
+                <TextField id="outlined-basic" label="Nim" value={nim} type="number" variant="outlined" className="mt-8 mx-4 w-full" onChange={e => setNim(parseInt(e.target.value))}/>
+                <Button variant="outlined" className="mt-4 mx-4 w-full" onClick={handleRemoveData} color="error" hidden={addState}>Delete</Button>
+            </Box>
         </Dialog>
       </Box>
     )
