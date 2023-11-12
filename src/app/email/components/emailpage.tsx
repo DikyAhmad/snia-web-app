@@ -1,5 +1,6 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { redirect } from 'next/navigation';
 import { TextField, Stack, Box, InputLabel, MenuItem, FormControl, Select, Button, Alert, Fade, Typography} from '@mui/material';
 import { SelectChangeEvent } from '@mui/material/Select';
 import SendIcon from '@mui/icons-material/Send';
@@ -16,6 +17,17 @@ export default function FormEmail(){
     const [errorEmail, setErrorEmail] = useState(false)
     const [errorLayanan, setErrorLayanan] = useState(false)
     const [helperEmail, setHelperEmail] = useState("")
+
+    useEffect(() => { 
+        const loadUid = () => {
+            let auth_id
+            auth_id = localStorage.getItem("auth_uid")
+            if(auth_id !== "gvILTVngNAQmp8MIfQ8ExzkAwax1") {
+                redirect('/')
+            }
+        }
+        loadUid()
+    },[],)
 
     function checkService(props: string){
         const greeting = checkHours()

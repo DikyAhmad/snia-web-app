@@ -11,7 +11,7 @@ import { auth } from "../firebase";
 
 const provider = new GoogleAuthProvider();
 
-export default function FormEmail({ idUser }: { idUser: any}){
+export default function FormEmail(){
 
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState();
@@ -33,18 +33,11 @@ export default function FormEmail({ idUser }: { idUser: any}){
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             if (currentUser) {
-                const uid = currentUser.uid
-                setUserId(uid.toString())
+                localStorage.setItem('auth_uid', currentUser.uid.toString())
             }
         });
         return () => unsubscribe();
-    }, [user]);
-    
-    function pushId(){
-        idUser(userId)
-    }
-
-    pushId()
+    }, []);
     
     return (
         <main className="m-auto">

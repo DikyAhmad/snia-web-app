@@ -20,7 +20,7 @@ const firebaseConfig = {
   messagingSenderId: "134851073423",
   appId: "1:134851073423:web:673a1ddbc2fa23d4d9e7fa",
   measurementId: "G-ZCRNC7GDSM",
-  // storageBucket: 'gs://snia-app.appspot.com',
+  storageBucket: 'gs://snia-app.appspot.com',
   databaseURL: "https://snia-app-default-rtdb.asia-southeast1.firebasedatabase.app/"
 };
 

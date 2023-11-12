@@ -1,6 +1,7 @@
 'use client'
 'use strict'
 import React, { useState, useEffect } from 'react';
+import { redirect } from 'next/navigation';
 import { TextField, Stack, Box, InputLabel, MenuItem, FormControl, Select, Button, Alert, Fade, Typography, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, Divider } from '@mui/material';
 import { PDFDownloadLink} from '@react-pdf/renderer/lib/react-pdf.browser.cjs.js';
 import { pdf } from '@react-pdf/renderer';
@@ -170,6 +171,17 @@ export default function NotaForm(){
         loadData()
        
     },[],);
+
+    useEffect(() => { 
+        const loadUid = () => {
+            let auth_id
+            auth_id = localStorage.getItem("auth_uid")
+            if(auth_id !== "gvILTVngNAQmp8MIfQ8ExzkAwax1") {
+                redirect('/')
+            }
+        }
+        loadUid()
+    },[],)
     
 
     return(

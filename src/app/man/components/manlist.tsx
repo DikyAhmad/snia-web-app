@@ -1,6 +1,7 @@
 'use client';
 'use strict';
 import React, { useState, useEffect } from 'react';
+import { redirect } from 'next/navigation';
 import { Button, Box, Stack, Chip, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Dialog, Divider, AppBar, Toolbar, IconButton,  Typography, Slide, TextField, Hidden} from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { database } from "../../firebase";
@@ -93,6 +94,17 @@ export default function ManList() {
         handleClose()
     }
 
+    useEffect(() => { 
+        const loadUid = () => {
+            let auth_id
+            auth_id = localStorage.getItem("auth_uid")
+            if(auth_id !== "gvILTVngNAQmp8MIfQ8ExzkAwax1") {
+                redirect('/')
+            }
+        }
+        loadUid()
+    },[],)
+
     useEffect(() => {
         const loadData = async () => {
             try {
@@ -115,7 +127,6 @@ export default function ManList() {
                     }
                     const numDescending = [...finalData].reverse() as any
                     setDataFinal(numDescending)
-                    console.log("asdsdas", numDescending)
                     loopSizeData()
                     setTotalList(list)
                 },);

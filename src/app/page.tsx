@@ -11,14 +11,22 @@ export default function Page() {
             <CircularProgress color="success"/>
         </main>
     })
-    const [id, setId] = useState("")
+   
+    const [authUid, setAuthUid] = useState("")
+    
+    useEffect(() => { 
+        const loadUid = () => {
+            setAuthUid(localStorage.getItem("auth_uid") as string)
+        }
+        loadUid()
+    },[],)
 
     return (
         <main className="flex min-h-screen flex-col lg:px-96">
-            {id === "JOdGNYHekQO2bUZVYZTZ94ksG2s1" || id === "gvILTVngNAQmp8MIfQ8ExzkAwax1"? (
+            {authUid === "gvILTVngNAQmp8MIfQ8ExzkAwax1" || authUid === "JOdGNYHekQO2bUZVYZTZ94ksG2s1"? (
                 <DynamicHome/>
             ): (
-                <DynamicButton idUser={setId}/>
+                <DynamicButton/>
             )}
         </main>
     )
