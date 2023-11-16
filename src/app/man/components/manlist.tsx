@@ -149,7 +149,7 @@ export default function ManList() {
         <p className="text-3xl font-['Oswald'] mx-auto pt-4">SNIA PHOTO</p>
         <Box className="mx-4 my-4">
             <Button variant="outlined" className="w-full mb-4" onClick={addData}>Tambah Data</Button>
-            <PDFDownloadLink document={<PrintPDF datas={dataRaw} />} fileName={"Nota_Pembayaran.pdf"}>
+            <PDFDownloadLink document={<PrintPDF datas={dataRaw} />} fileName={"MAN_INSAN.pdf"}>
                 <Button variant="outlined" className="w-full" size="large" endIcon={<DownloadIcon />}>
                         Download PDF
                 </Button>
