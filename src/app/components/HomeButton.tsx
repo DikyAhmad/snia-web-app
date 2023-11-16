@@ -1,6 +1,7 @@
 'use client'
 import Button from '@mui/material/Button';
 import React, { useState, useEffect } from "react";
+import { Alert, Stack, Box } from '@mui/material';
 import Link from "next/link";
 import {
     signInWithPopup,
@@ -11,8 +12,9 @@ import { auth } from "../firebase";
 
 const provider = new GoogleAuthProvider();
 
-export default function FormEmail(){
+export default function LoginPage(){
 
+    const [alertState, setAlertState] = useState(true)
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState();
     const [userId, setUserId] = useState("");
@@ -38,10 +40,28 @@ export default function FormEmail(){
         });
         return () => unsubscribe();
     }, []);
+
+    useEffect(() => { 
+        let authid = localStorage.getItem("auth_uid") 
+        if(authid !== null) {
+            triggerAlert()
+        } 
+    },[],)
+
+    const triggerAlert = () => {
+        setAlertState(false)
+        
+        setTimeout(() => {
+            setAlertState(true)
+        }, 3000);
+    }
     
     return (
         <main className="m-auto">
-            <Button variant="outlined" color="success" onClick={handleSignIn} className="px-16 py-8 text-2xl my-32">Login</Button>
+            <Stack spacing={2}>
+                <Alert severity="warning" className="mt-4" hidden={alertState}>Anda Tidak Memiliki Akses ke Apikasi Ini!</Alert>
+                <Button variant="outlined" color="success" onClick={handleSignIn} className="px-16 py-8 text-2xl">Login</Button>
+            </Stack>
         </main>
     )
 }

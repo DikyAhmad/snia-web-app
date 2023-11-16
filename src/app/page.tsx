@@ -15,6 +15,7 @@ export default function Page() {
     const [authUid, setAuthUid] = useState("")
     
     useEffect(() => { 
+        let authid = localStorage.getItem("auth_uid") 
         const loadUid = () => {
             setAuthUid(localStorage.getItem("auth_uid") as string)
         }

@@ -5,7 +5,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 export default function NotaPage() {
 
-    const DynamicNota = dynamic(() => import('./components/manlist'), {
+    const DynamicList = dynamic(() => import('./components/ManList'), {
         loading: () => 
         <main className="flex min-h-screen flex-col lg:px-96">
             <main className="m-auto">
@@ -14,5 +14,5 @@ export default function NotaPage() {
         </main>
     })
 
-    return <DynamicNota />
+    return <DynamicList />
 }

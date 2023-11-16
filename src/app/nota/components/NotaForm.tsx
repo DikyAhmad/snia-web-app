@@ -258,7 +258,7 @@ export default function NotaForm(){
                             </TableBody>
                         </Table>
                     </TableContainer>
-                    <PDFDownloadLink document={<PdfGenerator datas={listChoose} />} onClick={generateCodePayment} fileName={"Nota_Pembayaran_"+codePayment+".pdf"} >
+                    <PDFDownloadLink document={<PdfGenerator datas={listChoose} />} onClick={generateCodePayment} fileName={"Nota_Pembayaran_"+codePayment+".pdf"} hidden>
                         <Button variant="outlined" className="w-full" size="large" endIcon={<DownloadIcon />}>
                              Download
                         </Button>
