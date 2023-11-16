@@ -103,7 +103,9 @@ export default function ManList() {
         const loadUid = () => {
             let auth_id
             auth_id = localStorage.getItem("auth_uid")
-            if(auth_id !== "gvILTVngNAQmp8MIfQ8ExzkAwax1") {
+            if(auth_id !== "") {
+                return
+            } else {
                 redirect('/')
             }
         }

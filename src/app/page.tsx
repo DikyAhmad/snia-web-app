@@ -24,7 +24,7 @@ export default function Page() {
 
     return (
         <main className="flex min-h-screen flex-col lg:px-96">
-            {authUid === "gvILTVngNAQmp8MIfQ8ExzkAwax1" || authUid === "JOdGNYHekQO2bUZVYZTZ94ksG2s1"? (
+            {authUid !== ""? (
                 <DynamicHome/>
             ): (
                 <DynamicButton/>
