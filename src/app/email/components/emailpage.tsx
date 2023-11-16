@@ -7,7 +7,7 @@ import SendIcon from '@mui/icons-material/Send';
 import { collection, addDoc } from "firebase/firestore"; 
 import { db } from '../../firebase'
 
-export default function FormEmail(){
+export default function EmailPage(){
     const [email, setEmail] = useState("");
     const [service, setService] = useState("");
     const [body, setBody] = useState("");

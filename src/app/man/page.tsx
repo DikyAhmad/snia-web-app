@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic'
 import CircularProgress from '@mui/material/CircularProgress';
 
-export default function NotaPage() {
+export default function Page() {
 
     const DynamicList = dynamic(() => import('./components/ManList'), {
         loading: () => 
