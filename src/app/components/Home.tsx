@@ -15,6 +15,13 @@ import Page from '../page'
 import dynamic from 'next/dynamic'
 
 export default function HomePage() {
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker
+        .register('./service-worker.js')
+        .then((registration) => console.log('scope is: ', registration.scope));
+    }
+  }, []);
 
   return (
     <Box className="w-full px-8 lg:px-24 2xl:px-72 my-auto" >
