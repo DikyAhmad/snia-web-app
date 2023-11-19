@@ -18,7 +18,7 @@ export default function HomePage() {
   useEffect(() => {
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker
-        .register('/sw.js')
+        .register('/service-worker.js')
     }
   },[],);
 

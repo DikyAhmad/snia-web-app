@@ -6,15 +6,14 @@ try {
   const PRECACHE_URLS = [
     `any url`, // Alias for index.html
   ];
-
  
   // The install handler takes care of precaching the resources we always need.
   self.addEventListener("install", (event) => {
-    // console.log("installing sw");
+    console.log("installing sw");
     event.waitUntil(
       caches
         .open(PRECACHE)
-        .then((cache) => cache.addAll(PRECACHE_URLS))
+        .then((cache) => cache.match(PRECACHE))
         .then(self.skipWaiting())
     );
   });
