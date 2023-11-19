@@ -14,7 +14,7 @@ try {
     event.waitUntil(
       caches
         .open(PRECACHE)
-        .then((cache) => cache.match(PRECACHE_URLS))
+        .then((cache) => cache.addAll(PRECACHE_URLS))
         .then(self.skipWaiting())
     );
   });

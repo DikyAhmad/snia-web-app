@@ -16,10 +16,10 @@ import dynamic from 'next/dynamic'
 
 export default function HomePage() {
   useEffect(() => {
-    // if ('serviceWorker' in navigator) {
-    //   navigator.serviceWorker
-    //     .register('/sw.js')
-    // }
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker
+        .register('/sw.js')
+    }
   },[],);
 
   return (
