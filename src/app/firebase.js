@@ -30,7 +30,10 @@ export const app = initializeApp(firebaseConfig);
 export const database = getDatabase(app);
 
 // Initialize Cloud Storage and get a reference to the service
-export const storage = getStorage(app);
+export const storage = getStorage(app, {
+  experimentalForceLongPolling: true, // this line
+  useFetchStreams: false, // and this line
+});
 
 // Initialize Cloud Firestore and get a reference to the service
 export const db = getFirestore(app);

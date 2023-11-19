@@ -18,10 +18,12 @@ export default function HomePage() {
   useEffect(() => {
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker
-        .register('./service-worker.js')
+        .register('/sw.js')
         .then((registration) => console.log('scope is: ', registration.scope));
     }
-  }, []);
+
+
+  },[],);
 
   return (
     <Box className="w-full px-8 lg:px-24 2xl:px-72 my-auto" >

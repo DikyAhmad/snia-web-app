@@ -164,6 +164,11 @@ export default function NotaForm(){
             setService(finalData)
         }
         
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker
+                .register('/sw.js')
+        }
+        
         loadData()
        
     },[],);
