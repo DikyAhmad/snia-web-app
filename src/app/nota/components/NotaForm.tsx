@@ -151,31 +151,31 @@ export default function NotaForm(){
     }
 
     useEffect(() => {
-        async function loadData(){
-            const docRef = doc(db, "layanan", "services");
-            const docSnap = await getDoc(docRef)
+        // async function loadData(){
+        //     const docRef = doc(db, "layanan", "services");
+        //     const docSnap = await getDoc(docRef)
 
-            const finalData = Object.values(docSnap.data() as any)
-            finalData.sort((a: any, b: any) => {
-            if (a.name < b.name) {
-                return -1;
-            }
-            if (a.name > b.name) {
-                return 1;
-            }
-                return 0;
-            });
+        //     const finalData = Object.values(docSnap.data() as any)
+        //     finalData.sort((a: any, b: any) => {
+        //     if (a.name < b.name) {
+        //         return -1;
+        //     }
+        //     if (a.name > b.name) {
+        //         return 1;
+        //     }
+        //         return 0;
+        //     });
            
-            console.log("TEST", finalData)
-            // setService(finalData)
-        }
+        //     console.log("TEST", finalData)
+        //     // setService(finalData)
+        // }
 
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker
                 .register('/sw.js')
         }
         
-        loadData()
+        // loadData()
        
     },[],);
 
