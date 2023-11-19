@@ -228,7 +228,7 @@ export default function NotaForm(){
                 <Stack spacing={2}>
                     <Divider/>
                     <p className="text-xl font-['Oswald'] my-8 text-center mx-auto">List Item</p>
-                    <TableContainer style={{backgroundColor:'#ebdfb2', color: 'white',}} className="my-2" >
+                    <TableContainer style={{backgroundColor:'#ffffff', color: 'white',}} className="my-2" component={Paper} >
                         <Table sx={{ width: '100%' }} aria-label="simple table">
                             <TableHead>
                                 <TableRow >

@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link'
 import { PDFDownloadLink} from '@react-pdf/renderer/lib/react-pdf.browser.cjs.js';
 import { redirect } from 'next/navigation';
-import { Button, Box, Stack, Chip, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Dialog, Divider, AppBar, Toolbar, IconButton,  Typography, Slide, TextField, Hidden} from '@mui/material';
+import { Button, Box, Stack, Chip, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Dialog, Divider, AppBar, Toolbar, IconButton,  Typography, Slide, TextField, Hidden, Paper} from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import PrintPDF from './PrintPDF'
 import DownloadIcon from '@mui/icons-material/Download';
@@ -150,13 +150,15 @@ export default function ManList() {
       <Box className="w-full flex min-h-screen flex-col lg:px-24 2xl:px-72" >
         <p className="text-3xl font-['Oswald'] mx-auto pt-4">SNIA PHOTO</p>
         <Box className="mx-4 my-4">
-            <Button variant="outlined" className="w-full mb-4" onClick={addData}>Tambah Data</Button>
-            <PDFDownloadLink document={<PrintPDF datas={dataRaw} />} fileName={"MAN_INSAN.pdf"}>
-                <Button variant="outlined" className="w-full" size="large" endIcon={<DownloadIcon />}>
-                        Download PDF
-                </Button>
-            </PDFDownloadLink>
-            <Box sx={{ bgcolor: 'background.paper' }} className="mx-auto mt-4">
+            <Stack spacing={2}>
+                <Button variant="outlined" className="w-full" onClick={addData}>Tambah Data</Button>
+                <PDFDownloadLink document={<PrintPDF datas={dataRaw} />} fileName={"MAN_INSAN.pdf"}>
+                    <Button variant="outlined" className="w-full" size="large" endIcon={<DownloadIcon />}>
+                            Download PDF
+                    </Button>
+                </PDFDownloadLink>
+            </Stack>
+            <Box className="mx-auto mt-4" component={Paper}>
                 <nav aria-label="secondary mailbox folders">
                     <List>
                     {
