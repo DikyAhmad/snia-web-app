@@ -27,7 +27,12 @@ export default function NotaForm(){
     const [totalPrice, setTotalPrice] = useState(0)
     const [listChoose, setListChoose] = useState<{layanan: string; jumlah: number; harga: number; totalHarga: number}[]>([
     ],)
-    const [service, setService] = useState<any[]>([])
+    const [service, setService] = useState<any[]>([
+        {name: "Cetak Foto", price: [1500, 1500, 1500], types: ['2x3', '3x4', '4x6']},
+        {name: "Foto Studio", price: [18000, 18000, 18000], types: ['2x3', '3x4', '4x6']},
+        {name: "Edit", price: [2000, 5000], types: ['Ganti Background', 'Edit Document']},
+        {name: "Print HVS A4", price: [500, 1000], types: ['Hitam-Putih', 'Warna']}
+        ])
         
     const [open, setOpen] = useState(false);
 
@@ -161,9 +166,10 @@ export default function NotaForm(){
                 return 0;
             });
            
-            setService(finalData)
+            console.log("TEST", finalData)
+            // setService(finalData)
         }
-        
+
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker
                 .register('/sw.js')
@@ -184,6 +190,7 @@ export default function NotaForm(){
             }
         }
         loadUid()
+        
     },[],)
     
 
