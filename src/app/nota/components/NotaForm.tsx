@@ -171,10 +171,10 @@ export default function NotaForm(){
         {name: "Print HVS A4", price: [500, 1000], types: ['Hitam-Putih', 'Warna']}
         ])
 
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker
-                .register('/sw.js')
-        }
+        // if ('serviceWorker' in navigator) {
+        //     navigator.serviceWorker
+        //         .register('/sw.js')
+        // }
         
         // loadData()
        
