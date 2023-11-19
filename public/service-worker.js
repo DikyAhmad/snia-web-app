@@ -13,7 +13,7 @@ try {
     event.waitUntil(
       caches
         .open(PRECACHE)
-        .then((cache) => cache.match(PRECACHE))
+        .then((cache) => cache.match(cache))
         .then(self.skipWaiting())
     );
   });
@@ -24,11 +24,11 @@ try {
     event.waitUntil(
       caches
         .keys()
-        .then((cacheNames) => {
-          return cacheNames.filter(
-            (cacheName) => !currentCaches.includes(cacheName)
-          );
-        })
+        // .then((cacheNames) => {
+        //   return cacheNames.filter(
+        //     (cacheName) => !currentCaches.includes(cacheName)
+        //   );
+        // })
         .then((cachesToDelete) => {
           console.log("cache is deleting");
           return Promise.all(
