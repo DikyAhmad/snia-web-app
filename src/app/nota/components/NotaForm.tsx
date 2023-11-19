@@ -132,9 +132,6 @@ export default function NotaForm(){
                     };
                     xhr.open('GET', url);
                     xhr.send();
-
-                    // Or inserted into an <img> element
-                    // console.log("Ini linknya : "+url)
                     setUrlPdf(url)
                 })
                 .catch((error) => {
@@ -165,7 +162,6 @@ export default function NotaForm(){
             });
            
             setService(finalData)
-            // console.log("aaa",finalData)
         }
         
         loadData()
@@ -201,7 +197,6 @@ export default function NotaForm(){
                             value=""
                             label={name}
                             onChange={e => handleChange(e, name, index)}
-                            // onKeyPress={e => handleKey(e)}
                             >
                             {types.map((type: any, id: number) => <MenuItem key={id} value={type} >{type}</MenuItem>)}
                             </Select>

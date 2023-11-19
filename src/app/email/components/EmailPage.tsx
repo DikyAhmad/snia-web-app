@@ -8,10 +8,10 @@ import { collection, addDoc } from "firebase/firestore";
 import { db } from '../../firebase'
 
 export default function EmailPage(){
+    const hours = new Date().getHours();
     const [email, setEmail] = useState("");
     const [service, setService] = useState("");
     const [body, setBody] = useState("");
-    const hours = new Date().getHours();
     const [value, setValue] = useState("");
 
     const [errorEmail, setErrorEmail] = useState(false)
