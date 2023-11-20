@@ -200,7 +200,7 @@ export default function NotaForm(){
         <Box className="flex min-h-screen flex-col items-center mt-8">
             <Box className="w-full px-8 lg:px-72 xl:px-96">
             <Box className=""> 
-                <p className="text-3xl font-['Oswald'] my-8 text-center mx-auto">Pembuatan Nota</p>
+                <p className="text-3xl font-serif my-8 text-center mx-auto">Pembuatan Nota</p>
                 <Stack spacing={2} className="mx-2">
                     {serviceOffline.map(({name, types}, index) => (
                         <FormControl fullWidth key={index}>
