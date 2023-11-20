@@ -47,8 +47,8 @@ export default function NotaForm(){
 
     function handleChange(event: any, tipe: string, index: number){
         setChoose(tipe+" "+event.target.value)
-        const indexSelected = service[index].types.indexOf(event.target.value)
-        const priceSelected = service[index].price[indexSelected]
+        const indexSelected = serviceOffline[index].types.indexOf(event.target.value)
+        const priceSelected = serviceOffline[index].price[indexSelected]
         setSelectedPrice(priceSelected)
         setOpen(true)
     }
