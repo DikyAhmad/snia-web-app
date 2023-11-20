@@ -24,11 +24,11 @@ try {
     event.waitUntil(
       caches
         .keys()
-        // .then((cacheNames) => {
-        //   return cacheNames.filter(
-        //     (cacheName) => !currentCaches.includes(cacheName)
-        //   );
-        // })
+        .then((cacheNames) => {
+          return cacheNames.filter(
+            (cacheName) => !currentCaches
+          );
+        })
         .then((cachesToDelete) => {
           // console.log("cache is deleting");
           return Promise.all(
