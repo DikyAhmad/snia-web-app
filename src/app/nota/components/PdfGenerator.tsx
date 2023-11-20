@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     },
     listItem: {
         position: "absolute",
-        left: 220,
+        left: 250,
     },
 });
 
@@ -134,7 +134,7 @@ const PdfGenerator = ({datas}:{datas: any}) => {
                         return(
                             <View style={styles.textBody} key={index}>
                                 <Text style={{position: "absolute"}}>{data.layanan}</Text>
-                                <Text style={styles.listItem}>{data.jumlah+" Lembar"}</Text>
+                                <Text style={styles.listItem}>{data.jumlah+"x"}</Text>
                                 <Text style={{position: "absolute", left: 380, }}>{formattingCurrency(data.totalHarga)}</Text>
                             </View>
                         )
