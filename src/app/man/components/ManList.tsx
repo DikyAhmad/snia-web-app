@@ -103,7 +103,7 @@ export default function ManList() {
         const loadUid = () => {
             let auth_id
             auth_id = localStorage.getItem("auth_uid")
-            if(auth_id !== "") {
+            if(auth_id !== null) {
                 return
             } else {
                 redirect('/')
@@ -148,7 +148,7 @@ export default function ManList() {
 
     return (
       <Box className="w-full flex min-h-screen flex-col lg:px-24 2xl:px-72" >
-        <p className="text-3xl font-['Oswald'] mx-auto pt-4">SNIA PHOTO</p>
+        <p className="text-3xl font-serif mx-auto pt-4 my-4">SNIA PHOTO</p>
         <Box className="mx-4 my-4">
             <Stack spacing={2}>
                 <Button variant="outlined" className="w-full" onClick={addData}>Tambah Data</Button>

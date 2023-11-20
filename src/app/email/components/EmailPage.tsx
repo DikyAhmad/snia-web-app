@@ -22,7 +22,7 @@ export default function EmailPage(){
         const loadUid = () => {
             let auth_id
             auth_id = localStorage.getItem("auth_uid")
-            if(auth_id !== "") {
+            if(auth_id !== null) {
                 return
             } else {
                 redirect('/')
