@@ -11,8 +11,6 @@ import PdfGenerator from './PdfGenerator'
 import BackspaceSharpIcon from '@mui/icons-material/BackspaceSharp';
 import DownloadIcon from '@mui/icons-material/Download';
 import { db } from "../../firebase";
-import Link from 'next/link'
-import image from '../../../../public/image/image.jpeg'
 
 export default function NotaForm(){
     const [urlPdf, setUrlPdf] = useState()
@@ -29,8 +27,8 @@ export default function NotaForm(){
     ],)
     const [service, setService] = useState<any[]>([])
     const [serviceOffline, setServiceOffline] = useState<any[]>([
-            {name: "Cetak Foto", price: [1500, 1500, 1500], types: ['2x3', '3x4', '4x6']},
-            {name: "Foto Studio", price: [18000, 18000, 18000], types: ['2x3', '3x4', '4x6']},
+            // {name: "Cetak Foto", price: [1500, 1500, 1500], types: ['2x3', '3x4', '4x6']},
+            // {name: "Foto Studio", price: [18000, 18000, 18000], types: ['2x3', '3x4', '4x6']},
             {name: "Edit", price: [2000, 5000], types: ['Ganti Background', 'Edit Document']},
             {name: "Print HVS A4", price: [500, 1000], types: ['Hitam-Putih', 'Warna']},
             {name: "Bingkai", price: [20000, 25000], types: ['10R', '12R']},
@@ -62,7 +60,6 @@ export default function NotaForm(){
         return hrg
     }
 
-
     function calculatePrice(){
         return selectedPrice * parseInt(amount)
     }
@@ -77,8 +74,8 @@ export default function NotaForm(){
 
     function pushToList(){
         setListChoose(prevEmployees => [
-        ...prevEmployees,
-        {layanan: choose, jumlah: parseInt(amount), harga: selectedPrice, totalHarga: calculatePrice()},
+            ...prevEmployees,
+            {layanan: choose, jumlah: parseInt(amount), harga: selectedPrice, totalHarga: calculatePrice()},
         ])
         setStateTable(false)
         setChoose("")
