@@ -30,7 +30,7 @@ export default function NotaForm(){
             {name: "Cetak Foto", price: [1500, 1500, 1500], types: ['2x3', '3x4', '4x6']},
             {name: "Foto Studio", price: [18000, 18000, 18000], types: ['2x3', '3x4', '4x6']},
             // {name: "Edit", price: [2000, 5000], types: ['Ganti Background', 'Edit Document']},
-            // {name: "Print HVS A4", price: [500, 1000], types: ['Hitam-Putih', 'Warna']},
+            {name: "Print HVS A4", price: [500, 1000], types: ['Hitam-Putih', 'Warna']},
             {name: "Bingkai", price: [20000, 25000], types: ['10R', '12R']},
         ])
         
@@ -170,10 +170,10 @@ export default function NotaForm(){
         // }
         // setServiceOffline()
 
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker
-                .register('/service-worker.js')
-        }
+        // if ('serviceWorker' in navigator) {
+        //     navigator.serviceWorker
+        //         .register('/service-worker.js')
+        // }
         
         // loadData()
        
