@@ -1,6 +1,7 @@
 try {
   const PRECACHE = "snia-cache";
 
+  
   // The activate handler takes care of cleaning up old caches.
   self.addEventListener("activate", (event) => {
     event.waitUntil(
@@ -23,8 +24,8 @@ try {
           }).catch(function (reason) {
             console.error('ServiceWorker fetch failed: ', reason)
           })
-          // prioritize cached response over network
-          return cachedResponse || networkFetch
+          // prioritize network response over cached
+          return networkFetch || cachedResponse
         }
       )
     )
