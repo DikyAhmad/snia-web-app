@@ -4,7 +4,7 @@ import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, initializeFirestore, CACHE_SIZE_UNLIMITED } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 import { getDatabase } from "firebase/database";
@@ -33,6 +33,10 @@ export const database = getDatabase(app);
 export const storage = getStorage(app, {
   experimentalForceLongPolling: true, // this line
   useFetchStreams: false, // and this line
+});
+
+export const offline_db = initializeFirestore(app, {
+  cacheSizeBytes: CACHE_SIZE_UNLIMITED
 });
 
 // Initialize Cloud Firestore and get a reference to the service
