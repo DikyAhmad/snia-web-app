@@ -27,12 +27,12 @@ export default function NotaForm(){
     ],)
     const [service, setService] = useState<any[]>([])
     const [serviceOffline, setServiceOffline] = useState<any[]>([
-            // {name: "Cetak Fotos", price: [1500, 1500, 1500, 2000, 4000, 5000], types: ['2x3', '3x4', '4x6', '2R', '3R', '4R']},
-            // {name: "Foto Studio", price: [18000, 18000, 18000], types: ['2x3', '3x4', '4x6']},
-            // {name: "Edit", price: [2000, 5000], types: ['Ganti Background', 'Document']},
-            // {name: "Scan", price: [2000, 2000], types: ['Foto', 'Document']},
-            // {name: "Print HVS A4", price: [500, 1000], types: ['Hitam-Putih', 'Warna']},
-            // {name: "Bingkai", price: [20000, 25000], types: ['10R', '12R']},
+            {name: "Cetak Fotos", price: [1500, 1500, 1500, 2000, 4000, 5000], types: ['2x3', '3x4', '4x6', '2R', '3R', '4R']},
+            {name: "Foto Studio", price: [18000, 18000, 18000], types: ['2x3', '3x4', '4x6']},
+            {name: "Edit", price: [2000, 5000], types: ['Ganti Background', 'Document']},
+            {name: "Scan", price: [2000, 2000], types: ['Foto', 'Document']},
+            {name: "Print HVS A4", price: [500, 1000], types: ['Hitam-Putih', 'Warna']},
+            {name: "Bingkai", price: [20000, 25000], types: ['10R', '12R']},
         ])
         
     const [open, setOpen] = useState(false);
@@ -151,34 +151,32 @@ export default function NotaForm(){
     }
 
     useEffect(() => {
-        async function loadData(){
-            const docRef = doc(offline_db, "layanan", "services");
-            const docSnap = await getDoc(docRef)
+        // async function loadData(){
+        //     const docRef = doc(offline_db, "layanan", "services");
+        //     const docSnap = await getDoc(docRef)
 
-            const finalData = Object.values(docSnap.data() as any)
-            finalData.sort((a: any, b: any) => {
-            if (a.name < b.name) {
-                return -1;
-            }
-            if (a.name > b.name) {
-                return 1;
-            }
-                return 0;
-            });
+        //     const finalData = Object.values(docSnap.data() as any)
+        //     finalData.sort((a: any, b: any) => {
+        //     if (a.name < b.name) {
+        //         return -1;
+        //     }
+        //     if (a.name > b.name) {
+        //         return 1;
+        //     }
+        //         return 0;
+        //     });
            
-            // console.log("TEST", finalData)
-            setServiceOffline(finalData)
-        }
+        //     // console.log("TEST", finalData)
+        //     setServiceOffline(finalData)
+        // }
         // setServiceOffline()
 
-        loadData()
+        // loadData()
         // if ('serviceWorker' in navigator) {
         //     navigator.serviceWorker
         //         .register('/service-worker.js')
         // }
         
-        
-       
     },[],);
 
     useEffect(() => { 
