@@ -29,6 +29,13 @@ try {
       )
     )
   })
+
+  self.addEventListener("install", event => {
+      event.waitUntil(
+        caches.open(PRECACHE)
+      );
+  });
+ 
   
 } catch (e) {
   console.log(e);
