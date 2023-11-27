@@ -1,5 +1,5 @@
 try {
-  const PRECACHE = "snia-cache";
+  const PRECACHE = "web-cache";
 
   self.addEventListener("install", event => {
     event.waitUntil(
@@ -15,7 +15,7 @@ try {
         .then(() => self.clients.claim())
     );
   });
- 
+
   self.addEventListener('fetch', event => {
     event.respondWith(
       caches.match(event.request).then(cachedResponse => {
@@ -29,20 +29,12 @@ try {
           }).catch(function (reason) {
             console.error('ServiceWorker fetch failed: ', reason)
           })
-          // prioritize network response over cached
-          if(!networkFetch) {
-            return cachedResponse
-          } else {
-            return networkFetch
-          }
-          
+          // prioritize cached response over network
+          return cachedResponse || networkFetch
         }
       )
     )
   })
-
- 
- 
   
 } catch (e) {
   console.log(e);
