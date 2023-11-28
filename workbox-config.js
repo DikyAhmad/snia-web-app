@@ -1,7 +1,8 @@
 module.exports = {
 	globDirectory: 'src/',
 	globPatterns: [
-		'**/*.{tsx,css,png,jpg}'
+		'**/*.{tsx,ico,js,css,png,jpg}'
 	],
-	swDest: 'src/sw.js'
+	swDest: 'src/sw.js',
+	swSrc: 'sw.js'
 };
