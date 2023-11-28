@@ -10,7 +10,7 @@ import { getStorage, ref, uploadBytes, getMetadata, getDownloadURL } from "fireb
 import PdfGenerator from './PdfGenerator'
 import BackspaceSharpIcon from '@mui/icons-material/BackspaceSharp';
 import DownloadIcon from '@mui/icons-material/Download';
-import { offline_db } from "../../firebase";
+import { storage } from "../../firebase";
 
 export default function NotaForm(){
     const [urlPdf, setUrlPdf] = useState()
@@ -27,7 +27,7 @@ export default function NotaForm(){
     ],)
     const [service, setService] = useState<any[]>([])
     const [serviceOffline, setServiceOffline] = useState<any[]>([
-            {name: "Cetak Foto", price: [1500, 1500, 1500, 2000, 4000, 5000], types: ['2x3', '3x4', '4x6', '2R', '3R', '4R']},
+            {name: "Cetak Foto", price: [1500, 1500, 1500, 2000, 4000, 5000, 8000], types: ['2x3', '3x4', '4x6', '2R', '3R', '4R', '5R']},
             {name: "Foto Studio", price: [18000, 18000, 18000], types: ['2x3', '3x4', '4x6']},
             {name: "Edit", price: [2000, 5000], types: ['Ganti Background', 'Document']},
             {name: "Scan", price: [2000, 2000], types: ['Foto', 'Document']},
@@ -119,7 +119,7 @@ export default function NotaForm(){
         const code = jam+""+menit+""+detik+""+hari+""+(bulan+1)+""+tahun.slice(2,4)
 
         const uploadPdf = async () => {
-            const storage = getStorage();
+            // const storage = getStorage();
             const storageRef = ref(storage, "nota_"+code+".pdf");
             const response = await pdf(<PdfGenerator datas={listChoose}/>).toBlob();
             

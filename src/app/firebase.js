@@ -30,10 +30,7 @@ export const app = initializeApp(firebaseConfig);
 export const database = getDatabase(app);
 
 // Initialize Cloud Storage and get a reference to the service
-export const storage = getStorage(app, {
-  experimentalForceLongPolling: true, // this line
-  useFetchStreams: false, // and this line
-});
+export const storage = getStorage(app);
 
 export const offline_db = initializeFirestore(app, {
   cacheSizeBytes: CACHE_SIZE_UNLIMITED

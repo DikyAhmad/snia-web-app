@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build_sw": "esbuild --outfile=sw.js --bundle sw.ts && workbox injectManifest workbox-config.js",
+    "build_sw": "esbuild --outfile=sw.js --bundle sw.ts && workbox generateSW workbox-config.js",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
