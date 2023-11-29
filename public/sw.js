@@ -28,7 +28,7 @@ if (!self.define) {
 define(["./workbox-dc92d82c"], (function (e) {
     "use strict";
     self.addEventListener("message", (e => {
-        self.skipWaiting()
+        e.data && "SKIP_WAITING" === e.data.type && self.skipWaiting()
     })), e.precacheAndRoute([{
         url: "/",
         revision: "4e85ff36426844ed22d93939d016c4c7"
