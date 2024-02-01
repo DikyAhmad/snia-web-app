@@ -4,7 +4,7 @@
 import React, { useState } from 'react';
 import { Box } from '@mui/material';
 import { Page, Text, Image, Document, StyleSheet, View , Svg, Line, Link} from "@react-pdf/renderer";
-import logo from '../../../../public/image/A4-NEW.png'
+import Background from '../../../../public/image/A4-NEW.png'
 
 // Create Document Component
 export default function PrintPDF({datas}:{datas: any}) {
@@ -76,7 +76,7 @@ export default function PrintPDF({datas}:{datas: any}) {
                      <Page size="A4" style={styles.page} wrap break key={index}>                    
                         <View style={styles.section}>
                             <Image 
-                                src={logo.src} 
+                                src={Background.src} 
                             />
                             <Text style={styles.textHeader1}> 
                                 Nama     :   {data.nama}
