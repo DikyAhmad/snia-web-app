@@ -11,6 +11,7 @@ import DownloadIcon from '@mui/icons-material/Download';
 import { database } from "../../firebase";
 import { doc, getDoc, collection, query, getDocs, setDoc, addDoc } from "firebase/firestore";
 import { getDatabase, ref, set, onValue, get, push, update} from "firebase/database";
+import * as XLSX from 'xlsx';
 
 const Transition = React.forwardRef(function Transition(props: any, ref: any) {
   return (
@@ -99,6 +100,15 @@ export default function ManList() {
         handleClose()
     }
 
+    const downloadExcel = (data) => {
+        const worksheet = XLSX.utils.json_to_sheet(data);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+        //let buffer = XLSX.write(workbook, { bookType: "xlsx", type: "buffer" });
+        //XLSX.write(workbook, { bookType: "xlsx", type: "binary" });
+        XLSX.writeFile(workbook, "DataSheet.xlsx");
+    };
+
     useEffect(() => { 
         const loadUid = () => {
             let auth_id
@@ -137,13 +147,14 @@ export default function ManList() {
                     setDataFinal(numDescending)
                     loopSizeData()
                     setTotalList(list)
+                   
                 },);
             } catch(e) {
                 console.error(e);
             }
         }
         loadData()
-        
+       
     },[],);
 
     return (
@@ -176,6 +187,7 @@ export default function ManList() {
                         Download PDF
                 </Button>
             </PDFDownloadLink>
+            <Button variant="outlined" className="w-full" onClick={()=>downloadExcel(dataRaw)}>Download Excel</Button>
         </Box>
       
         <Dialog
