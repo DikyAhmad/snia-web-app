@@ -66,8 +66,12 @@ export default function NotaForm(){
     }
 
     function handleAmount(){
-        if(amount != ""){
-            pushToList()
+        if(amount >  0){
+            if(amount != ""){
+                pushToList()
+            } else {
+                return
+            }
         } else {
             return
         }
