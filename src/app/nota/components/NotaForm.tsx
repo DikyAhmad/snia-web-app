@@ -97,8 +97,16 @@ export default function NotaForm(){
 
     function handleKey(event: any){
         if(event.key === "Enter"){
-            setAmount(event.target.value)
-            pushToList()
+            if(parseInt(amount) > 0){
+                if(amount != ""){
+                    setAmount(event.target.value)
+                    pushToList()
+                } else {
+                    return
+                }
+            } else {
+                handleClose()
+            }  
         }
     }
 
