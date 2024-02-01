@@ -69,7 +69,7 @@ export default function HomePage() {
   },[],);
 
   return (
-    <Box className="w-full px-8 lg:px-24 2xl:px-72 my-auto" >
+    <Box className="w-full px-8 lg:px-4 2xl:px-72 md:px-48 my-auto" >
       <ThemeProvider theme={theme}>
         <Box>
           <Stack>

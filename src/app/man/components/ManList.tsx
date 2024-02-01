@@ -150,38 +150,32 @@ export default function ManList() {
       <Box className="w-full flex min-h-screen flex-col lg:px-24 2xl:px-72" >
         <p className="text-3xl font-serif mx-auto pt-4 my-4">SNIA PHOTO</p>
         <Box className="mx-4 my-4">
-            <Stack spacing={2}>
-                <Button variant="outlined" className="w-full" onClick={addData}>Tambah Data</Button>
-                <PDFDownloadLink document={<PrintPDF datas={dataRaw} />} fileName={"MAN_INSAN.pdf"}>
-                    <Button variant="outlined" className="w-full" size="large" endIcon={<DownloadIcon />}>
-                            Download PDF
-                    </Button>
-                </PDFDownloadLink>
-            </Stack>
+            <Button variant="outlined" className="w-full" onClick={addData}>Tambah Data</Button>
             <Box className="mx-auto mt-4" component={Paper}>
-                <nav aria-label="secondary mailbox folders">
-                    <List>
-                    {
-                        dataFinal.map(({nama, kelas, nim}, index) => {
-                            return (
-                                <Box key={index}>
-                                    <Stack direction="row" >
-                                    <ListItem>
-                                        <ListItemButton onClick={e => handleClickOpen(nama, kelas, nim, (totalList[index]-1))}>
-                                            <ListItemText primary={nama} secondary={kelas}/>
-                                            <ListItemText secondary={"No."+(totalList[index])} className="text-end"/>
-                                        </ListItemButton>
-                                    </ListItem>
-                                    
-                                    </Stack>
-                                    <Divider/>
-                                </Box>
-                            )
-                        })
-                    }
-                    </List>
-                </nav>
+                {
+                    dataFinal.map(({nama, kelas, nim}, index) => {
+                        return (
+                            <Box key={index}>
+                                <Stack direction="row" >
+                                <ListItem>
+                                    <ListItemButton onClick={e => handleClickOpen(nama, kelas, nim, (totalList[index]-1))}>
+                                        <ListItemText primary={nama} secondary={kelas}/>
+                                        <ListItemText secondary={"No."+(totalList[index])} className="text-end"/>
+                                    </ListItemButton>
+                                </ListItem>
+                                
+                                </Stack>
+                                <Divider/>
+                            </Box>
+                        )
+                    })
+                }
             </Box>
+            <PDFDownloadLink document={<PrintPDF datas={dataRaw} />} fileName={"MAN_INSAN.pdf"}>
+                <Button variant="outlined" className="w-full my-4" size="large" endIcon={<DownloadIcon />}>
+                        Download PDF
+                </Button>
+            </PDFDownloadLink>
         </Box>
       
         <Dialog
@@ -208,11 +202,11 @@ export default function ManList() {
             </AppBar>
                 <Stack spacing={2} className="mt-8 mx-4">
                     <TextField id="outlined-basic" label="Nama" value={name} variant="outlined" className="mt-8 mx-4" onChange={e => setName(e.target.value)}/>
-                    <TextField id="outlined-basic" label="Kelas" value={kelas} variant="outlined" className="mt-8 mx-4" onChange={e => setKelas(e.target.value)}/>
-                    <TextField id="outlined-basic" label="Nim" value={nim} type="number" variant="outlined" className="mt-8 mx-4" onChange={e => setNim(e.target.value)}/>
-                    <Button variant="outlined" className="mt-4 mx-4" onClick={handleSave}>SAVE</Button> 
+                    <TextField id="outlined-basic" label="Kelas" value={kelas} variant="outlined" className="mt-8 mx-4" onChange={e => setKelas(e.target.value)} helperText="Contoh: XII IPA 2"/>
+                    <TextField id="outlined-basic" label="Nim" value={nim} type="number" variant="outlined" className="mt-8 mx-4" onChange={e => setNim(e.target.value)} helperText="Contoh: 012345678"/>
+                    <Button variant="outlined" className="mt-4 mx-4" onClick={handleSave}>SIMPAN</Button> 
                     {!addState && (
-                         <Button variant="outlined" className="mt-4 mx-4" onClick={handleRemoveData} color="error">Delete</Button>
+                         <Button variant="outlined" className="mt-4 mx-4" onClick={handleRemoveData} color="error">HAPUS</Button>
                     )}
                 </Stack>
             </Box>

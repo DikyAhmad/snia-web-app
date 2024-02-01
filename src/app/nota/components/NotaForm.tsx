@@ -239,7 +239,7 @@ export default function NotaForm(){
             <Box className="w-full px-2 mb-8 mt-4" hidden={stateTable}> 
                 <Stack spacing={2}>
                     <Divider/>
-                    <p className="text-xl font-serif my-8 text-center mx-auto">List Item</p>
+                    <p className="text-xl font-serif my-8 text-center mx-auto">List Barang</p>
                     <TableContainer style={{backgroundColor:'#ffffff', color: 'white',}} className="my-2" component={Paper} >
                         <Table sx={{ width: '100%' }} aria-label="simple table">
                             <TableHead>
