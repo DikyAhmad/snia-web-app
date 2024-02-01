@@ -10,11 +10,11 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@emotion/react": "^11.11.1",
+    "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@material-ui/icons": "^4.11.3",
     "@mui/icons-material": "^5.14.14",
-    "@mui/material": "^5.14.14",
+    "@mui/material": "^5.15.7",
     "@react-pdf/renderer": "^3.1.13",
     "@vercel/analytics": "^1.1.1",
     "firebase": "^10.5.0",
@@ -26,7 +26,8 @@
     "react-router-dom": "^6.18.0",
     "react-string-replace": "^1.1.1",
     "sharp": "^0.32.6",
-    "swr": "^2.2.4"
+    "swr": "^2.2.4",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.10",
