@@ -42,12 +42,11 @@ export default function LoginPage(){
                     const childData = childSnapshot.val();
                     adminUid.push(childData)
                 });
-                for (let i=0; i < adminUid.length; i++) {
-                    if (adminUid[i] === user_uid) {
-                        localStorage.setItem('role', 'admin')
-                    } else {
-                        localStorage.setItem('role', 'login')
-                    }
+
+                if (adminUid.includes(user_uid)) {
+                    localStorage.setItem('role', 'admin')
+                } else {
+                    localStorage.setItem('role', 'login')
                 }
             },);
         } catch(e) {
