@@ -8,6 +8,8 @@ import { Button, Box, Stack, Chip, List, ListItem, ListItemButton, ListItemIcon,
 import CloseIcon from '@mui/icons-material/Close';
 import PrintPDF from './PrintPDF'
 import DownloadIcon from '@mui/icons-material/Download';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { styled } from '@mui/material/styles';
 import { database } from "../../firebase";
 import { doc, getDoc, collection, query, getDocs, setDoc, addDoc } from "firebase/firestore";
 import { getDatabase, ref, set, onValue, get, push, update} from "firebase/database";
@@ -32,6 +34,8 @@ export default function ManList() {
     const [name, setName] = useState("")
     const [kelas, setKelas] = useState("")
     const [nim, setNim] = useState("")
+    const [exportState, setExportState] = useState(false)
+    const [dataJSON, setDataJSON] = useState([])
 
     const [open, setOpen] = React.useState(false);
 
@@ -88,6 +92,15 @@ export default function ManList() {
         return update(ref(db), removeData);
     }
 
+     const handleRemoveDb = async() => {
+        const postListRef = ref(db, 'man_insan');
+        const removeData = {} as any;
+        removeData['/man_insan'] = null;
+        handleClose()
+
+        return update(ref(db), removeData);
+    }
+
     const handleInputData = async () => {
         const postListRef = ref(db, 'man_insan');
         const newPostRef = await push(postListRef);
@@ -109,6 +122,34 @@ export default function ManList() {
         XLSX.writeFile(workbook, "DataSheet.xlsx");
     };
 
+    const VisuallyHiddenInput = styled('input')({
+        clip: 'rect(0 0 0 0)',
+        clipPath: 'inset(50%)',
+        height: 1,
+        overflow: 'hidden',
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        whiteSpace: 'nowrap',
+        width: 1,
+    });
+
+    const loadDataFromUploadedJSON = async () => {
+        try {
+            const dbRef = ref(database, '/uploaded_json');
+            onValue(dbRef, (snapshot) => {
+                let jsonData = [] as any
+                snapshot.forEach((childSnapshot) => {
+                    const childData = childSnapshot.val();
+                    jsonData.push(childData)
+                });
+                setDataJSON(jsonData)
+            },);
+        } catch(e) {
+            console.error(e);
+        }
+    }
+
     useEffect(() => { 
         const loadUid = () => {
             let auth_id
@@ -119,13 +160,19 @@ export default function ManList() {
                 redirect('/')
             }
         }
+        const checkIfAdmin = () => {
+            if(localStorage.getItem("auth_uid") === 'gvILTVngNAQmp8MIfQ8ExzkAwax1'){
+                setExportState(true)
+            }
+        }
         loadUid()
+        checkIfAdmin()
     },[],)
 
     useEffect(() => {
         const loadData = async () => {
             try {
-                const dbRef = ref(database, 'man_insan');
+                const dbRef = ref(database, '/man_insan');
                 onValue(dbRef, (snapshot) => {
                     let finalData = [] as any
                     let key = [] as any
@@ -147,21 +194,21 @@ export default function ManList() {
                     setDataFinal(numDescending)
                     loopSizeData()
                     setTotalList(list)
-                   
+                    loadDataFromUploadedJSON()
                 },);
             } catch(e) {
                 console.error(e);
             }
         }
         loadData()
-       
+        
     },[],);
 
     return (
       <Box className="w-full flex min-h-screen flex-col lg:px-24 2xl:px-72" >
-        <p className="text-3xl font-serif mx-auto pt-4 my-4">SNIA PHOTO</p>
+        <p className="text-3xl font-serif mx-auto pt-4 my-4">SNIA PHOTO APP</p>
         <Box className="mx-4 my-4">
-            <Button variant="outlined" className="w-full" onClick={addData}>Tambah Data</Button>
+            <Button component="label" variant="contained" className="w-full" onClick={addData}>Tambah Data</Button>
             <Box className="mx-auto mt-4" component={Paper}>
                 {
                     dataFinal.map(({nama, kelas, nim}, index) => {
@@ -182,12 +229,26 @@ export default function ManList() {
                     })
                 }
             </Box>
-            <PDFDownloadLink document={<PrintPDF datas={dataRaw} />} fileName={"MAN_INSAN.pdf"}>
-                <Button variant="outlined" className="w-full my-4" size="large" endIcon={<DownloadIcon />}>
-                        Download PDF
-                </Button>
-            </PDFDownloadLink>
-            <Button variant="outlined" className="w-full" onClick={()=>downloadExcel(dataRaw)}>Download Excel</Button>
+            
+            {exportState? 
+                <Box>
+                    <PDFDownloadLink document={<PrintPDF datas={dataRaw} />} fileName={"MAN_INSAN.pdf"}>
+                        <Button component="label" variant="contained" className="w-full my-4" size="large" endIcon={<DownloadIcon />}>
+                            Download PDF
+                        </Button>
+                    </PDFDownloadLink>
+                    <Button component="label" variant="contained" className="w-full" size="large" onClick={()=>downloadExcel(dataRaw)} >Download Excel</Button>
+
+                    <PDFDownloadLink document={<PrintPDF datas={dataJSON} />} fileName={"MAN_INSAN.pdf"}>
+                        <Button component="label" variant="contained" color="secondary" className="w-full my-4" size="large" endIcon={<DownloadIcon />}>
+                            Download PDF from DB
+                        </Button>
+                    </PDFDownloadLink>
+                    <Button component="label" variant="contained" color="secondary" className="w-full" onClick={()=>downloadExcel(dataJSON)} >
+                        Download Excel from DB
+                    </Button>
+                </Box>
+            : null}
         </Box>
       
         <Dialog
@@ -216,9 +277,9 @@ export default function ManList() {
                     <TextField id="outlined-basic" label="Nama" value={name} variant="outlined" className="mt-8 mx-4" onChange={e => setName(e.target.value)}/>
                     <TextField id="outlined-basic" label="Kelas" value={kelas} variant="outlined" className="mt-8 mx-4" onChange={e => setKelas(e.target.value)} helperText="Contoh: XII IPA 2"/>
                     <TextField id="outlined-basic" label="Nim" value={nim} type="number" variant="outlined" className="mt-8 mx-4" onChange={e => setNim(e.target.value)} helperText="Contoh: 012345678"/>
-                    <Button variant="outlined" className="mt-4 mx-4" onClick={handleSave}>SIMPAN</Button> 
+                    <Button component="label" variant="contained" className="mt-4 mx-4" onClick={handleSave}>SIMPAN</Button> 
                     {!addState && (
-                         <Button variant="outlined" className="mt-4 mx-4" onClick={handleRemoveData} color="error">HAPUS</Button>
+                         <Button component="label" variant="contained" className="mt-4 mx-4" onClick={handleRemoveData} color="error">HAPUS</Button>
                     )}
                 </Stack>
             </Box>
