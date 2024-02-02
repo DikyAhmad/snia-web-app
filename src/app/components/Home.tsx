@@ -14,6 +14,7 @@ import Link from 'next/link'
 import MarkEmailReadIcon from '@mui/icons-material/MarkEmailRead';
 import DescriptionIcon from '@mui/icons-material/Description';
 import WallpaperIcon from '@mui/icons-material/Wallpaper';
+import SchoolIcon from '@mui/icons-material/School';
 import logo from '../../../public/image/logo_colour.png'
 import Page from '../page'
 import dynamic from 'next/dynamic'
@@ -87,9 +88,9 @@ export default function HomePage() {
         <Box className="py-auto mb-32">
           <Stack spacing={3}>
             {/* <Button variant="outlined" color="success" endIcon={<MarkEmailReadIcon />} className="w-full py-4 text-lg"><Link className="w-full py-4 text-lg" href="/email">Aplikasi Email</Link></Button> */}
-            <Button variant="outlined" color="colorButton1" endIcon={<DescriptionIcon />}><Link className="w-full py-4 text-lg" href="/nota">Pembuatan Nota</Link></Button>
-            <Button variant="outlined" color="colorButton2" endIcon={<DescriptionIcon />}><Link className="w-full py-4 text-lg" href="/man">MAN</Link></Button>
-            <Button variant="outlined" color="colorButton3" endIcon={<WallpaperIcon/>} ><Link className="w-full py-4 text-lg" href="https://express.adobe.com/tools/remove-background">Hapus Background</Link></Button>
+            <Button component="label" variant="contained" color="colorButton1" className="text-center" endIcon={<DescriptionIcon style={{ color: 'white' }} />}><Link className="w-full py-4 text-lg text-white" href="/nota">Pembuatan Nota</Link></Button>
+            <Button component="label" variant="contained" color="colorButton2" className="text-center" endIcon={<SchoolIcon style={{ color: 'white' }}/>}><Link className="w-full py-4 text-lg text-white" href="/man">MAN</Link></Button>
+            <Button component="label"  variant="contained" color="colorButton3" className="text-center" endIcon={<WallpaperIcon style={{ color: 'white' }}/>} ><Link className="w-full py-4 text-lg text-white" href="https://express.adobe.com/tools/remove-background">Hapus Background</Link></Button>
           </Stack>
         </Box>
         <Analytics />
