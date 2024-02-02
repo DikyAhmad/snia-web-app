@@ -67,6 +67,7 @@ export default function HomePage() {
       navigator.serviceWorker
         .register('/sw.js')
     }
+
   },[],);
 
   return (
@@ -90,7 +91,7 @@ export default function HomePage() {
             {/* <Button variant="outlined" color="success" endIcon={<MarkEmailReadIcon />} className="w-full py-4 text-lg"><Link className="w-full py-4 text-lg" href="/email">Aplikasi Email</Link></Button> */}
             <Button component="label" variant="contained" color="colorButton1" className="text-center" endIcon={<DescriptionIcon style={{ color: 'white' }} />}><Link className="w-full py-4 text-lg text-white" href="/nota">Pembuatan Nota</Link></Button>
             <Button component="label" variant="contained" color="colorButton2" className="text-center" endIcon={<SchoolIcon style={{ color: 'white' }}/>}><Link className="w-full py-4 text-lg text-white" href="/man">MAN</Link></Button>
-            <Button component="label"  variant="contained" color="colorButton3" className="text-center" endIcon={<WallpaperIcon style={{ color: 'white' }}/>} ><Link className="w-full py-4 text-lg text-white" href="https://express.adobe.com/tools/remove-background">Hapus Background</Link></Button>
+            <Button component="label" variant="contained" color="colorButton3" className="text-center" endIcon={<WallpaperIcon style={{ color: 'white' }}/>} ><Link className="w-full py-4 text-lg text-white" href="https://express.adobe.com/tools/remove-background">Hapus Background</Link></Button>
           </Stack>
         </Box>
         <Analytics />
