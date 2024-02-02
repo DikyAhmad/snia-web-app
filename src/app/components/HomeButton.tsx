@@ -9,11 +9,12 @@ import {
     GoogleAuthProvider,
 } from "firebase/auth";
 import { auth } from "../firebase";
+import { getDatabase, ref, set, onValue, get, push, update} from "firebase/database";
 
 const provider = new GoogleAuthProvider();
 
 export default function LoginPage(){
-
+    const db = getDatabase()
     const [alertState, setAlertState] = useState(true)
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState();
@@ -26,25 +27,50 @@ export default function LoginPage(){
 
     const handleSignIn = async () => {
         try {
-        await googleSignIn();
+            await googleSignIn();
         } catch (error) {
-        console.log(error);
+            console.log(error);
         }
     };
 
+    const loadAdminUid = async (user_uid: any) => {
+        try {
+            const dbRef = ref(db, '/admin_uid');
+            onValue(dbRef, (snapshot) => {
+                let adminUid = [] as any
+                snapshot.forEach((childSnapshot) => {
+                    const childData = childSnapshot.val();
+                    adminUid.push(childData)
+                });
+                for (let i=0; i < adminUid.length; i++) {
+                    if (adminUid[i] === user_uid) {
+                        localStorage.setItem('role', 'admin')
+                    } else {
+                        localStorage.setItem('role', 'login')
+                    }
+                }
+            },);
+        } catch(e) {
+            console.error(e);
+        }
+    }
+
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+        const setUserUid = onAuthStateChanged(auth, (currentUser) => {
             if (currentUser) {
                 localStorage.setItem('auth_uid', currentUser.uid.toString())
+                if(localStorage.getItem('role') === null){
+                    loadAdminUid(currentUser.uid.toString())
+                }
             }
         });
-        return () => unsubscribe();
+        return () => setUserUid();
     }, []);
 
     useEffect(() => { 
         let authid = localStorage.getItem("auth_uid") 
         if(authid !== null) {
-            triggerAlert()
+            triggerAlert() 
         } 
     },[],)
 
