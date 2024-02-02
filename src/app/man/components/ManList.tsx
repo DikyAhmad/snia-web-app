@@ -231,23 +231,23 @@ export default function ManList() {
             </Box>
             
             {exportState? 
-                <Box>
+                <Stack spacing={2} className="my-4">
                     <PDFDownloadLink document={<PrintPDF datas={dataRaw} />} fileName={"MAN_INSAN.pdf"}>
-                        <Button component="label" variant="contained" className="w-full my-4" size="large" endIcon={<DownloadIcon />}>
+                        <Button component="label" variant="contained" className="w-full" size="large" endIcon={<DownloadIcon />}>
                             Download PDF
                         </Button>
                     </PDFDownloadLink>
                     <Button component="label" variant="contained" className="w-full" size="large" onClick={()=>downloadExcel(dataRaw)} >Download Excel</Button>
 
                     <PDFDownloadLink document={<PrintPDF datas={dataJSON} />} fileName={"MAN_INSAN.pdf"}>
-                        <Button component="label" variant="contained" color="secondary" className="w-full my-4" size="large" endIcon={<DownloadIcon />}>
+                        <Button component="label" variant="contained" color="secondary" className="w-full" size="large" endIcon={<DownloadIcon />}>
                             Download PDF from DB
                         </Button>
                     </PDFDownloadLink>
-                    <Button component="label" variant="contained" color="secondary" className="w-full" onClick={()=>downloadExcel(dataJSON)} >
+                    <Button component="label" variant="contained" color="secondary" className="w-full" size="large" onClick={()=>downloadExcel(dataJSON)} >
                         Download Excel from DB
                     </Button>
-                </Box>
+                </Stack>
             : null}
         </Box>
       
