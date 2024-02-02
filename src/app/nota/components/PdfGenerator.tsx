@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     },
     listItem: {
         position: "absolute",
-        left: 250,
+        left: 230,
     },
 });
 
@@ -92,15 +92,21 @@ const PdfGenerator = ({datas}:{datas: any}) => {
         return (jam+":"+menit+", "+hari+" "+bulanString+" "+tahun)
     }
 
-    function formattingCurrency(current: number){
+    function formattingCurrency(current: number, identifier: string){
         const numberFormat = (currency: number) =>
             new Intl.NumberFormat('en-ID', {
                 style: 'currency',
                 currency: 'IDR'
-            }).format(currency);   
-        return reactStringReplace(numberFormat(current), 'IDR', (match, i) => (
-            'Rp. '
-        ));
+            }).format(currency).replace(/(\.|,)00$/g, '');
+        const removeIDR = reactStringReplace(numberFormat(current), 'IDR', (match, i) => (identifier));
+        const newCurrency = reactStringReplace(removeIDR, ',', (match, i) => ('.'));
+        return newCurrency
+    }
+
+    function formattingNumber(current: number){
+        var parts = current.toString().split(".");
+        parts[0]=parts[0].replace(/\B(?=(\d{3})+(?!\d))/g,".");
+        return parts.join(".");
     }
 
     function calculatePrice(){
@@ -108,7 +114,7 @@ const PdfGenerator = ({datas}:{datas: any}) => {
         datas.map(({totalHarga}:{totalHarga: number}) => (
             hrg += totalHarga
         )) 
-        return formattingCurrency(hrg)
+        return formattingCurrency(hrg, 'Rp.')
     }
 
     return (
@@ -134,8 +140,8 @@ const PdfGenerator = ({datas}:{datas: any}) => {
                         return(
                             <View style={styles.textBody} key={index}>
                                 <Text style={{position: "absolute"}}>{data.layanan}</Text>
-                                <Text style={styles.listItem}>{data.jumlah+"x"}</Text>
-                                <Text style={{position: "absolute", left: 380, }}>{formattingCurrency(data.totalHarga)}</Text>
+                                <Text style={styles.listItem}>{data.jumlah+"x"+formattingNumber(data.harga)}</Text>
+                                <Text style={{position: "absolute", left: 380, }}>{formattingCurrency(data.totalHarga, 'Rp.')}</Text>
                             </View>
                         )
                     })}
