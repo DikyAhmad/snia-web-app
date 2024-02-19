@@ -9,12 +9,15 @@ import {
     GoogleAuthProvider,
 } from "firebase/auth";
 import { auth } from "../firebase";
+import { useRouter } from 'next/navigation'
+import { redirect } from 'next/navigation';
 import { getDatabase, ref, set, onValue, get, push, update} from "firebase/database";
 
 const provider = new GoogleAuthProvider();
 
 export default function LoginPage(){
     const db = getDatabase()
+    const router = useRouter()
     const [alertState, setAlertState] = useState(true)
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState();
@@ -57,6 +60,9 @@ export default function LoginPage(){
     useEffect(() => {
         const setUserUid = onAuthStateChanged(auth, (currentUser) => {
             if (currentUser) {
+                router.refresh()
+                router.push('/app')
+                // redirect('/home')
                 localStorage.setItem('auth_uid', currentUser.uid.toString())
                 if(localStorage.getItem('role') === null){
                     loadAdminUid(currentUser.uid.toString())
@@ -82,11 +88,13 @@ export default function LoginPage(){
     }
     
     return (
-        <main className="m-auto">
-            <Stack spacing={2}>
-                <Alert severity="warning" className="mt-4" hidden={alertState}>Anda Tidak Memiliki Akses ke Apikasi Ini!</Alert>
-                <Button variant="outlined" color="success" onClick={handleSignIn} className="px-16 py-8 text-2xl">Login</Button>
-            </Stack>
+        <main className="flex min-h-screen flex-col lg:px-96">
+            <Box className="m-auto">
+                <Stack spacing={2}>
+                    <Alert severity="warning" className="mt-4" hidden={alertState}>Anda Tidak Memiliki Akses ke Apikasi Ini!</Alert>
+                    <Button variant="outlined" color="success" onClick={handleSignIn} className="px-16 py-8 text-2xl">Login</Button>
+                </Stack>
+            </Box>
         </main>
     )
 }

@@ -1,11 +1,20 @@
 'use client';
 import { useState, useEffect } from 'react'
 import dynamic from 'next/dynamic'
+import { useRouter } from 'next/navigation'
 import CircularProgress from '@mui/material/CircularProgress';
 
 export default function Page() {
-    const DynamicHome = dynamic(() => import('./components/Home'))
-    const DynamicButton = dynamic(() => import('./components/HomeButton'), {
+    const router = useRouter()
+    
+    const MainApp = dynamic(() => import('./app/page'), {
+        loading: () => 
+        <main className="m-auto">
+            <CircularProgress color="success"/>
+        </main>
+    })
+
+     const LoginPage = dynamic(() => import('./login/LoginPage'), {
         loading: () => 
         <main className="m-auto">
             <CircularProgress color="success"/>
@@ -23,12 +32,10 @@ export default function Page() {
     },[],)
 
     return (
-        <main className="flex min-h-screen flex-col lg:px-96">
-            {authUid !== null? (
-                <DynamicHome/>
-            ): (
-                <DynamicButton/>
-            )}
+        <main className="flex min-h-screen flex-col items-center">
+            {authUid !== null? 
+                <MainApp/>: <LoginPage/>
+            }
         </main>
     )
 }
