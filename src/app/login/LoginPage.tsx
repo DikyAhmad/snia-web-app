@@ -10,14 +10,23 @@ import {
 } from "firebase/auth";
 import { auth } from "../firebase";
 import { useRouter } from 'next/navigation'
-import { redirect } from 'next/navigation';
+import { useNavigate, BrowserRouter as Router } from "react-router-dom";
 import { getDatabase, ref, set, onValue, get, push, update} from "firebase/database";
 
 const provider = new GoogleAuthProvider();
 
-export default function LoginPage(){
+export default function Page(){
+    return (
+        <Router>
+            <LoginPage/>
+        </Router>
+    )
+}
+
+function LoginPage(){
     const db = getDatabase()
     const router = useRouter()
+    const navigate = useNavigate()
     const [alertState, setAlertState] = useState(true)
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState();
@@ -58,11 +67,14 @@ export default function LoginPage(){
     }
 
     useEffect(() => {
+        const refreshPage = () => {
+            navigate(0);
+        }
+
         const setUserUid = onAuthStateChanged(auth, (currentUser) => {
             if (currentUser) {
-                router.refresh()
-                router.push('/app')
-                // redirect('/home')
+                // router.push(0)
+                refreshPage()
                 localStorage.setItem('auth_uid', currentUser.uid.toString())
                 if(localStorage.getItem('role') === null){
                     loadAdminUid(currentUser.uid.toString())
