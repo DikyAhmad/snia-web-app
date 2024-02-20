@@ -47,6 +47,7 @@ function LoginPage(){
 
     const loadAdminUid = async (user_uid: any) => {
         try {
+            console.log("sampe")
             const dbRef = ref(db, '/admin_uid');
             onValue(dbRef, (snapshot) => {
                 let adminUid = [] as any
@@ -60,6 +61,7 @@ function LoginPage(){
                 } else {
                     localStorage.setItem('role', 'login')
                 }
+                navigate(0)
             },);
         } catch(e) {
             console.error(e);
@@ -67,18 +69,10 @@ function LoginPage(){
     }
 
     useEffect(() => {
-        const refreshPage = () => {
-            navigate(0);
-        }
-
         const setUserUid = onAuthStateChanged(auth, (currentUser) => {
             if (currentUser) {
-                // router.push(0)
-                refreshPage()
                 localStorage.setItem('auth_uid', currentUser.uid.toString())
-                if(localStorage.getItem('role') === null){
-                    loadAdminUid(currentUser.uid.toString())
-                }
+                loadAdminUid(currentUser.uid.toString())
             }
         });
         return () => setUserUid();
