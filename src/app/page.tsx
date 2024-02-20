@@ -4,8 +4,14 @@ import dynamic from 'next/dynamic'
 import CircularProgress from '@mui/material/CircularProgress';
 
 export default function Page() {
-    const DynamicHome = dynamic(() => import('./components/Home'))
-    const DynamicButton = dynamic(() => import('./components/HomeButton'), {
+    const Main = dynamic(() => import('./components/MainApp'), {
+        loading: () => 
+        <main className="m-auto">
+            <CircularProgress color="success"/>
+        </main>
+    })
+
+    const LoginPage = dynamic(() => import('./login/LoginPage'), {
         loading: () => 
         <main className="m-auto">
             <CircularProgress color="success"/>
@@ -15,7 +21,6 @@ export default function Page() {
     const [authUid, setAuthUid] = useState("")
     
     useEffect(() => { 
-        let authid = localStorage.getItem("auth_uid") 
         const loadUid = () => {
             setAuthUid(localStorage.getItem("auth_uid") as string)
         }
@@ -24,11 +29,9 @@ export default function Page() {
 
     return (
         <main className="flex min-h-screen flex-col lg:px-96">
-            {authUid !== null? (
-                <DynamicHome/>
-            ): (
-                <DynamicButton/>
-            )}
+            {authUid !== null? 
+                <Main/>: <LoginPage/>
+            }
         </main>
     )
 }

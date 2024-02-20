@@ -1,6 +1,6 @@
 {
-  "name": "diky-app",
-  "version": "0.1.0",
+  "name": "snia-web-app",
+  "version": "1.1.0",
   "private": true,
   "scripts": {
     "build_sw": "esbuild --outfile=sw.js --bundle sw.ts && workbox generateSW workbox-config.js",

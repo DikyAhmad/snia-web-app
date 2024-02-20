@@ -34,7 +34,7 @@ export default function ManList() {
     const [name, setName] = useState("")
     const [kelas, setKelas] = useState("")
     const [nim, setNim] = useState("")
-    const [exportState, setExportState] = useState(false)
+    const [adminState, setAdminState] = useState(false)
     const [dataJSON, setDataJSON] = useState([])
 
     const [open, setOpen] = React.useState(false);
@@ -150,24 +150,11 @@ export default function ManList() {
         }
     }
 
-    useEffect(() => { 
-        const loadUid = () => {
-            let auth_id
-            auth_id = localStorage.getItem("auth_uid")
-            if(auth_id !== null) {
-                return
-            } else {
-                redirect('/')
-            }
+    const checkIfAdmin = () => {
+        if(localStorage.getItem("role") === 'admin'){
+            setAdminState(true)
         }
-        const checkIfAdmin = () => {
-            if(localStorage.getItem("auth_uid") === 'gvILTVngNAQmp8MIfQ8ExzkAwax1'){
-                setExportState(true)
-            }
-        }
-        loadUid()
-        checkIfAdmin()
-    },[],)
+    }
 
     useEffect(() => {
         const loadData = async () => {
@@ -201,6 +188,7 @@ export default function ManList() {
             }
         }
         loadData()
+        checkIfAdmin()
         
     },[],);
 
@@ -230,7 +218,7 @@ export default function ManList() {
                 }
             </Box>
             
-            {exportState? 
+            {adminState? 
                 <Stack spacing={2} className="my-4">
                     <PDFDownloadLink document={<PrintPDF datas={dataRaw} />} fileName={"MAN_INSAN.pdf"}>
                         <Button component="label" variant="contained" className="w-full" size="large" endIcon={<DownloadIcon />}>

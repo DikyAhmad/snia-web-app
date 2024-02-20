@@ -9,11 +9,24 @@ import {
     GoogleAuthProvider,
 } from "firebase/auth";
 import { auth } from "../firebase";
+import { useRouter } from 'next/navigation'
+import { useNavigate, BrowserRouter as Router } from "react-router-dom";
+import { getDatabase, ref, set, onValue, get, push, update} from "firebase/database";
 
 const provider = new GoogleAuthProvider();
 
-export default function LoginPage(){
+export default function Page(){
+    return (
+        <Router>
+            <LoginPage/>
+        </Router>
+    )
+}
 
+function LoginPage(){
+    const db = getDatabase()
+    const router = useRouter()
+    const navigate = useNavigate()
     const [alertState, setAlertState] = useState(true)
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState();
@@ -26,25 +39,49 @@ export default function LoginPage(){
 
     const handleSignIn = async () => {
         try {
-        await googleSignIn();
+            await googleSignIn();
         } catch (error) {
-        console.log(error);
+            console.log(error);
         }
     };
 
+    const loadAdminUid = async (user_uid: any) => {
+        try {
+            console.log("sampe")
+            const dbRef = ref(db, '/admin_uid');
+            onValue(dbRef, (snapshot) => {
+                let adminUid = [] as any
+                snapshot.forEach((childSnapshot) => {
+                    const childData = childSnapshot.val();
+                    adminUid.push(childData)
+                });
+
+                if (adminUid.includes(user_uid)) {
+                    localStorage.setItem('role', 'admin')
+                } else {
+                    localStorage.setItem('role', 'login')
+                }
+                navigate(0)
+            },);
+        } catch(e) {
+            console.error(e);
+        }
+    }
+
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+        const setUserUid = onAuthStateChanged(auth, (currentUser) => {
             if (currentUser) {
                 localStorage.setItem('auth_uid', currentUser.uid.toString())
+                loadAdminUid(currentUser.uid.toString())
             }
         });
-        return () => unsubscribe();
+        return () => setUserUid();
     }, []);
 
     useEffect(() => { 
         let authid = localStorage.getItem("auth_uid") 
         if(authid !== null) {
-            triggerAlert()
+            triggerAlert() 
         } 
     },[],)
 
@@ -57,11 +94,11 @@ export default function LoginPage(){
     }
     
     return (
-        <main className="m-auto">
+        <Box className="m-auto">
             <Stack spacing={2}>
                 <Alert severity="warning" className="mt-4" hidden={alertState}>Anda Tidak Memiliki Akses ke Apikasi Ini!</Alert>
                 <Button variant="outlined" color="success" onClick={handleSignIn} className="px-16 py-8 text-2xl">Login</Button>
             </Stack>
-        </main>
+        </Box>
     )
 }

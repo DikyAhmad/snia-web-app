@@ -2,9 +2,9 @@
 'use strict';
 
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation'
+import { redirect } from 'next/navigation';
 import { Analytics } from '@vercel/analytics/react';
-import { Button, Box, Stack, Chip } from '@mui/material';
+import { Button, Box, Stack } from '@mui/material';
 import {
   createTheme,
   ThemeProvider,
@@ -61,16 +61,29 @@ const theme = createTheme({
   },
 });
 
-export default function HomePage() {
+export default function MainApp() {
   useEffect(() => {
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker
         .register('/sw.js')
     }
+
   },[],);
 
+  useEffect(() => { 
+      const loadUid = () => {
+          let auth_id = localStorage.getItem("auth_uid")
+          if(auth_id !== null) {
+              return
+          } else {
+              redirect('/')
+          }
+      }
+      loadUid()
+  },[],)
+
   return (
-    <Box className="w-full px-8 lg:px-4 2xl:px-72 md:px-48 my-auto" >
+    <Box className="w-full px-8 lg:px-4 2xl:px-72 md:px-48 mt-16" >
       <ThemeProvider theme={theme}>
         <Box>
           <Stack>
@@ -90,7 +103,7 @@ export default function HomePage() {
             {/* <Button variant="outlined" color="success" endIcon={<MarkEmailReadIcon />} className="w-full py-4 text-lg"><Link className="w-full py-4 text-lg" href="/email">Aplikasi Email</Link></Button> */}
             <Button component="label" variant="contained" color="colorButton1" className="text-center" endIcon={<DescriptionIcon style={{ color: 'white' }} />}><Link className="w-full py-4 text-lg text-white" href="/nota">Pembuatan Nota</Link></Button>
             <Button component="label" variant="contained" color="colorButton2" className="text-center" endIcon={<SchoolIcon style={{ color: 'white' }}/>}><Link className="w-full py-4 text-lg text-white" href="/man">MAN</Link></Button>
-            <Button component="label"  variant="contained" color="colorButton3" className="text-center" endIcon={<WallpaperIcon style={{ color: 'white' }}/>} ><Link className="w-full py-4 text-lg text-white" href="https://express.adobe.com/tools/remove-background">Hapus Background</Link></Button>
+            <Button component="label" variant="contained" color="colorButton3" className="text-center" endIcon={<WallpaperIcon style={{ color: 'white' }}/>} ><Link className="w-full py-4 text-lg text-white" href="https://express.adobe.com/tools/remove-background">Hapus Background</Link></Button>
           </Stack>
         </Box>
         <Analytics />
