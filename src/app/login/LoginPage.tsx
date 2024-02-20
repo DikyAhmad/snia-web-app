@@ -88,13 +88,11 @@ export default function LoginPage(){
     }
     
     return (
-        <main className="flex min-h-screen flex-col lg:px-96">
-            <Box className="m-auto">
-                <Stack spacing={2}>
-                    <Alert severity="warning" className="mt-4" hidden={alertState}>Anda Tidak Memiliki Akses ke Apikasi Ini!</Alert>
-                    <Button variant="outlined" color="success" onClick={handleSignIn} className="px-16 py-8 text-2xl">Login</Button>
-                </Stack>
-            </Box>
-        </main>
+        <Box className="m-auto">
+            <Stack spacing={2}>
+                <Alert severity="warning" className="mt-4" hidden={alertState}>Anda Tidak Memiliki Akses ke Apikasi Ini!</Alert>
+                <Button variant="outlined" color="success" onClick={handleSignIn} className="px-16 py-8 text-2xl">Login</Button>
+            </Stack>
+        </Box>
     )
 }
