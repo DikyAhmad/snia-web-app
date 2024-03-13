@@ -1,7 +1,7 @@
 # SNIA PHOTO APP
 
 is a web-application, PWA, mobile-ready,
-build using NextJS 13 and Firebase for database
+build using NextJS 13, Firebase for database and Deploy on Vercel
 
 ## Features 
 
